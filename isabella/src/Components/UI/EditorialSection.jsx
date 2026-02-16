@@ -15,7 +15,7 @@ const editorialCards = [
     image: 'https://images.unsplash.com/photo-1523438885200-e635ba2c371e?w=800&q=80',
     title: 'JOURNAL',
     description: 'Take a look behind the scenes at Isabella. From concept to creation and everything in between.',
-    link: '/journal',
+    link: '/Journal',
   },
   {
     id: 3,

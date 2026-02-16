@@ -22,10 +22,10 @@ export default function Header() {
           <Link href="/Shopping" className="text-sm uppercase tracking-wide hover:text-gray-300 transition-colors">
             Shop
           </Link>
-          <Link href="/new-in" className="text-sm uppercase tracking-wide hover:text-gray-300 transition-colors">
+          <Link href="/Shopping" className="text-sm uppercase tracking-wide hover:text-gray-300 transition-colors">
             New In
           </Link>
-          <Link href="/collections" className="text-sm uppercase tracking-wide hover:text-gray-300 transition-colors">
+          <Link href="/Shopping" className="text-sm uppercase tracking-wide hover:text-gray-300 transition-colors">
             Collections
           </Link>
         </nav>
@@ -33,7 +33,7 @@ export default function Header() {
         {/* Right - Actions */}
         <div className="flex items-center space-x-6">
           {/* Cart */}
-          <Link href="/cart" className="relative hover:text-gray-300 transition-colors">
+          <Link href="/Cart" className="relative hover:text-gray-300 transition-colors">
             <ShoppingCart size={22} />
             {/* <span className="absolute -top-2 -right-2 bg-white text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-semibold">
               0
@@ -41,7 +41,7 @@ export default function Header() {
           </Link>
 
           {/* Wishlist */}
-          <Link href="/wishlist" className="relative hover:text-gray-300 transition-colors">
+          <Link href="/Wishlist" className="relative hover:text-gray-300 transition-colors">
             <Heart size={22} />
             {/* <span className="absolute -top-2 -right-2 bg-white text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-semibold">
               0
@@ -69,14 +69,14 @@ export default function Header() {
                 {/* Dropdown Menu */}
                 <div className="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg z-20 overflow-hidden">
                   <Link
-                    href="/profile"
+                    href="/Profile"
                     className="block px-4 py-3 text-sm hover:bg-gray-100 transition-colors"
                     onClick={() => setIsProfileOpen(false)}
                   >
                     Profile
                   </Link>
                   <Link
-                    href="/order-history"
+                    href="/Orders"
                     className="block px-4 py-3 text-sm hover:bg-gray-100 transition-colors"
                     onClick={() => setIsProfileOpen(false)}
                   >
@@ -104,10 +104,10 @@ export default function Header() {
         <Link href="/Shopping" className="text-xs uppercase tracking-wide hover:text-gray-300 transition-colors">
           Shop
         </Link>
-        <Link href="/new-in" className="text-xs uppercase tracking-wide hover:text-gray-300 transition-colors">
+        <Link href="/Shopping" className="text-xs uppercase tracking-wide hover:text-gray-300 transition-colors">
           New In
         </Link>
-        <Link href="/collections" className="text-xs uppercase tracking-wide hover:text-gray-300 transition-colors">
+        <Link href="/Shopping" className="text-xs uppercase tracking-wide hover:text-gray-300 transition-colors">
           Collections
         </Link>
       </nav>

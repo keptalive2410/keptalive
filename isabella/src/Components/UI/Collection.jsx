@@ -176,7 +176,7 @@ export default function CollectionsSection() {
                   ? "bg-black text-white"
                   : "bg-gray-100 text-gray-800 hover:bg-gray-200"
               }`}
-            >
+            > 
               {tab.label}
             </button>
           ))}

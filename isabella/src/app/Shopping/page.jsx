@@ -100,7 +100,7 @@ export default function NewSeasonPage() {
     <div className="min-h-screen bg-white pt-16">
       {/* Page Title */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h2 className="text-3xl sm:text-4xl font-light tracking-wider text-center text-gray-900">NEW SEASON</h2>
+        <h2 className="text-3xl sm:text-4xl font-serif tracking-wider text-center text-gray-900">NEW SEASON</h2>
       </div>
 
       {/* Filters and Products */}
@@ -290,7 +290,7 @@ export default function NewSeasonPage() {
         }`}>
           {products.map((product) => (
             <div key={product.id} className="group cursor-pointer">
-              <div className="aspect-[3/4] bg-gray-100 mb-4 overflow-hidden relative">
+              <div className="aspect-3/4 bg-gray-100 mb-4 overflow-hidden relative">
                 <img 
                   src={product.image} 
                   alt={product.name}
