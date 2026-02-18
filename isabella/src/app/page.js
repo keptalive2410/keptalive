@@ -1,12 +1,12 @@
 import "./globals.css";
 import NavbarComponent from "@/components/layout/Navbar";
-import Footer from "@/Components/Layout/Footer";
-import HeroCarousel from "@/Components/UI/HeroSection";
-import CollectionsSection from "@/Components/UI/Collection";
-import FeaturedCollection from "@/Components/UI/NewIn";
-import EditorialSection from "@/Components/UI/EditorialSection";
-import ProductShowcaseSection from "@/Components/UI/SingleCarousel";
-import FeaturesSection from "@/Components/UI/Styles";
+import Footer from "@/components/layout/Footer";
+import HeroCarousel from "@/components/ui/HeroSection";
+import CollectionsSection from "@/components/ui/Collection";
+import FeaturedCollection from "@/components/ui/NewIn";
+import EditorialSection from "@/components/ui/EditorialSection";
+import ProductShowcaseSection from "@/components/ui/SingleCarousel";
+import FeaturesSection from "@/components/ui/Styles";
 
 export const metadata = {
   title: "Isabella",

@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import Navbar from "@/Components/Layout/Navbar";
-import Footer from "@/Components/Layout/Footer";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 import { 
   User, Mail, Phone, MapPin, Calendar, CreditCard, 
   Edit2, LogOut, Save, X, Camera, ChevronRight,

@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { X, Star, Package, CheckCircle, Search, SlidersHorizontal, ChevronRight, User, Heart, ShoppingBag, ArrowLeftRight } from 'lucide-react';
-import Navbar from "@/Components/Layout/Navbar";
-import Footer from "@/Components/Layout/Footer";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 
 export default function OrdersPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);

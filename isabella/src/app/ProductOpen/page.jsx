@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { Heart, Star, ChevronLeft, ChevronRight, Truck, RefreshCw, Shield } from 'lucide-react';
-import Navbar from "@/Components/Layout/Navbar";
-import Footer from "@/Components/Layout/Footer";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 
 // Sample product data
 const product = {

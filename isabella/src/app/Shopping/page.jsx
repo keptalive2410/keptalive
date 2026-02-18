@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { ChevronDown, Grid, LayoutGrid, Grid3x3, Search, ShoppingCart, User, Menu, X } from 'lucide-react';
-import Navbar from "@/Components/Layout/Navbar";
-import Footer  from '@/Components/Layout/Footer';
+import Navbar from "@/components/layout/Navbar";
+import Footer  from '@/components/layout/Footer';
 
 export default function NewSeasonPage() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
