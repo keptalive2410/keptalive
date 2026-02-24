@@ -105,7 +105,7 @@ export default function Footer() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Your email"
                   required
-                  className="flex-1 px-4 py-2 bg-white text-black text-sm focus:outline-none"
+                  className="flex-1 px-4 py-2 bg-white text-black text-sm focus:outline-none "
                 />
                 <button
                   type="submit"
@@ -193,12 +193,12 @@ export default function Footer() {
 
             {/* Center - Copyright */}
             <p className="text-center">
-              © 2026 Isabella. All Rights Reserved
+              © 2026 kep̃talive. All Rights Reserved
             </p>
 
             {/* Right - Developer Credit */}
-            <p className="text-center md:text-right">
-              Developed by{' '}
+            <p className="text-center md:text-right font-serif">
+              Developed by {' '}
               <Link href="https://www.ikrastudio.in/" target='_blank' className="text-white hover:underline">
                 iKRA Studio
               </Link>

@@ -14,7 +14,7 @@ export default function Header() {
         <div className="shrink-0">
           <Link href="/" className="text-3xl font-serif tracking-wider hover:opacity-80 transition-opacity">
             ISABELLA
-          </Link>
+          </Link> 
         </div>
 
         {/* Middle - Navigation */}
