@@ -4,7 +4,7 @@ import { uploadToCloudinary } from "@/lib/services/uploadservice";
 import { createProduct } from "@/lib/services/productService";
 import cloudinary from "@/lib/services/cloudinary";
 
-export const runtime = "nodejs";
+export const runtime = "nodejs";             // Dont know why
 
 export async function POST(request) {
   await connectDB();

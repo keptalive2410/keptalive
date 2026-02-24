@@ -6,10 +6,10 @@ import Product from "@/Models/ProductModel";
 
 export const runtime = "nodejs";
 
-export async function PUT(request, { params }) {
+export async function PUT(request, context) {
   await connectDB();
 
-  const { id } = params;
+  const { id } = await context.params;
   let uploadedImages = [];
 
   try {

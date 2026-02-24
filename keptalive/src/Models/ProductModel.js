@@ -1,5 +1,6 @@
-const mongoose = require('mongoose');
-const ProductCounter = require('./ProductCounter');
+import mongoose from 'mongoose';
+import ProductCounter from './ProductCounter';
+import { slugify } from '@/lib/utils/slugify';
 
 const ProductSchema = new mongoose.Schema({
     productID: {
@@ -69,6 +70,12 @@ const ProductSchema = new mongoose.Schema({
       default: "none",
     },
 
+    slug: {
+      type: String,
+      unique: true,
+      index: true
+    },
+
     exchangePolicy: {
       type: Boolean,
       default: false,
@@ -84,9 +91,17 @@ ProductSchema.pre("save", async function (next) {
     );
     this.productID = counter.seq;
   }
+
+  if(!this.slug){
+    const baseSlug = slugify(this.productName);
+    this.slug = `${baseSlug}-${this.productID}`
+  }
+  
   next();
 });
 
-module.exports =
+const Product =
   mongoose.models.Products ||
   mongoose.model("Products", ProductSchema);
+
+export default Product;
