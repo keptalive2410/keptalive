@@ -19,14 +19,14 @@ export default function Header() {
 
         {/* Middle - Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
-          <Link href="/Shopping" className="text-sm uppercase tracking-wide hover:text-gray-300 transition-colors">
+          <Link href="/products" className="text-sm uppercase tracking-wide hover:text-gray-300 transition-colors">
             Shop
           </Link>
-          <Link href="/Shopping" className="text-sm uppercase tracking-wide hover:text-gray-300 transition-colors">
+          <Link href="/products/type/new-arrivals" className="text-sm uppercase tracking-wide hover:text-gray-300 transition-colors">
             New In
           </Link>
-          <Link href="/Shopping" className="text-sm uppercase tracking-wide hover:text-gray-300 transition-colors">
-            Collections
+          <Link href="/products/type/sale" className="text-sm uppercase tracking-wide hover:text-gray-300 transition-colors">
+            Sale
           </Link>
         </nav>
 
@@ -101,13 +101,13 @@ export default function Header() {
 
       {/* Mobile Navigation */}
       <nav className="md:hidden flex items-center justify-center space-x-6 mt-4 pt-4 border-t border-gray-800">
-        <Link href="/Shopping" className="text-xs uppercase tracking-wide hover:text-gray-300 transition-colors">
+        <Link href="/products" className="text-xs uppercase tracking-wide hover:text-gray-300 transition-colors">
           Shop
         </Link>
-        <Link href="/Shopping" className="text-xs uppercase tracking-wide hover:text-gray-300 transition-colors">
+        <Link href="/products" className="text-xs uppercase tracking-wide hover:text-gray-300 transition-colors">
           New In
         </Link>
-        <Link href="/Shopping" className="text-xs uppercase tracking-wide hover:text-gray-300 transition-colors">
+        <Link href="/products" className="text-xs uppercase tracking-wide hover:text-gray-300 transition-colors">
           Collections
         </Link>
       </nav>

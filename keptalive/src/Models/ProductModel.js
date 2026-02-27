@@ -76,6 +76,10 @@ const ProductSchema = new mongoose.Schema({
       index: true
     },
 
+    isActive: {
+      type: Boolean
+    },
+
     exchangePolicy: {
       type: Boolean,
       default: false,

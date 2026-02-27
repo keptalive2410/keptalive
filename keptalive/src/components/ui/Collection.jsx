@@ -1,152 +1,43 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const tabs = [
-  { id: "new-season", label: "NEW SEASON" },
-  { id: "sleepwear", label: "SLEEPWEAR" },
-  { id: "bridal", label: "BRIDAL" },
+  { id: "home", label: "All" },
+  { id: "trending", label: "Trending" },
+  { id: "new-arrivals", label: "New Arrivals" },
   { id: "sale", label: "SALE" },
 ];
 
-// Sample products for each collection
-const collections = {
-  "new-season": [
-    {
-      id: 1,
-      name: "Floral Wrap Dress",
-      image: "https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?auto=format&fit=crop&w=800&q=80",
-      price: "$89.99",
-      soldOut: false,
-    },
-    {
-      id: 2,
-      name: "Summer Midi Dress",
-      image:
-        "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=800&q=80",
-      price: "$79.99",
-      soldOut: false,
-    },
-    {
-      id: 3,
-      name: "Elegant Evening Gown",
-      image: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=600&q=80",
-      price: "$129.99",
-      soldOut: false,
-    },
-    {
-      id: 4,
-      name: "Casual Day Dress",
-      image:
-        "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&w=800&q=80",
-      price: "$69.99",
-      soldOut: false,
-    },
-  ],
-  sleepwear: [
-  {
-    id: 5,
-    name: "Silk Pajama Set",
-    image: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=800&q=80",
-    price: "$95.00",
-    soldOut: true,
-  },
-  {
-    id: 6,
-    name: "Cotton Sleep Dress",
-    image: "https://images.unsplash.com/photo-1581044777550-4cfa60707c03?auto=format&fit=crop&w=800&q=80",
-    price: "$65.00",
-    soldOut: true,
-  },
-  {
-    id: 7,
-    name: "Luxury Robe",
-    image: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=800&q=80",
-    price: "$110.00",
-    soldOut: false,
-  },
-  {
-    id: 8,
-    name: "Satin Nightgown",
-    image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80",
-    price: "$75.00",
-    soldOut: false,
-  },
-],
-
-  bridal: [
-  {
-    id: 9,
-    name: "Classic Wedding Gown",
-    image: "https://images.unsplash.com/photo-1529636798458-92182e662485?auto=format&fit=crop&w=800&q=80",
-    price: "$899.00",
-    soldOut: false,
-  },
-  {
-    id: 10,
-    name: "Modern Bridal Dress",
-    image: "https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=800&q=80",
-    price: "$799.00",
-    soldOut: false,
-  },
-  {
-    id: 11,
-    name: "Bohemian Wedding Dress",
-    image: "https://images.unsplash.com/photo-1594552072238-b8a33785b261?auto=format&fit=crop&w=800&q=80",
-    price: "$849.00",
-    soldOut: false,
-  },
-  {
-    id: 12,
-    name: "Vintage Lace Gown",
-    image: "https://images.unsplash.com/photo-1525258946800-98cfd641d0de?auto=format&fit=crop&w=800&q=80",
-    price: "$950.00",
-    soldOut: false,
-  },
-],
-
-  sale: [
-  {
-    id: 13,
-    name: "Discounted Party Dress",
-    image: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=800&q=80",
-    price: "$45.00",
-    originalPrice: "$90.00",
-    soldOut: false,
-  },
-  {
-    id: 14,
-    name: "Clearance Maxi Dress",
-    image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80",
-    price: "$39.99",
-    originalPrice: "$79.99",
-    soldOut: false,
-  },
-  {
-    id: 15,
-    name: "Sale Evening Dress",
-    image: "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&w=800&q=80",
-    price: "$59.99",
-    originalPrice: "$119.99",
-    soldOut: false,
-  },
-  {
-    id: 16,
-    name: "Final Sale Dress",
-    image: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=800&q=80",
-    price: "$35.00",
-    originalPrice: "$70.00",
-    soldOut: false,
-  },
-],
-
-};
 
 export default function CollectionsSection() {
-  const [activeTab, setActiveTab] = useState("new-season");
+  const [activeTab, setActiveTab] = useState("home");
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+
+        const res = await fetch(
+          `/api/products?displayAt=${activeTab}&limit=8`
+        );
+
+        const data = await res.json();
+        setProducts(data.products || []);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, [activeTab]);
 
   const scrollCarousel = (direction) => {
     const carousel = document.getElementById("product-carousel");
@@ -171,12 +62,11 @@ export default function CollectionsSection() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-6 py-2 text-sm tracking-wider transition-all duration-300 ${
-                activeTab === tab.id
-                  ? "bg-black text-white"
-                  : "bg-gray-100 text-gray-800 hover:bg-gray-200"
-              }`}
-            > 
+              className={`px-6 py-2 text-sm tracking-wider transition-all duration-300 ${activeTab === tab.id
+                ? "bg-black text-white"
+                : "bg-gray-100 text-gray-800 hover:bg-gray-200"
+                }`}
+            >
               {tab.label}
             </button>
           ))}
@@ -208,17 +98,17 @@ export default function CollectionsSection() {
             className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth pb-4"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
-            {collections[activeTab].map((product) => (
+            {products?.map((product) => (
               <div
-                key={product.id}
+                key={product._id}
                 className="shrink-0 w-72 group cursor-pointer"
               >
-                <Link href={`/products/${product.id}`}>
+                <Link href={`/products/${product.slug}`}>
                   {/* Product Image */}
                   <div className="relative aspect-3/4 mb-4 overflow-hidden bg-gray-100">
                     <Image
-                      src={product.image}
-                      alt={product.name}
+                      src={product.productImages[0].url}
+                      alt={product.productName}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
@@ -237,16 +127,16 @@ export default function CollectionsSection() {
                   {/* Product Info */}
                   <div className="text-center">
                     <h3 className="text-gray-600 text-sm mb-2 group-hover:text-gray-800 transition-colors">
-                      {product.name}
+                      {product.productName}
                     </h3>
                     <div className="flex items-center justify-center gap-2">
-                      {product.originalPrice && (
+                      {product.productOriginalPrice && (
                         <span className="text-sm text-gray-600 line-through">
-                          {product.originalPrice}
+                          {product.productOriginalPrice}
                         </span>
                       )}
                       <span className="text-sm font-semibold text-gray-500">
-                        {product.price}
+                        {product.productSellingPrice}
                       </span>
                     </div>
                   </div>
@@ -266,12 +156,6 @@ export default function CollectionsSection() {
           </Link>
         </div>
       </div>
-
-      <style jsx>{`
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
     </section>
   );
 }

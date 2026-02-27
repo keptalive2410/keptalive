@@ -16,11 +16,12 @@ export async function GET(request) {
     const skip = (page - 1) * limit;
 
     const displayAt = searchParams.get("displayAt");
-    const category = searchParams.get("category");
+    const categories = searchParams.get("categories");
     const minPrice = searchParams.get("minPrice");
-    const maxPrice = searchParams.get("maxPric");
+    const maxPrice = searchParams.get("maxPrice");
     const search = searchParams.get("search");
     const sort = searchParams.get("sort") || "newest";
+    const sizes = searchParams.get("size");
 
     let filter = {};
 
@@ -28,8 +29,12 @@ export async function GET(request) {
       filter.displayAt = displayAt;
     }
 
-    if(category){
-        filter.productCategory = category;
+    if(categories){
+        filter.productCategory = {$in: categories.split(",")};
+    }
+
+    if(sizes){
+      filter.productSize = {$in: sizes.split(",")};
     }
 
     if (minPrice || maxPrice) {
@@ -46,14 +51,11 @@ export async function GET(request) {
     let sortOption = {};
 
     switch (sort) {
-      case "price-low-high":
+      case "Price: Low to High":
         sortOption = { productSellingPrice: 1 };
         break;
-      case "price-high-low":
+      case "Price: High to Low":
         sortOption = { productSellingPrice: -1 };
-        break;
-      case "oldest":
-        sortOption = { createdAt: 1 };
         break;
       default:
         sortOption = { createdAt: -1 }; // newest

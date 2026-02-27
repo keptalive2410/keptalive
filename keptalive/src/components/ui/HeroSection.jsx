@@ -12,7 +12,7 @@ const slides = [
     subtitle: 'Spring/Summer 2024',
     description: 'Discover the latest trends in fashion',
     buttonText: 'Shop Now',
-    buttonLink: '/Shopping',
+    buttonLink: '/products',
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ const slides = [
     subtitle: 'Limited Edition',
     description: 'Elevate your style with our curated pieces',
     buttonText: 'Explore',
-    buttonLink: '/Shopping',
+    buttonLink: '/products',
   },
   {
     id: 3,
@@ -30,7 +30,7 @@ const slides = [
     subtitle: 'Classic Collection',
     description: 'Where sophistication meets comfort',
     buttonText: 'View Collection',
-    buttonLink: '/Shopping',
+    buttonLink: '/products',
   },
 ];
 
@@ -153,7 +153,7 @@ export default function HeroCarousel() {
         ))}
       </div>
 
-      <style jsx>{`
+      {/* <style jsx>{`
         @keyframes fade-in {
           from {
             opacity: 0;
@@ -189,7 +189,7 @@ export default function HeroCarousel() {
         .animate-slide-up {
           animation: slide-up 1s ease-out 0.2s both;
         }
-      `}</style>
+      `}</style> */}
     </section>
   );
 }
