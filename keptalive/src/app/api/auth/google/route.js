@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 import { OAuth2Client } from "google-auth-library"
-import { connectDB } from "@/lib/db"
+import connectDB from "@/lib/db"
 import User from "@/Models/UserModel"
 import { signToken } from "@/lib/jwt"
 
