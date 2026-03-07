@@ -3,7 +3,11 @@ const mongoose = require("mongoose");
 const cartSchema = new mongoose.Schema({
   productID:{
     type: mongoose.Schema.Types.ObjectId,
+<<<<<<< HEAD
     ref: "Product",
+=======
+    ref: "Products",
+>>>>>>> origin/iKRA
     required: true
   },
   productQuantity:{
@@ -17,8 +21,12 @@ const cartSchema = new mongoose.Schema({
   productSize: {
     type: String,
     required: true
+<<<<<<< HEAD
   },
   productPrice: Number,
+=======
+  }
+>>>>>>> origin/iKRA
 }, {_id: false});
 
 const AddressSchema = new mongoose.Schema({
@@ -73,9 +81,12 @@ const userSchema = new mongoose.Schema({
   userPassword: {
     type: String,
     minlength: 8,
+<<<<<<< HEAD
     required: function () {
       return this.authProvider == "local"
     },
+=======
+>>>>>>> origin/iKRA
   },
 
   authProvider: {
@@ -109,6 +120,10 @@ const userSchema = new mongoose.Schema({
     type: [cartSchema],
     default: []
   }
+<<<<<<< HEAD
 },{timestamps:true});
+=======
+});
+>>>>>>> origin/iKRA
 
 export default mongoose.models.User || mongoose.model("User", userSchema);

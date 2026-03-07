@@ -294,38 +294,3 @@ export default function LoginPage() {
     </div>
   );
 }
-
-
-
-// "use client";
-
-// import { GoogleLogin } from "@react-oauth/google";
-// import axios from "axios";
-// import { useRouter } from "next/navigation";
-
-// export default function LoginPage() {
-//   const router = useRouter();
-
-//   const handleSuccess = async (credentialResponse) => {
-//     const token = credentialResponse.credential;
-
-//     await axios.post("/api/auth/google", {
-//       token,
-//     });
-
-//     router.push("/");
-//   };
-
-//   return (
-//     <div>
-//       <h1>Login</h1>
-
-//       <GoogleLogin
-//         onSuccess={handleSuccess}
-//         onError={() => console.log("Login Failed")}
-//       />
-//     </div>
-//   );
-// }
-
-// this is for ref for frontend

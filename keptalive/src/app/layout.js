@@ -1,5 +1,4 @@
 import { Geist, Geist_Mono } from "next/font/google";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -23,11 +22,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <GoogleOAuthProvider
-          clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
-        >
-          {children}
-        </GoogleOAuthProvider>
+        {children}
       </body>
     </html>
   );
