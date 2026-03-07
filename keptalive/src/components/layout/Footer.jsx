@@ -36,11 +36,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-<<<<<<< HEAD
-                <Link href="/Shopping" className="text-sm text-gray-400 hover:text-white transition-colors">
-=======
                 <Link href="/products" className="text-sm text-gray-400 hover:text-white transition-colors">
->>>>>>> origin/iKRA
                   Collections
                 </Link>
               </li>
@@ -109,11 +105,7 @@ export default function Footer() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Your email"
                   required
-<<<<<<< HEAD
-                  className="flex-1 px-4 py-2 bg-white text-black text-sm focus:outline-none"
-=======
                   className="flex-1 px-4 py-2 bg-white text-black text-sm focus:outline-none "
->>>>>>> origin/iKRA
                 />
                 <button
                   type="submit"
@@ -201,21 +193,12 @@ export default function Footer() {
 
             {/* Center - Copyright */}
             <p className="text-center">
-<<<<<<< HEAD
-              © 2026 Isabella. All Rights Reserved
-            </p>
-
-            {/* Right - Developer Credit */}
-            <p className="text-center md:text-right">
-              Developed by{' '}
-=======
               © 2026 kep̃talive. All Rights Reserved
             </p>
 
             {/* Right - Developer Credit */}
             <p className="text-center md:text-right font-serif">
               Developed by {' '}
->>>>>>> origin/iKRA
               <Link href="https://www.ikrastudio.in/" target='_blank' className="text-white hover:underline">
                 iKRA Studio
               </Link>
