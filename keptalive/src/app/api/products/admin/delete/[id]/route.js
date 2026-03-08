@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import connectDB from "@/lib/db";
-import cloudinary from "@/lib/services/cloudinary";
-import Product from "@/Models/ProductModel";
+import connectDB from "@/lib/db.js";
+import cloudinary from "@/lib/services/cloudinary.js";
+import Product from "@/Models/ProductModel.js";
 
 export const runtime = "nodejs";
 

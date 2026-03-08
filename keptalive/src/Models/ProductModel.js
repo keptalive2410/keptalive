@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
-import ProductCounter from './ProductCounter';
-import { slugify } from '@/lib/utils/slugify';
+import ProductCounter from './ProductCounter.js';
+import { slugify } from '../lib/utils/slugify.js';
 
 const ProductSchema = new mongoose.Schema({
     productID: {
