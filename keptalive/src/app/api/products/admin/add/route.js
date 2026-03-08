@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import connectDB from "@/lib/db";
-import { uploadToCloudinary } from "@/lib/services/uploadservice";
-import { createProduct } from "@/lib/services/productService";
-import cloudinary from "@/lib/services/cloudinary";
+import connectDB from "@/lib/db.js";
+import { uploadToCloudinary } from "@/lib/services/uploadservice.js";
+import { createProduct } from "@/lib/services/productService.js";
+import cloudinary from "@/lib/services/cloudinary.js";
 
 export const runtime = "nodejs";             // Dont know why
 

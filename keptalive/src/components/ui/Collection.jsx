@@ -1,12 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
+// import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const tabs = [
-  { id: "home", label: "All" },
+  { id: "home", label: "Collection" },
   { id: "trending", label: "Trending" },
   { id: "new-arrivals", label: "New Arrivals" },
   { id: "sale", label: "SALE" },
@@ -106,7 +106,7 @@ export default function CollectionsSection() {
                 <Link href={`/products/${product.slug}`}>
                   {/* Product Image */}
                   <div className="relative aspect-3/4 mb-4 overflow-hidden bg-gray-100">
-                    <Image
+                    <img
                       src={product.productImages[0].url}
                       alt={product.productName}
                       fill
@@ -149,7 +149,7 @@ export default function CollectionsSection() {
         {/* View All Button */}
         <div className="text-center mt-12">
           <Link
-            href={`/collections/${activeTab}`}
+            href={`/products/type/${activeTab}`}
             className="inline-block px-8 py-3 bg-black text-white text-sm uppercase tracking-wider hover:bg-gray-800 transition-all duration-300"
           >
             View All {tabs.find((t) => t.id === activeTab)?.label}

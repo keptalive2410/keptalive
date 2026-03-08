@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import connectDB from "@/lib/db";
+import connectDB from "@/lib/db.js";
 import mongoose from "mongoose";
-import Product from "@/Models/ProductModel";
+import Product from "@/Models/ProductModel.js";
 
 export const runtime = "nodejs";
 

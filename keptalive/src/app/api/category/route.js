@@ -1,5 +1,5 @@
-import connectDB from "@/lib/db";
-import { createCategory } from "@/lib/services/categoryService";
+import connectDB from "@/lib/db.js";
+import { createCategory } from "@/lib/services/categoryService.js";
 import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";

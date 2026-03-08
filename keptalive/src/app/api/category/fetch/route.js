@@ -1,5 +1,5 @@
-import Category from "@/Models/CategoryModel";
-import connectDB from "@/lib/db";
+import Category from "@/Models/CategoryModel.js";
+import connectDB from "@/lib/db.js";
 import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
