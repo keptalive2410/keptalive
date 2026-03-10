@@ -16,7 +16,7 @@ export async function POST(req){
     })
     const payload = ticket.getPayload()
 
-    let user = await User.findOne({email: payload.email})
+    let user = await User.findOne({userEmail: payload.email})
     if(!user){
         user = await User.create({
             userName: payload.name,

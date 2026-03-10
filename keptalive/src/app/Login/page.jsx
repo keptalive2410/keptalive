@@ -1,41 +1,48 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Mail, Lock, Eye, EyeOff, Phone, Chrome } from 'lucide-react';
+import { useState } from "react";
+import { Mail, Lock, Eye, EyeOff, Phone, Chrome } from "lucide-react";
+import { GoogleLogin } from "@react-oauth/google";
 
 export default function LoginPage() {
-  const [loginMethod, setLoginMethod] = useState('email'); // 'email' or 'phone'
+  const [loginMethod, setLoginMethod] = useState("email"); // 'email' or 'phone'
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
-    userEmail: '',
-    userNumber: '',
-    userPassword: ''
+    userEmail: "",
+    userNumber: "",
+    userPassword: "",
   });
 
   const handleInputChange = (field, value) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-    setError(''); // Clear error on input change
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    setError(""); // Clear error on input change
   };
 
   const validateForm = () => {
     // Validate email or phone based on login method
-    if (loginMethod === 'email') {
-      if (!formData.userEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.userEmail)) {
-        setError('Please enter a valid email address');
+    if (loginMethod === "email") {
+      if (
+        !formData.userEmail ||
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.userEmail)
+      ) {
+        setError("Please enter a valid email address");
         return false;
       }
     } else {
-      if (!formData.userNumber || !/^\+?[\d\s-()]{10,}$/.test(formData.userNumber)) {
-        setError('Please enter a valid phone number');
+      if (
+        !formData.userNumber ||
+        !/^\+?[\d\s-()]{10,}$/.test(formData.userNumber)
+      ) {
+        setError("Please enter a valid phone number");
         return false;
       }
     }
 
     // Validate password
     if (!formData.userPassword || formData.userPassword.length < 8) {
-      setError('Password must be at least 8 characters long');
+      setError("Password must be at least 8 characters long");
       return false;
     }
 
@@ -44,13 +51,13 @@ export default function LoginPage() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
 
     setLoading(true);
-    setError('');
+    setError("");
 
     try {
       // Prepare login data according to schema
@@ -59,16 +66,16 @@ export default function LoginPage() {
       };
 
       // Add either email or phone
-      if (loginMethod === 'email') {
+      if (loginMethod === "email") {
         loginData.userEmail = formData.userEmail.toLowerCase();
       } else {
         loginData.userNumber = formData.userNumber;
       }
 
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(loginData),
       });
@@ -78,27 +85,17 @@ export default function LoginPage() {
       if (response.ok) {
         // Success! Store token and redirect
         if (data.token) {
-          localStorage.setItem('token', data.token);
+          localStorage.setItem("token", data.token);
         }
-        window.location.href = '/dashboard';
+        window.location.href = "/";
       } else {
-        setError(data.message || 'Invalid credentials. Please try again.');
+        setError(data.message || "Invalid credentials. Please try again.");
       }
     } catch (err) {
-      console.error('Login error:', err);
-      setError('An error occurred. Please try again later.');
+      console.error("Login error:", err);
+      setError("An error occurred. Please try again later.");
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleGoogleLogin = async () => {
-    try {
-      // Redirect to Google OAuth endpoint
-      window.location.href = '/api/auth/google';
-    } catch (err) {
-      console.error('Google login error:', err);
-      setError('Google login failed. Please try again.');
     }
   };
 
@@ -110,20 +107,44 @@ export default function LoginPage() {
           <div className="inline-flex items-center justify-center w-16 h-16 bg-black text-white rounded-2xl mb-4">
             <span className="text-3xl font-bold">I</span>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            Welcome Back
+          </h1>
           <p className="text-gray-600">Login to your Isabella account</p>
         </div>
 
         {/* Login Card */}
         <div className="bg-white border-2 border-black rounded-2xl p-8 shadow-2xl">
           {/* Google Login Button */}
-          <button
-            onClick={handleGoogleLogin}
-            className="w-full flex items-center justify-center gap-3 px-6 py-3 bg-white border-2 border-black rounded-lg hover:bg-gray-50 transition-colors mb-6 group"
-          >
-            <Chrome className="w-5 h-5 text-gray-700 group-hover:text-black" />
-            <span className="font-semibold text-gray-900">Continue with Google</span>
-          </button>
+          <div className="mb-6 flex justify-center">
+            <GoogleLogin
+              onSuccess={async (credentialResponse) => {
+                try {
+                  const res = await fetch("/api/auth/google", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      token: credentialResponse.credential,
+                    }),
+                  });
+
+                  const data = await res.json();
+
+                  if (res.ok) {
+                    window.location.href = "/";
+                  } else {
+                    setError(data.message || "Google login failed");
+                  }
+                } catch (err) {
+                  console.error(err);
+                  setError("Google login failed");
+                }
+              }}
+              onError={() => setError("Google login failed")}
+            />
+          </div>
 
           {/* Divider */}
           <div className="relative mb-6">
@@ -131,28 +152,30 @@ export default function LoginPage() {
               <div className="w-full border-t-2 border-gray-200"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-white text-gray-500 font-medium">OR</span>
+              <span className="px-4 bg-white text-gray-500 font-medium">
+                OR
+              </span>
             </div>
           </div>
 
           {/* Login Method Toggle */}
           <div className="flex gap-2 mb-6 bg-gray-100 p-1 rounded-lg">
             <button
-              onClick={() => setLoginMethod('email')}
+              onClick={() => setLoginMethod("email")}
               className={`flex-1 py-2.5 rounded-md font-semibold transition-all ${
-                loginMethod === 'email'
-                  ? 'bg-black text-white shadow-md'
-                  : 'bg-transparent text-gray-600 hover:text-gray-900'
+                loginMethod === "email"
+                  ? "bg-black text-white shadow-md"
+                  : "bg-transparent text-gray-600 hover:text-gray-900"
               }`}
             >
               Email
             </button>
             <button
-              onClick={() => setLoginMethod('phone')}
+              onClick={() => setLoginMethod("phone")}
               className={`flex-1 py-2.5 rounded-md font-semibold transition-all ${
-                loginMethod === 'phone'
-                  ? 'bg-black text-white shadow-md'
-                  : 'bg-transparent text-gray-600 hover:text-gray-900'
+                loginMethod === "phone"
+                  ? "bg-black text-white shadow-md"
+                  : "bg-transparent text-gray-600 hover:text-gray-900"
               }`}
             >
               Phone
@@ -169,7 +192,7 @@ export default function LoginPage() {
             )}
 
             {/* Email/Phone Input */}
-            {loginMethod === 'email' ? (
+            {loginMethod === "email" ? (
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Email Address
@@ -179,7 +202,9 @@ export default function LoginPage() {
                   <input
                     type="email"
                     value={formData.userEmail}
-                    onChange={(e) => handleInputChange('userEmail', e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("userEmail", e.target.value)
+                    }
                     placeholder="your.email@example.com"
                     className="w-full pl-12 pr-4 py-3.5 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-black text-gray-900 placeholder-gray-400 transition-colors"
                     required
@@ -197,7 +222,9 @@ export default function LoginPage() {
                   <input
                     type="tel"
                     value={formData.userNumber}
-                    onChange={(e) => handleInputChange('userNumber', e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("userNumber", e.target.value)
+                    }
                     placeholder="+91 98765 43210"
                     className="w-full pl-12 pr-4 py-3.5 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-black text-gray-900 placeholder-gray-400 transition-colors"
                     required
@@ -215,9 +242,11 @@ export default function LoginPage() {
               <div className="relative">
                 <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
-                  type={showPassword ? 'text' : 'password'}
+                  type={showPassword ? "text" : "password"}
                   value={formData.userPassword}
-                  onChange={(e) => handleInputChange('userPassword', e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("userPassword", e.target.value)
+                  }
                   placeholder="Enter your password"
                   className="w-full pl-12 pr-12 py-3.5 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-black text-gray-900 placeholder-gray-400 transition-colors"
                   required
@@ -241,7 +270,10 @@ export default function LoginPage() {
 
             {/* Forgot Password */}
             <div className="flex items-center justify-end">
-              <a href="/forgot-password" className="text-sm font-semibold text-gray-900 hover:underline">
+              <a
+                href="/forgot-password"
+                className="text-sm font-semibold text-gray-900 hover:underline"
+              >
                 Forgot Password?
               </a>
             </div>
@@ -251,21 +283,33 @@ export default function LoginPage() {
               type="submit"
               disabled={loading}
               className={`w-full py-3.5 rounded-lg font-bold shadow-lg hover:shadow-xl transition-all ${
-                loading 
-                  ? 'bg-gray-400 cursor-not-allowed' 
-                  : 'bg-black text-white hover:bg-gray-800'
+                loading
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-black text-white hover:bg-gray-800"
               }`}
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
                   <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                      fill="none"
+                    />
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    />
                   </svg>
                   Logging in...
                 </span>
               ) : (
-                'Login'
+                "Login"
               )}
             </button>
           </form>
@@ -274,8 +318,11 @@ export default function LoginPage() {
         {/* Sign Up Link */}
         <div className="text-center mt-6">
           <p className="text-gray-600">
-            Don't have an account?{' '}
-            <a href="/Signup" className="font-bold text-gray-900 hover:underline">
+            Don't have an account?{" "}
+            <a
+              href="/Signup"
+              className="font-bold text-gray-900 hover:underline"
+            >
               Sign Up
             </a>
           </p>
@@ -284,10 +331,14 @@ export default function LoginPage() {
         {/* Terms */}
         <div className="text-center mt-8">
           <p className="text-xs text-gray-500">
-            By continuing, you agree to Isabella's{' '}
-            <a href="#" className="underline hover:text-gray-700">Terms of Service</a>
-            {' '}and{' '}
-            <a href="#" className="underline hover:text-gray-700">Privacy Policy</a>
+            By continuing, you agree to Isabella's{" "}
+            <a href="#" className="underline hover:text-gray-700">
+              Terms of Service
+            </a>{" "}
+            and{" "}
+            <a href="#" className="underline hover:text-gray-700">
+              Privacy Policy
+            </a>
           </p>
         </div>
       </div>
