@@ -19,45 +19,16 @@ const products = [
     "productName": "Dresses Premium Edition 1",
     "productSellingPrice": 10010,
     "productCategory": "69a2b55a9ef7e68ca2e3cfbc",
-    "productSize": [
-      "XS",
-      "S",
-      "M",
-      "L"
-    ],
-    "productColour": [
-      "Blue",
-      "Red"
-    ],
+    "productSize": ["XS", "S", "M", "L"],
     "productDescription": "Exclusive dresses designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1566174164-de7a430c41f3?w=800&q=80&auto=format&fit=crop",
-        "public_id": "dresses_1_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1568252542262-2a0c16d37b87?w=800&q=80&auto=format&fit=crop",
-        "public_id": "dresses_1_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1515372839528-a1c900de8d23?w=800&q=80&auto=format&fit=crop",
-        "public_id": "dresses_1_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_1_1" },
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_1_2" },
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_1_3" },
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_8_4" },
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_8_5" }
     ],
-    "productStock": {
-      "Blue": {
-        "XS": 7,
-        "S": 4,
-        "M": 3,
-        "L": 4
-      },
-      "Red": {
-        "XS": 11,
-        "S": 8,
-        "M": 6,
-        "L": 7
-      }
-    },
+    "productStock": { "XS": 18, "S": 12, "M": 9, "L": 11 },
     "displayAt": "new-arrivals",
     "exchangePolicy": true
   },
@@ -66,45 +37,17 @@ const products = [
     "productSellingPrice": 13150,
     "productOriginalPrice": 16953,
     "productCategory": "69a2b55a9ef7e68ca2e3cfbc",
-    "productSize": [
-      "XS",
-      "S",
-      "M",
-      "L"
-    ],
-    "productColour": [
-      "Wine",
-      "Red"
-    ],
+    "productSize": ["XS", "S", "M", "L"],
+    "productColour": ["Wine", "Red"],
     "productDescription": "Exclusive dresses designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1594938298603-e4e80c01cd83?w=800&q=80&auto=format&fit=crop",
-        "public_id": "dresses_2_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1566019055285-f7bba7f72c5c?w=800&q=80&auto=format&fit=crop",
-        "public_id": "dresses_2_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop",
-        "public_id": "dresses_2_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_2_1" },
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_2_2" },
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_2_3" },
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_8_4" },
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_8_5" }
     ],
-    "productStock": {
-      "Wine": {
-        "XS": 11,
-        "S": 4,
-        "M": 7,
-        "L": 5
-      },
-      "Red": {
-        "XS": 11,
-        "S": 3,
-        "M": 12,
-        "L": 5
-      }
-    },
+    "productStock": { "XS": 22, "S": 7, "M": 19, "L": 10 },
     "displayAt": "sale",
     "exchangePolicy": true
   },
@@ -113,45 +56,15 @@ const products = [
     "productSellingPrice": 4363,
     "productOriginalPrice": 7339,
     "productCategory": "69a2b55a9ef7e68ca2e3cfbc",
-    "productSize": [
-      "XS",
-      "S",
-      "M",
-      "L"
-    ],
-    "productColour": [
-      "Blue",
-      "Pink"
-    ],
+    "productSize": ["XS", "S", "M", "L"],
+    "productColour": ["Blue", "Pink"],
     "productDescription": "Exclusive dresses designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1583496661160-fb5218afa9a3?w=800&q=80&auto=format&fit=crop",
-        "public_id": "dresses_3_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop",
-        "public_id": "dresses_3_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop",
-        "public_id": "dresses_3_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_3_1" },
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_3_2" },
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_3_3" }
     ],
-    "productStock": {
-      "Blue": {
-        "XS": 7,
-        "S": 4,
-        "M": 12,
-        "L": 3
-      },
-      "Pink": {
-        "XS": 3,
-        "S": 5,
-        "M": 2,
-        "L": 4
-      }
-    },
+    "productStock": { "XS": 10, "S": 9, "M": 14, "L": 7 },
     "displayAt": "new-arrivals",
     "exchangePolicy": true
   },
@@ -159,45 +72,15 @@ const products = [
     "productName": "Dresses Premium Edition 4",
     "productSellingPrice": 4847,
     "productCategory": "69a2b55a9ef7e68ca2e3cfbc",
-    "productSize": [
-      "XS",
-      "S",
-      "M",
-      "L"
-    ],
-    "productColour": [
-      "Beige",
-      "Emerald"
-    ],
+    "productSize": ["XS", "S", "M", "L"],
+    "productColour": ["Beige", "Emerald"],
     "productDescription": "Exclusive dresses designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1496747488374-8f5a7ddf2a1a?w=800&q=80&auto=format&fit=crop",
-        "public_id": "dresses_4_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=800&q=80&auto=format&fit=crop",
-        "public_id": "dresses_4_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1515372839528-a1c900de8d23?w=800&q=80&auto=format&fit=crop",
-        "public_id": "dresses_4_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_4_1" },
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_4_2" },
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_4_3" }
     ],
-    "productStock": {
-      "Beige": {
-        "XS": 12,
-        "S": 7,
-        "M": 12,
-        "L": 2
-      },
-      "Emerald": {
-        "XS": 9,
-        "S": 3,
-        "M": 8,
-        "L": 2
-      }
-    },
+    "productStock": { "XS": 21, "S": 10, "M": 20, "L": 4 },
     "displayAt": "home",
     "exchangePolicy": true
   },
@@ -206,45 +89,15 @@ const products = [
     "productSellingPrice": 14944,
     "productOriginalPrice": 17955,
     "productCategory": "69a2b55a9ef7e68ca2e3cfbc",
-    "productSize": [
-      "XS",
-      "S",
-      "M",
-      "L"
-    ],
-    "productColour": [
-      "Wine",
-      "Ivory"
-    ],
+    "productSize": ["XS", "S", "M", "L"],
+    "productColour": ["Wine", "Ivory"],
     "productDescription": "Exclusive dresses designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1595777457583-095e88a357e2?w=800&q=80&auto=format&fit=crop",
-        "public_id": "dresses_5_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1594938298603-e4e80c01cd83?w=800&q=80&auto=format&fit=crop",
-        "public_id": "dresses_5_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1566174164-de7a430c41f3?w=800&q=80&auto=format&fit=crop",
-        "public_id": "dresses_5_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_5_1" },
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_5_2" },
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_5_3" }
     ],
-    "productStock": {
-      "Wine": {
-        "XS": 10,
-        "S": 9,
-        "M": 3,
-        "L": 9
-      },
-      "Ivory": {
-        "XS": 10,
-        "S": 12,
-        "M": 9,
-        "L": 7
-      }
-    },
+    "productStock": { "XS": 20, "S": 21, "M": 12, "L": 16 },
     "displayAt": "home",
     "exchangePolicy": false
   },
@@ -253,45 +106,15 @@ const products = [
     "productSellingPrice": 6950,
     "productOriginalPrice": 9685,
     "productCategory": "69a2b55a9ef7e68ca2e3cfbc",
-    "productSize": [
-      "XS",
-      "S",
-      "M",
-      "L"
-    ],
-    "productColour": [
-      "Ivory",
-      "Black"
-    ],
+    "productSize": ["XS", "S", "M", "L"],
+    "productColour": ["Ivory", "Black"],
     "productDescription": "Exclusive dresses designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop",
-        "public_id": "dresses_6_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1583496661160-fb5218afa9a3?w=800&q=80&auto=format&fit=crop",
-        "public_id": "dresses_6_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1568252542262-2a0c16d37b87?w=800&q=80&auto=format&fit=crop",
-        "public_id": "dresses_6_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_6_1" },
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_6_2" },
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_6_3" }
     ],
-    "productStock": {
-      "Ivory": {
-        "XS": 3,
-        "S": 10,
-        "M": 10,
-        "L": 12
-      },
-      "Black": {
-        "XS": 12,
-        "S": 8,
-        "M": 4,
-        "L": 5
-      }
-    },
+    "productStock": { "XS": 15, "S": 18, "M": 14, "L": 17 },
     "displayAt": "trending",
     "exchangePolicy": true
   },
@@ -300,45 +123,17 @@ const products = [
     "productSellingPrice": 7005,
     "productOriginalPrice": 10710,
     "productCategory": "69a2b55a9ef7e68ca2e3cfbc",
-    "productSize": [
-      "XS",
-      "S",
-      "M",
-      "L"
-    ],
-    "productColour": [
-      "Red",
-      "White"
-    ],
-    "productDescription": "Exclusive dresses designed for modern women with premium finish and elegant tailoring.",
+    "productSize": ["XS", "S", "M", "L"],
+    "productColour": ["Red", "White"],
+    "productDescription": "Exclusive dresses designed for modern women with premium finish and elegant tailoring. Exclusive dresses designed for modern women with premium finish and elegant tailoring. Exclusive dresses designed for modern women with premium finish and elegant tailoring.Exclusive dresses designed for modern women with premium finish and elegant tailoring.Exclusive dresses designed for modern women with premium finish and elegant tailoring. Exclusive dresses designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop",
-        "public_id": "dresses_7_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1496747488374-8f5a7ddf2a1a?w=800&q=80&auto=format&fit=crop",
-        "public_id": "dresses_7_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1594938298603-e4e80c01cd83?w=800&q=80&auto=format&fit=crop",
-        "public_id": "dresses_7_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_7_1" },
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_7_2" },
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_7_3" },
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_7_4" },
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_7_5" }
     ],
-    "productStock": {
-      "Red": {
-        "XS": 2,
-        "S": 3,
-        "M": 3,
-        "L": 9
-      },
-      "White": {
-        "XS": 5,
-        "S": 10,
-        "M": 6,
-        "L": 10
-      }
-    },
+    "productStock": { "XS": 7, "S": 13, "M": 9, "L": 19 },
     "displayAt": "new-arrivals",
     "exchangePolicy": false
   },
@@ -347,45 +142,15 @@ const products = [
     "productSellingPrice": 6929,
     "productOriginalPrice": 8783,
     "productCategory": "69a2b55a9ef7e68ca2e3cfbc",
-    "productSize": [
-      "XS",
-      "S",
-      "M",
-      "L"
-    ],
-    "productColour": [
-      "Red",
-      "Beige"
-    ],
+    "productSize": ["XS", "S", "M", "L"],
+    "productColour": ["Red", "Beige"],
     "productDescription": "Exclusive dresses designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop",
-        "public_id": "dresses_8_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1595777457583-095e88a357e2?w=800&q=80&auto=format&fit=crop",
-        "public_id": "dresses_8_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=800&q=80&auto=format&fit=crop",
-        "public_id": "dresses_8_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_8_1" },
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_8_2" },
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_8_3" }
     ],
-    "productStock": {
-      "Red": {
-        "XS": 6,
-        "S": 3,
-        "M": 4,
-        "L": 8
-      },
-      "Beige": {
-        "XS": 3,
-        "S": 6,
-        "M": 9,
-        "L": 11
-      }
-    },
+    "productStock": { "XS": 9, "S": 9, "M": 13, "L": 19 },
     "displayAt": "trending",
     "exchangePolicy": false
   },
@@ -394,45 +159,15 @@ const products = [
     "productSellingPrice": 9261,
     "productOriginalPrice": 11724,
     "productCategory": "69a2b55a9ef7e68ca2e3cfbc",
-    "productSize": [
-      "XS",
-      "S",
-      "M",
-      "L"
-    ],
-    "productColour": [
-      "Pink",
-      "Ivory"
-    ],
+    "productSize": ["XS", "S", "M", "L"],
+    "productColour": ["Pink", "Ivory"],
     "productDescription": "Exclusive dresses designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1566019055285-f7bba7f72c5c?w=800&q=80&auto=format&fit=crop",
-        "public_id": "dresses_9_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1515372839528-a1c900de8d23?w=800&q=80&auto=format&fit=crop",
-        "public_id": "dresses_9_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop",
-        "public_id": "dresses_9_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_9_1" },
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_9_2" },
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_9_3" }
     ],
-    "productStock": {
-      "Pink": {
-        "XS": 3,
-        "S": 2,
-        "M": 11,
-        "L": 12
-      },
-      "Ivory": {
-        "XS": 3,
-        "S": 2,
-        "M": 7,
-        "L": 6
-      }
-    },
+    "productStock": { "XS": 6, "S": 4, "M": 18, "L": 18 },
     "displayAt": "trending",
     "exchangePolicy": false
   },
@@ -441,45 +176,15 @@ const products = [
     "productSellingPrice": 11037,
     "productOriginalPrice": 13565,
     "productCategory": "69a2b55a9ef7e68ca2e3cfbc",
-    "productSize": [
-      "XS",
-      "S",
-      "M",
-      "L"
-    ],
-    "productColour": [
-      "Wine",
-      "Navy"
-    ],
+    "productSize": ["XS", "S", "M", "L"],
+    "productColour": ["Wine", "Navy"],
     "productDescription": "Exclusive dresses designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1583496661160-fb5218afa9a3?w=800&q=80&auto=format&fit=crop",
-        "public_id": "dresses_10_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop",
-        "public_id": "dresses_10_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1496747488374-8f5a7ddf2a1a?w=800&q=80&auto=format&fit=crop",
-        "public_id": "dresses_10_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_10_1" },
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_10_2" },
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "dresses_10_3" }
     ],
-    "productStock": {
-      "Wine": {
-        "XS": 12,
-        "S": 3,
-        "M": 2,
-        "L": 12
-      },
-      "Navy": {
-        "XS": 9,
-        "S": 6,
-        "M": 12,
-        "L": 12
-      }
-    },
+    "productStock": { "XS": 21, "S": 9, "M": 14, "L": 24 },
     "displayAt": "sale",
     "exchangePolicy": true
   },
@@ -488,42 +193,15 @@ const products = [
     "productSellingPrice": 10788,
     "productOriginalPrice": 12346,
     "productCategory": "69a2b5a69ef7e68ca2e3cfbe",
-    "productSize": [
-      "S",
-      "M",
-      "L"
-    ],
-    "productColour": [
-      "Black",
-      "Emerald"
-    ],
+    "productSize": ["S", "M", "L"],
+    "productColour": ["Black", "Emerald"],
     "productDescription": "Exclusive party wear designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1518611640167-9b46fca7b38f?w=800&q=80&auto=format&fit=crop",
-        "public_id": "party_wear_1_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?w=800&q=80&auto=format&fit=crop",
-        "public_id": "party_wear_1_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1542295669297-4d85c8df9ce7?w=800&q=80&auto=format&fit=crop",
-        "public_id": "party_wear_1_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "party_wear_1_1" },
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "party_wear_1_2" },
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "party_wear_1_3" }
     ],
-    "productStock": {
-      "Black": {
-        "S": 10,
-        "M": 7,
-        "L": 5
-      },
-      "Emerald": {
-        "S": 6,
-        "M": 12,
-        "L": 9
-      }
-    },
+    "productStock": { "S": 16, "M": 19, "L": 14 },
     "displayAt": "home",
     "exchangePolicy": false
   },
@@ -532,42 +210,15 @@ const products = [
     "productSellingPrice": 4395,
     "productOriginalPrice": 5435,
     "productCategory": "69a2b5a69ef7e68ca2e3cfbe",
-    "productSize": [
-      "S",
-      "M",
-      "L"
-    ],
-    "productColour": [
-      "Beige",
-      "Blue"
-    ],
+    "productSize": ["S", "M", "L"],
+    "productColour": ["Beige", "Blue"],
     "productDescription": "Exclusive party wear designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1583744526277-5fa2e2f3a2b9?w=800&q=80&auto=format&fit=crop",
-        "public_id": "party_wear_2_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1580480055273-228ff5388ef8?w=800&q=80&auto=format&fit=crop",
-        "public_id": "party_wear_2_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1519657337289-077653e30b7a?w=800&q=80&auto=format&fit=crop",
-        "public_id": "party_wear_2_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "party_wear_2_1" },
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "party_wear_2_2" },
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "party_wear_2_3" }
     ],
-    "productStock": {
-      "Beige": {
-        "S": 6,
-        "M": 3,
-        "L": 6
-      },
-      "Blue": {
-        "S": 12,
-        "M": 8,
-        "L": 5
-      }
-    },
+    "productStock": { "S": 18, "M": 11, "L": 11 },
     "displayAt": "trending",
     "exchangePolicy": true
   },
@@ -576,42 +227,15 @@ const products = [
     "productSellingPrice": 11212,
     "productOriginalPrice": 14758,
     "productCategory": "69a2b5a69ef7e68ca2e3cfbe",
-    "productSize": [
-      "S",
-      "M",
-      "L"
-    ],
-    "productColour": [
-      "Beige",
-      "Pink"
-    ],
+    "productSize": ["S", "M", "L"],
+    "productColour": ["Beige", "Pink"],
     "productDescription": "Exclusive party wear designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1601762102930-244f71f2c7f2?w=800&q=80&auto=format&fit=crop",
-        "public_id": "party_wear_3_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1518611640167-9b46fca7b38f?w=800&q=80&auto=format&fit=crop",
-        "public_id": "party_wear_3_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?w=800&q=80&auto=format&fit=crop",
-        "public_id": "party_wear_3_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "party_wear_3_1" },
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "party_wear_3_2" },
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "party_wear_3_3" }
     ],
-    "productStock": {
-      "Beige": {
-        "S": 10,
-        "M": 5,
-        "L": 12
-      },
-      "Pink": {
-        "S": 6,
-        "M": 9,
-        "L": 2
-      }
-    },
+    "productStock": { "S": 16, "M": 14, "L": 14 },
     "displayAt": "new-arrivals",
     "exchangePolicy": false
   },
@@ -619,42 +243,15 @@ const products = [
     "productName": "Party Wear Premium Edition 4",
     "productSellingPrice": 14025,
     "productCategory": "69a2b5a69ef7e68ca2e3cfbe",
-    "productSize": [
-      "S",
-      "M",
-      "L"
-    ],
-    "productColour": [
-      "Pink",
-      "Blue"
-    ],
+    "productSize": ["S", "M", "L"],
+    "productColour": ["Pink", "Blue"],
     "productDescription": "Exclusive party wear designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1542295669297-4d85c8df9ce7?w=800&q=80&auto=format&fit=crop",
-        "public_id": "party_wear_4_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1583744526277-5fa2e2f3a2b9?w=800&q=80&auto=format&fit=crop",
-        "public_id": "party_wear_4_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1580480055273-228ff5388ef8?w=800&q=80&auto=format&fit=crop",
-        "public_id": "party_wear_4_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "party_wear_4_1" },
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "party_wear_4_2" },
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "party_wear_4_3" }
     ],
-    "productStock": {
-      "Pink": {
-        "S": 3,
-        "M": 7,
-        "L": 6
-      },
-      "Blue": {
-        "S": 10,
-        "M": 7,
-        "L": 7
-      }
-    },
+    "productStock": { "S": 13, "M": 14, "L": 13 },
     "displayAt": "sale",
     "exchangePolicy": false
   },
@@ -663,42 +260,15 @@ const products = [
     "productSellingPrice": 11959,
     "productOriginalPrice": 14859,
     "productCategory": "69a2b5a69ef7e68ca2e3cfbe",
-    "productSize": [
-      "S",
-      "M",
-      "L"
-    ],
-    "productColour": [
-      "Beige",
-      "Blue"
-    ],
+    "productSize": ["S", "M", "L"],
+    "productColour": ["Beige", "Blue"],
     "productDescription": "Exclusive party wear designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1519657337289-077653e30b7a?w=800&q=80&auto=format&fit=crop",
-        "public_id": "party_wear_5_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1601762102930-244f71f2c7f2?w=800&q=80&auto=format&fit=crop",
-        "public_id": "party_wear_5_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1518611640167-9b46fca7b38f?w=800&q=80&auto=format&fit=crop",
-        "public_id": "party_wear_5_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "party_wear_5_1" },
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "party_wear_5_2" },
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "party_wear_5_3" }
     ],
-    "productStock": {
-      "Beige": {
-        "S": 7,
-        "M": 7,
-        "L": 4
-      },
-      "Blue": {
-        "S": 7,
-        "M": 10,
-        "L": 10
-      }
-    },
+    "productStock": { "S": 14, "M": 17, "L": 14 },
     "displayAt": "trending",
     "exchangePolicy": false
   },
@@ -707,42 +277,15 @@ const products = [
     "productSellingPrice": 13664,
     "productOriginalPrice": 17488,
     "productCategory": "69a2b5a69ef7e68ca2e3cfbe",
-    "productSize": [
-      "S",
-      "M",
-      "L"
-    ],
-    "productColour": [
-      "Black",
-      "White"
-    ],
+    "productSize": ["S", "M", "L"],
+    "productColour": ["Black", "White"],
     "productDescription": "Exclusive party wear designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?w=800&q=80&auto=format&fit=crop",
-        "public_id": "party_wear_6_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1542295669297-4d85c8df9ce7?w=800&q=80&auto=format&fit=crop",
-        "public_id": "party_wear_6_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1583744526277-5fa2e2f3a2b9?w=800&q=80&auto=format&fit=crop",
-        "public_id": "party_wear_6_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "party_wear_6_1" },
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "party_wear_6_2" },
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "party_wear_6_3" }
     ],
-    "productStock": {
-      "Black": {
-        "S": 9,
-        "M": 8,
-        "L": 11
-      },
-      "White": {
-        "S": 10,
-        "M": 5,
-        "L": 3
-      }
-    },
+    "productStock": { "S": 19, "M": 13, "L": 14 },
     "displayAt": "sale",
     "exchangePolicy": false
   },
@@ -750,42 +293,15 @@ const products = [
     "productName": "Party Wear Premium Edition 7",
     "productSellingPrice": 14791,
     "productCategory": "69a2b5a69ef7e68ca2e3cfbe",
-    "productSize": [
-      "S",
-      "M",
-      "L"
-    ],
-    "productColour": [
-      "White",
-      "Emerald"
-    ],
+    "productSize": ["S", "M", "L"],
+    "productColour": ["White", "Emerald"],
     "productDescription": "Exclusive party wear designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1580480055273-228ff5388ef8?w=800&q=80&auto=format&fit=crop",
-        "public_id": "party_wear_7_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1519657337289-077653e30b7a?w=800&q=80&auto=format&fit=crop",
-        "public_id": "party_wear_7_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1601762102930-244f71f2c7f2?w=800&q=80&auto=format&fit=crop",
-        "public_id": "party_wear_7_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "party_wear_7_1" },
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "party_wear_7_2" },
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "party_wear_7_3" }
     ],
-    "productStock": {
-      "White": {
-        "S": 11,
-        "M": 7,
-        "L": 5
-      },
-      "Emerald": {
-        "S": 9,
-        "M": 5,
-        "L": 3
-      }
-    },
+    "productStock": { "S": 20, "M": 12, "L": 8 },
     "displayAt": "home",
     "exchangePolicy": false
   },
@@ -794,42 +310,15 @@ const products = [
     "productSellingPrice": 7529,
     "productOriginalPrice": 10228,
     "productCategory": "69a2b5a69ef7e68ca2e3cfbe",
-    "productSize": [
-      "S",
-      "M",
-      "L"
-    ],
-    "productColour": [
-      "Beige",
-      "Navy"
-    ],
+    "productSize": ["S", "M", "L"],
+    "productColour": ["Beige", "Navy"],
     "productDescription": "Exclusive party wear designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1518611640167-9b46fca7b38f?w=800&q=80&auto=format&fit=crop",
-        "public_id": "party_wear_8_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?w=800&q=80&auto=format&fit=crop",
-        "public_id": "party_wear_8_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1542295669297-4d85c8df9ce7?w=800&q=80&auto=format&fit=crop",
-        "public_id": "party_wear_8_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "party_wear_8_1" },
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "party_wear_8_2" },
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "party_wear_8_3" }
     ],
-    "productStock": {
-      "Beige": {
-        "S": 2,
-        "M": 7,
-        "L": 6
-      },
-      "Navy": {
-        "S": 10,
-        "M": 11,
-        "L": 3
-      }
-    },
+    "productStock": { "S": 12, "M": 18, "L": 9 },
     "displayAt": "sale",
     "exchangePolicy": false
   },
@@ -837,42 +326,15 @@ const products = [
     "productName": "Party Wear Premium Edition 9",
     "productSellingPrice": 7510,
     "productCategory": "69a2b5a69ef7e68ca2e3cfbe",
-    "productSize": [
-      "S",
-      "M",
-      "L"
-    ],
-    "productColour": [
-      "White",
-      "Navy"
-    ],
+    "productSize": ["S", "M", "L"],
+    "productColour": ["White", "Navy"],
     "productDescription": "Exclusive party wear designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1583744526277-5fa2e2f3a2b9?w=800&q=80&auto=format&fit=crop",
-        "public_id": "party_wear_9_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1580480055273-228ff5388ef8?w=800&q=80&auto=format&fit=crop",
-        "public_id": "party_wear_9_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1519657337289-077653e30b7a?w=800&q=80&auto=format&fit=crop",
-        "public_id": "party_wear_9_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "party_wear_9_1" },
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "party_wear_9_2" },
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "party_wear_9_3" }
     ],
-    "productStock": {
-      "White": {
-        "S": 7,
-        "M": 6,
-        "L": 10
-      },
-      "Navy": {
-        "S": 2,
-        "M": 5,
-        "L": 2
-      }
-    },
+    "productStock": { "S": 9, "M": 11, "L": 12 },
     "displayAt": "trending",
     "exchangePolicy": true
   },
@@ -880,42 +342,15 @@ const products = [
     "productName": "Party Wear Premium Edition 10",
     "productSellingPrice": 9118,
     "productCategory": "69a2b5a69ef7e68ca2e3cfbe",
-    "productSize": [
-      "S",
-      "M",
-      "L"
-    ],
-    "productColour": [
-      "Pink",
-      "Beige"
-    ],
+    "productSize": ["S", "M", "L"],
+    "productColour": ["Pink", "Beige"],
     "productDescription": "Exclusive party wear designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1601762102930-244f71f2c7f2?w=800&q=80&auto=format&fit=crop",
-        "public_id": "party_wear_10_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1518611640167-9b46fca7b38f?w=800&q=80&auto=format&fit=crop",
-        "public_id": "party_wear_10_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?w=800&q=80&auto=format&fit=crop",
-        "public_id": "party_wear_10_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "party_wear_10_1" },
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "party_wear_10_2" },
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "party_wear_10_3" }
     ],
-    "productStock": {
-      "Pink": {
-        "S": 9,
-        "M": 2,
-        "L": 5
-      },
-      "Beige": {
-        "S": 10,
-        "M": 3,
-        "L": 3
-      }
-    },
+    "productStock": { "S": 19, "M": 5, "L": 8 },
     "displayAt": "trending",
     "exchangePolicy": true
   },
@@ -924,45 +359,15 @@ const products = [
     "productSellingPrice": 7191,
     "productOriginalPrice": 8835,
     "productCategory": "69a2b5bb9ef7e68ca2e3cfc0",
-    "productSize": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "productColour": [
-      "Pink",
-      "Emerald"
-    ],
+    "productSize": ["S", "M", "L", "XL"],
+    "productColour": ["Pink", "Emerald"],
     "productDescription": "Exclusive evening wear designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1617627143233-4ec53ac07f24?w=800&q=80&auto=format&fit=crop",
-        "public_id": "evening_wear_1_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1612336153851-42bdc1ea9e17?w=800&q=80&auto=format&fit=crop",
-        "public_id": "evening_wear_1_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1600326145359-3a44909d1a39?w=800&q=80&auto=format&fit=crop",
-        "public_id": "evening_wear_1_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "evening_wear_1_1" },
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "evening_wear_1_2" },
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "evening_wear_1_3" }
     ],
-    "productStock": {
-      "Pink": {
-        "S": 8,
-        "M": 10,
-        "L": 2,
-        "XL": 2
-      },
-      "Emerald": {
-        "S": 10,
-        "M": 2,
-        "L": 12,
-        "XL": 6
-      }
-    },
+    "productStock": { "S": 18, "M": 12, "L": 14, "XL": 8 },
     "displayAt": "trending",
     "exchangePolicy": false
   },
@@ -970,45 +375,15 @@ const products = [
     "productName": "Evening Wear Premium Edition 2",
     "productSellingPrice": 13171,
     "productCategory": "69a2b5bb9ef7e68ca2e3cfc0",
-    "productSize": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "productColour": [
-      "Wine",
-      "White"
-    ],
+    "productSize": ["S", "M", "L", "XL"],
+    "productColour": ["Wine", "White"],
     "productDescription": "Exclusive evening wear designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1551232864-3f0890e1777d?w=800&q=80&auto=format&fit=crop",
-        "public_id": "evening_wear_2_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1617627143233-4ec53ac07f24?w=800&q=80&auto=format&fit=crop",
-        "public_id": "evening_wear_2_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1612336153851-42bdc1ea9e17?w=800&q=80&auto=format&fit=crop",
-        "public_id": "evening_wear_2_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "evening_wear_2_1" },
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "evening_wear_2_2" },
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "evening_wear_2_3" }
     ],
-    "productStock": {
-      "Wine": {
-        "S": 6,
-        "M": 7,
-        "L": 2,
-        "XL": 4
-      },
-      "White": {
-        "S": 9,
-        "M": 2,
-        "L": 3,
-        "XL": 10
-      }
-    },
+    "productStock": { "S": 15, "M": 9, "L": 5, "XL": 14 },
     "displayAt": "sale",
     "exchangePolicy": true
   },
@@ -1016,45 +391,15 @@ const products = [
     "productName": "Evening Wear Premium Edition 3",
     "productSellingPrice": 7890,
     "productCategory": "69a2b5bb9ef7e68ca2e3cfc0",
-    "productSize": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "productColour": [
-      "Beige",
-      "Ivory"
-    ],
+    "productSize": ["S", "M", "L", "XL"],
+    "productColour": ["Beige", "Ivory"],
     "productDescription": "Exclusive evening wear designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1600326145359-3a44909d1a39?w=800&q=80&auto=format&fit=crop",
-        "public_id": "evening_wear_3_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1551232864-3f0890e1777d?w=800&q=80&auto=format&fit=crop",
-        "public_id": "evening_wear_3_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1617627143233-4ec53ac07f24?w=800&q=80&auto=format&fit=crop",
-        "public_id": "evening_wear_3_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "evening_wear_3_1" },
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "evening_wear_3_2" },
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "evening_wear_3_3" }
     ],
-    "productStock": {
-      "Beige": {
-        "S": 10,
-        "M": 12,
-        "L": 11,
-        "XL": 7
-      },
-      "Ivory": {
-        "S": 9,
-        "M": 7,
-        "L": 12,
-        "XL": 11
-      }
-    },
+    "productStock": { "S": 19, "M": 19, "L": 23, "XL": 18 },
     "displayAt": "home",
     "exchangePolicy": true
   },
@@ -1063,45 +408,15 @@ const products = [
     "productSellingPrice": 13273,
     "productOriginalPrice": 14809,
     "productCategory": "69a2b5bb9ef7e68ca2e3cfc0",
-    "productSize": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "productColour": [
-      "Beige",
-      "Emerald"
-    ],
+    "productSize": ["S", "M", "L", "XL"],
+    "productColour": ["Beige", "Emerald"],
     "productDescription": "Exclusive evening wear designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1612336153851-42bdc1ea9e17?w=800&q=80&auto=format&fit=crop",
-        "public_id": "evening_wear_4_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1600326145359-3a44909d1a39?w=800&q=80&auto=format&fit=crop",
-        "public_id": "evening_wear_4_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1551232864-3f0890e1777d?w=800&q=80&auto=format&fit=crop",
-        "public_id": "evening_wear_4_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "evening_wear_4_1" },
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "evening_wear_4_2" },
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "evening_wear_4_3" }
     ],
-    "productStock": {
-      "Beige": {
-        "S": 2,
-        "M": 6,
-        "L": 9,
-        "XL": 7
-      },
-      "Emerald": {
-        "S": 8,
-        "M": 2,
-        "L": 7,
-        "XL": 7
-      }
-    },
+    "productStock": { "S": 10, "M": 8, "L": 16, "XL": 14 },
     "displayAt": "home",
     "exchangePolicy": false
   },
@@ -1109,45 +424,15 @@ const products = [
     "productName": "Evening Wear Premium Edition 5",
     "productSellingPrice": 13939,
     "productCategory": "69a2b5bb9ef7e68ca2e3cfc0",
-    "productSize": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "productColour": [
-      "Ivory",
-      "Wine"
-    ],
+    "productSize": ["S", "M", "L", "XL"],
+    "productColour": ["Ivory", "Wine"],
     "productDescription": "Exclusive evening wear designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1617627143233-4ec53ac07f24?w=800&q=80&auto=format&fit=crop",
-        "public_id": "evening_wear_5_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1612336153851-42bdc1ea9e17?w=800&q=80&auto=format&fit=crop",
-        "public_id": "evening_wear_5_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1600326145359-3a44909d1a39?w=800&q=80&auto=format&fit=crop",
-        "public_id": "evening_wear_5_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "evening_wear_5_1" },
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "evening_wear_5_2" },
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "evening_wear_5_3" }
     ],
-    "productStock": {
-      "Ivory": {
-        "S": 9,
-        "M": 2,
-        "L": 6,
-        "XL": 5
-      },
-      "Wine": {
-        "S": 12,
-        "M": 12,
-        "L": 10,
-        "XL": 9
-      }
-    },
+    "productStock": { "S": 21, "M": 14, "L": 16, "XL": 14 },
     "displayAt": "sale",
     "exchangePolicy": true
   },
@@ -1155,45 +440,14 @@ const products = [
     "productName": "Evening Wear Premium Edition 6",
     "productSellingPrice": 12304,
     "productCategory": "69a2b5bb9ef7e68ca2e3cfc0",
-    "productSize": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "productColour": [
-      "Blue",
-      "Red"
-    ],
+    "productSize": ["S", "M", "L", "XL"],
     "productDescription": "Exclusive evening wear designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1551232864-3f0890e1777d?w=800&q=80&auto=format&fit=crop",
-        "public_id": "evening_wear_6_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1617627143233-4ec53ac07f24?w=800&q=80&auto=format&fit=crop",
-        "public_id": "evening_wear_6_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1612336153851-42bdc1ea9e17?w=800&q=80&auto=format&fit=crop",
-        "public_id": "evening_wear_6_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "evening_wear_6_1" },
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "evening_wear_6_2" },
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "evening_wear_6_3" }
     ],
-    "productStock": {
-      "Blue": {
-        "S": 7,
-        "M": 8,
-        "L": 5,
-        "XL": 5
-      },
-      "Red": {
-        "S": 12,
-        "M": 9,
-        "L": 10,
-        "XL": 11
-      }
-    },
+    "productStock": { "S": 19, "M": 17, "L": 15, "XL": 16 },
     "displayAt": "home",
     "exchangePolicy": true
   },
@@ -1201,45 +455,15 @@ const products = [
     "productName": "Evening Wear Premium Edition 7",
     "productSellingPrice": 13975,
     "productCategory": "69a2b5bb9ef7e68ca2e3cfc0",
-    "productSize": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "productColour": [
-      "White",
-      "Wine"
-    ],
+    "productSize": ["S", "M", "L", "XL"],
+    "productColour": ["White", "Wine"],
     "productDescription": "Exclusive evening wear designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1600326145359-3a44909d1a39?w=800&q=80&auto=format&fit=crop",
-        "public_id": "evening_wear_7_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1551232864-3f0890e1777d?w=800&q=80&auto=format&fit=crop",
-        "public_id": "evening_wear_7_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1617627143233-4ec53ac07f24?w=800&q=80&auto=format&fit=crop",
-        "public_id": "evening_wear_7_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "evening_wear_7_1" },
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "evening_wear_7_2" },
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "evening_wear_7_3" }
     ],
-    "productStock": {
-      "White": {
-        "S": 6,
-        "M": 3,
-        "L": 4,
-        "XL": 3
-      },
-      "Wine": {
-        "S": 4,
-        "M": 11,
-        "L": 9,
-        "XL": 4
-      }
-    },
+    "productStock": { "S": 10, "M": 14, "L": 13, "XL": 7 },
     "displayAt": "trending",
     "exchangePolicy": true
   },
@@ -1247,45 +471,14 @@ const products = [
     "productName": "Evening Wear Premium Edition 8",
     "productSellingPrice": 12597,
     "productCategory": "69a2b5bb9ef7e68ca2e3cfc0",
-    "productSize": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "productColour": [
-      "Blue",
-      "Red"
-    ],
+    "productSize": ["S", "M", "L", "XL"],
     "productDescription": "Exclusive evening wear designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1612336153851-42bdc1ea9e17?w=800&q=80&auto=format&fit=crop",
-        "public_id": "evening_wear_8_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1600326145359-3a44909d1a39?w=800&q=80&auto=format&fit=crop",
-        "public_id": "evening_wear_8_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1551232864-3f0890e1777d?w=800&q=80&auto=format&fit=crop",
-        "public_id": "evening_wear_8_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "evening_wear_8_1" },
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "evening_wear_8_2" },
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "evening_wear_8_3" }
     ],
-    "productStock": {
-      "Blue": {
-        "S": 7,
-        "M": 12,
-        "L": 12,
-        "XL": 11
-      },
-      "Red": {
-        "S": 10,
-        "M": 8,
-        "L": 12,
-        "XL": 5
-      }
-    },
+    "productStock": { "S": 17, "M": 20, "L": 24, "XL": 16 },
     "displayAt": "new-arrivals",
     "exchangePolicy": false
   },
@@ -1293,45 +486,15 @@ const products = [
     "productName": "Evening Wear Premium Edition 9",
     "productSellingPrice": 14543,
     "productCategory": "69a2b5bb9ef7e68ca2e3cfc0",
-    "productSize": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "productColour": [
-      "Beige",
-      "Blue"
-    ],
+    "productSize": ["S", "M", "L", "XL"],
+    "productColour": ["Beige", "Blue"],
     "productDescription": "Exclusive evening wear designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1617627143233-4ec53ac07f24?w=800&q=80&auto=format&fit=crop",
-        "public_id": "evening_wear_9_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1612336153851-42bdc1ea9e17?w=800&q=80&auto=format&fit=crop",
-        "public_id": "evening_wear_9_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1600326145359-3a44909d1a39?w=800&q=80&auto=format&fit=crop",
-        "public_id": "evening_wear_9_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "evening_wear_9_1" },
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "evening_wear_9_2" },
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "evening_wear_9_3" }
     ],
-    "productStock": {
-      "Beige": {
-        "S": 6,
-        "M": 9,
-        "L": 2,
-        "XL": 8
-      },
-      "Blue": {
-        "S": 9,
-        "M": 12,
-        "L": 6,
-        "XL": 10
-      }
-    },
+    "productStock": { "S": 15, "M": 21, "L": 8, "XL": 18 },
     "displayAt": "trending",
     "exchangePolicy": false
   },
@@ -1339,45 +502,15 @@ const products = [
     "productName": "Evening Wear Premium Edition 10",
     "productSellingPrice": 5691,
     "productCategory": "69a2b5bb9ef7e68ca2e3cfc0",
-    "productSize": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "productColour": [
-      "Wine",
-      "Navy"
-    ],
+    "productSize": ["S", "M", "L", "XL"],
+    "productColour": ["Wine", "Navy"],
     "productDescription": "Exclusive evening wear designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1551232864-3f0890e1777d?w=800&q=80&auto=format&fit=crop",
-        "public_id": "evening_wear_10_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1617627143233-4ec53ac07f24?w=800&q=80&auto=format&fit=crop",
-        "public_id": "evening_wear_10_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1612336153851-42bdc1ea9e17?w=800&q=80&auto=format&fit=crop",
-        "public_id": "evening_wear_10_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "evening_wear_10_1" },
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "evening_wear_10_2" },
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "evening_wear_10_3" }
     ],
-    "productStock": {
-      "Wine": {
-        "S": 9,
-        "M": 4,
-        "L": 4,
-        "XL": 3
-      },
-      "Navy": {
-        "S": 5,
-        "M": 10,
-        "L": 8,
-        "XL": 8
-      }
-    },
+    "productStock": { "S": 14, "M": 14, "L": 12, "XL": 11 },
     "displayAt": "home",
     "exchangePolicy": false
   },
@@ -1386,48 +519,15 @@ const products = [
     "productSellingPrice": 14382,
     "productOriginalPrice": 15978,
     "productCategory": "69a2b6089ef7e68ca2e3cfc2",
-    "productSize": [
-      "XS",
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "productColour": [
-      "Navy",
-      "Wine"
-    ],
+    "productSize": ["XS", "S", "M", "L", "XL"],
+    "productColour": ["Navy", "Wine"],
     "productDescription": "Exclusive casual wear designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1434389461341-70e4e9a64e4c?w=800&q=80&auto=format&fit=crop",
-        "public_id": "casual_wear_1_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1485518994929-0c4aded0e7fc?w=800&q=80&auto=format&fit=crop",
-        "public_id": "casual_wear_1_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=800&q=80&auto=format&fit=crop",
-        "public_id": "casual_wear_1_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "casual_wear_1_1" },
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "casual_wear_1_2" },
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "casual_wear_1_3" }
     ],
-    "productStock": {
-      "Navy": {
-        "XS": 6,
-        "S": 5,
-        "M": 3,
-        "L": 8,
-        "XL": 6
-      },
-      "Wine": {
-        "XS": 11,
-        "S": 5,
-        "M": 4,
-        "L": 10,
-        "XL": 6
-      }
-    },
+    "productStock": { "XS": 17, "S": 10, "M": 7, "L": 18, "XL": 12 },
     "displayAt": "sale",
     "exchangePolicy": true
   },
@@ -1435,48 +535,15 @@ const products = [
     "productName": "Casual Wear Premium Edition 2",
     "productSellingPrice": 14705,
     "productCategory": "69a2b6089ef7e68ca2e3cfc2",
-    "productSize": [
-      "XS",
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "productColour": [
-      "Wine",
-      "Emerald"
-    ],
+    "productSize": ["XS", "S", "M", "L", "XL"],
+    "productColour": ["Wine", "Emerald"],
     "productDescription": "Exclusive casual wear designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop",
-        "public_id": "casual_wear_2_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1434389461341-70e4e9a64e4c?w=800&q=80&auto=format&fit=crop",
-        "public_id": "casual_wear_2_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1485518994929-0c4aded0e7fc?w=800&q=80&auto=format&fit=crop",
-        "public_id": "casual_wear_2_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "casual_wear_2_1" },
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "casual_wear_2_2" },
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "casual_wear_2_3" }
     ],
-    "productStock": {
-      "Wine": {
-        "XS": 2,
-        "S": 12,
-        "M": 6,
-        "L": 3,
-        "XL": 5
-      },
-      "Emerald": {
-        "XS": 11,
-        "S": 5,
-        "M": 5,
-        "L": 4,
-        "XL": 9
-      }
-    },
+    "productStock": { "XS": 13, "S": 17, "M": 11, "L": 7, "XL": 14 },
     "displayAt": "sale",
     "exchangePolicy": false
   },
@@ -1485,48 +552,15 @@ const products = [
     "productSellingPrice": 11035,
     "productOriginalPrice": 12048,
     "productCategory": "69a2b6089ef7e68ca2e3cfc2",
-    "productSize": [
-      "XS",
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "productColour": [
-      "Blue",
-      "Navy"
-    ],
+    "productSize": ["XS", "S", "M", "L", "XL"],
+    "productColour": ["Blue", "Navy"],
     "productDescription": "Exclusive casual wear designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=800&q=80&auto=format&fit=crop",
-        "public_id": "casual_wear_3_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop",
-        "public_id": "casual_wear_3_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1434389461341-70e4e9a64e4c?w=800&q=80&auto=format&fit=crop",
-        "public_id": "casual_wear_3_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "casual_wear_3_1" },
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "casual_wear_3_2" },
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "casual_wear_3_3" }
     ],
-    "productStock": {
-      "Blue": {
-        "XS": 12,
-        "S": 2,
-        "M": 8,
-        "L": 10,
-        "XL": 3
-      },
-      "Navy": {
-        "XS": 6,
-        "S": 11,
-        "M": 3,
-        "L": 2,
-        "XL": 7
-      }
-    },
+    "productStock": { "XS": 18, "S": 13, "M": 11, "L": 12, "XL": 10 },
     "displayAt": "home",
     "exchangePolicy": true
   },
@@ -1534,48 +568,15 @@ const products = [
     "productName": "Casual Wear Premium Edition 4",
     "productSellingPrice": 8011,
     "productCategory": "69a2b6089ef7e68ca2e3cfc2",
-    "productSize": [
-      "XS",
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "productColour": [
-      "Navy",
-      "Blue"
-    ],
+    "productSize": ["XS", "S", "M", "L", "XL"],
+    "productColour": ["Navy", "Blue"],
     "productDescription": "Exclusive casual wear designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1485518994929-0c4aded0e7fc?w=800&q=80&auto=format&fit=crop",
-        "public_id": "casual_wear_4_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=800&q=80&auto=format&fit=crop",
-        "public_id": "casual_wear_4_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop",
-        "public_id": "casual_wear_4_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "casual_wear_4_1" },
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "casual_wear_4_2" },
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "casual_wear_4_3" }
     ],
-    "productStock": {
-      "Navy": {
-        "XS": 10,
-        "S": 4,
-        "M": 5,
-        "L": 11,
-        "XL": 4
-      },
-      "Blue": {
-        "XS": 5,
-        "S": 11,
-        "M": 5,
-        "L": 11,
-        "XL": 2
-      }
-    },
+    "productStock": { "XS": 15, "S": 15, "M": 10, "L": 22, "XL": 6 },
     "displayAt": "trending",
     "exchangePolicy": false
   },
@@ -1583,48 +584,15 @@ const products = [
     "productName": "Casual Wear Premium Edition 5",
     "productSellingPrice": 6228,
     "productCategory": "69a2b6089ef7e68ca2e3cfc2",
-    "productSize": [
-      "XS",
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "productColour": [
-      "Ivory",
-      "Beige"
-    ],
+    "productSize": ["XS", "S", "M", "L", "XL"],
+    "productColour": ["Ivory", "Beige"],
     "productDescription": "Exclusive casual wear designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1434389461341-70e4e9a64e4c?w=800&q=80&auto=format&fit=crop",
-        "public_id": "casual_wear_5_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1485518994929-0c4aded0e7fc?w=800&q=80&auto=format&fit=crop",
-        "public_id": "casual_wear_5_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=800&q=80&auto=format&fit=crop",
-        "public_id": "casual_wear_5_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "casual_wear_5_1" },
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "casual_wear_5_2" },
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "casual_wear_5_3" }
     ],
-    "productStock": {
-      "Ivory": {
-        "XS": 8,
-        "S": 2,
-        "M": 2,
-        "L": 3,
-        "XL": 9
-      },
-      "Beige": {
-        "XS": 2,
-        "S": 11,
-        "M": 2,
-        "L": 11,
-        "XL": 7
-      }
-    },
+    "productStock": { "XS": 10, "S": 13, "M": 4, "L": 14, "XL": 16 },
     "displayAt": "new-arrivals",
     "exchangePolicy": false
   },
@@ -1633,48 +601,15 @@ const products = [
     "productSellingPrice": 12993,
     "productOriginalPrice": 16497,
     "productCategory": "69a2b6089ef7e68ca2e3cfc2",
-    "productSize": [
-      "XS",
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "productColour": [
-      "Ivory",
-      "Navy"
-    ],
+    "productSize": ["XS", "S", "M", "L", "XL"],
+    "productColour": ["Ivory", "Navy"],
     "productDescription": "Exclusive casual wear designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop",
-        "public_id": "casual_wear_6_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1434389461341-70e4e9a64e4c?w=800&q=80&auto=format&fit=crop",
-        "public_id": "casual_wear_6_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1485518994929-0c4aded0e7fc?w=800&q=80&auto=format&fit=crop",
-        "public_id": "casual_wear_6_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "casual_wear_6_1" },
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "casual_wear_6_2" },
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "casual_wear_6_3" }
     ],
-    "productStock": {
-      "Ivory": {
-        "XS": 4,
-        "S": 6,
-        "M": 8,
-        "L": 10,
-        "XL": 3
-      },
-      "Navy": {
-        "XS": 4,
-        "S": 10,
-        "M": 9,
-        "L": 11,
-        "XL": 8
-      }
-    },
+    "productStock": { "XS": 8, "S": 16, "M": 17, "L": 21, "XL": 11 },
     "displayAt": "home",
     "exchangePolicy": true
   },
@@ -1682,48 +617,15 @@ const products = [
     "productName": "Casual Wear Premium Edition 7",
     "productSellingPrice": 9739,
     "productCategory": "69a2b6089ef7e68ca2e3cfc2",
-    "productSize": [
-      "XS",
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "productColour": [
-      "Wine",
-      "Red"
-    ],
+    "productSize": ["XS", "S", "M", "L", "XL"],
+    "productColour": ["Wine", "Red"],
     "productDescription": "Exclusive casual wear designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=800&q=80&auto=format&fit=crop",
-        "public_id": "casual_wear_7_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop",
-        "public_id": "casual_wear_7_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1434389461341-70e4e9a64e4c?w=800&q=80&auto=format&fit=crop",
-        "public_id": "casual_wear_7_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "casual_wear_7_1" },
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "casual_wear_7_2" },
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "casual_wear_7_3" }
     ],
-    "productStock": {
-      "Wine": {
-        "XS": 6,
-        "S": 8,
-        "M": 12,
-        "L": 5,
-        "XL": 12
-      },
-      "Red": {
-        "XS": 11,
-        "S": 4,
-        "M": 8,
-        "L": 4,
-        "XL": 10
-      }
-    },
+    "productStock": { "XS": 17, "S": 12, "M": 20, "L": 9, "XL": 22 },
     "displayAt": "new-arrivals",
     "exchangePolicy": true
   },
@@ -1731,48 +633,15 @@ const products = [
     "productName": "Casual Wear Premium Edition 8",
     "productSellingPrice": 11884,
     "productCategory": "69a2b6089ef7e68ca2e3cfc2",
-    "productSize": [
-      "XS",
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "productColour": [
-      "White",
-      "Pink"
-    ],
+    "productSize": ["XS", "S", "M", "L", "XL"],
+    "productColour": ["White", "Pink"],
     "productDescription": "Exclusive casual wear designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1485518994929-0c4aded0e7fc?w=800&q=80&auto=format&fit=crop",
-        "public_id": "casual_wear_8_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=800&q=80&auto=format&fit=crop",
-        "public_id": "casual_wear_8_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop",
-        "public_id": "casual_wear_8_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "casual_wear_8_1" },
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "casual_wear_8_2" },
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "casual_wear_8_3" }
     ],
-    "productStock": {
-      "White": {
-        "XS": 12,
-        "S": 11,
-        "M": 9,
-        "L": 9,
-        "XL": 8
-      },
-      "Pink": {
-        "XS": 6,
-        "S": 3,
-        "M": 2,
-        "L": 6,
-        "XL": 5
-      }
-    },
+    "productStock": { "XS": 18, "S": 14, "M": 11, "L": 15, "XL": 13 },
     "displayAt": "new-arrivals",
     "exchangePolicy": false
   },
@@ -1780,48 +649,15 @@ const products = [
     "productName": "Casual Wear Premium Edition 9",
     "productSellingPrice": 14522,
     "productCategory": "69a2b6089ef7e68ca2e3cfc2",
-    "productSize": [
-      "XS",
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "productColour": [
-      "Emerald",
-      "Wine"
-    ],
+    "productSize": ["XS", "S", "M", "L", "XL"],
+    "productColour": ["Emerald", "Wine"],
     "productDescription": "Exclusive casual wear designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1434389461341-70e4e9a64e4c?w=800&q=80&auto=format&fit=crop",
-        "public_id": "casual_wear_9_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1485518994929-0c4aded0e7fc?w=800&q=80&auto=format&fit=crop",
-        "public_id": "casual_wear_9_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=800&q=80&auto=format&fit=crop",
-        "public_id": "casual_wear_9_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "casual_wear_9_1" },
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "casual_wear_9_2" },
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "casual_wear_9_3" }
     ],
-    "productStock": {
-      "Emerald": {
-        "XS": 2,
-        "S": 11,
-        "M": 5,
-        "L": 7,
-        "XL": 12
-      },
-      "Wine": {
-        "XS": 10,
-        "S": 10,
-        "M": 2,
-        "L": 3,
-        "XL": 10
-      }
-    },
+    "productStock": { "XS": 12, "S": 21, "M": 7, "L": 10, "XL": 22 },
     "displayAt": "new-arrivals",
     "exchangePolicy": false
   },
@@ -1830,48 +666,15 @@ const products = [
     "productSellingPrice": 7386,
     "productOriginalPrice": 8460,
     "productCategory": "69a2b6089ef7e68ca2e3cfc2",
-    "productSize": [
-      "XS",
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "productColour": [
-      "Blue",
-      "Pink"
-    ],
+    "productSize": ["XS", "S", "M", "L", "XL"],
+    "productColour": ["Blue", "Pink"],
     "productDescription": "Exclusive casual wear designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop",
-        "public_id": "casual_wear_10_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1434389461341-70e4e9a64e4c?w=800&q=80&auto=format&fit=crop",
-        "public_id": "casual_wear_10_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1485518994929-0c4aded0e7fc?w=800&q=80&auto=format&fit=crop",
-        "public_id": "casual_wear_10_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "casual_wear_10_1" },
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "casual_wear_10_2" },
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "casual_wear_10_3" }
     ],
-    "productStock": {
-      "Blue": {
-        "XS": 5,
-        "S": 9,
-        "M": 4,
-        "L": 3,
-        "XL": 3
-      },
-      "Pink": {
-        "XS": 9,
-        "S": 3,
-        "M": 4,
-        "L": 8,
-        "XL": 4
-      }
-    },
+    "productStock": { "XS": 14, "S": 12, "M": 8, "L": 11, "XL": 7 },
     "displayAt": "sale",
     "exchangePolicy": true
   },
@@ -1880,42 +683,15 @@ const products = [
     "productSellingPrice": 9848,
     "productOriginalPrice": 11473,
     "productCategory": "69a2b6279ef7e68ca2e3cfc4",
-    "productSize": [
-      "S",
-      "M",
-      "L"
-    ],
-    "productColour": [
-      "Emerald",
-      "Ivory"
-    ],
+    "productSize": ["S", "M", "L"],
+    "productColour": ["Emerald", "Ivory"],
     "productDescription": "Exclusive co-ord sets designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1603400521249-cd6e4b17f900?w=800&q=80&auto=format&fit=crop",
-        "public_id": "co-ord_sets_1_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1583744526277-5fa2e2f3a2b9?w=800&q=80&auto=format&fit=crop",
-        "public_id": "co-ord_sets_1_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1515886657613-9a57f9c8dddf?w=800&q=80&auto=format&fit=crop",
-        "public_id": "co-ord_sets_1_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "co-ord_sets_1_1" },
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "co-ord_sets_1_2" },
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "co-ord_sets_1_3" }
     ],
-    "productStock": {
-      "Emerald": {
-        "S": 6,
-        "M": 6,
-        "L": 3
-      },
-      "Ivory": {
-        "S": 11,
-        "M": 12,
-        "L": 10
-      }
-    },
+    "productStock": { "S": 17, "M": 18, "L": 13 },
     "displayAt": "sale",
     "exchangePolicy": true
   },
@@ -1924,42 +700,15 @@ const products = [
     "productSellingPrice": 13760,
     "productOriginalPrice": 17308,
     "productCategory": "69a2b6279ef7e68ca2e3cfc4",
-    "productSize": [
-      "S",
-      "M",
-      "L"
-    ],
-    "productColour": [
-      "White",
-      "Wine"
-    ],
+    "productSize": ["S", "M", "L"],
+    "productColour": ["White", "Wine"],
     "productDescription": "Exclusive co-ord sets designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1585487000160-6a2f89a7b1a8?w=800&q=80&auto=format&fit=crop",
-        "public_id": "co-ord_sets_2_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1603400521249-cd6e4b17f900?w=800&q=80&auto=format&fit=crop",
-        "public_id": "co-ord_sets_2_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1583744526277-5fa2e2f3a2b9?w=800&q=80&auto=format&fit=crop",
-        "public_id": "co-ord_sets_2_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "co-ord_sets_2_1" },
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "co-ord_sets_2_2" },
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "co-ord_sets_2_3" }
     ],
-    "productStock": {
-      "White": {
-        "S": 11,
-        "M": 6,
-        "L": 7
-      },
-      "Wine": {
-        "S": 4,
-        "M": 8,
-        "L": 9
-      }
-    },
+    "productStock": { "S": 15, "M": 14, "L": 16 },
     "displayAt": "new-arrivals",
     "exchangePolicy": true
   },
@@ -1968,42 +717,15 @@ const products = [
     "productSellingPrice": 13126,
     "productOriginalPrice": 14638,
     "productCategory": "69a2b6279ef7e68ca2e3cfc4",
-    "productSize": [
-      "S",
-      "M",
-      "L"
-    ],
-    "productColour": [
-      "Navy",
-      "White"
-    ],
+    "productSize": ["S", "M", "L"],
+    "productColour": ["Navy", "White"],
     "productDescription": "Exclusive co-ord sets designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1515886657613-9a57f9c8dddf?w=800&q=80&auto=format&fit=crop",
-        "public_id": "co-ord_sets_3_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1585487000160-6a2f89a7b1a8?w=800&q=80&auto=format&fit=crop",
-        "public_id": "co-ord_sets_3_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1603400521249-cd6e4b17f900?w=800&q=80&auto=format&fit=crop",
-        "public_id": "co-ord_sets_3_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "co-ord_sets_3_1" },
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "co-ord_sets_3_2" },
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "co-ord_sets_3_3" }
     ],
-    "productStock": {
-      "Navy": {
-        "S": 3,
-        "M": 11,
-        "L": 6
-      },
-      "White": {
-        "S": 6,
-        "M": 11,
-        "L": 11
-      }
-    },
+    "productStock": { "S": 9, "M": 22, "L": 17 },
     "displayAt": "trending",
     "exchangePolicy": true
   },
@@ -2011,42 +733,15 @@ const products = [
     "productName": "Co-ord Sets Premium Edition 4",
     "productSellingPrice": 7280,
     "productCategory": "69a2b6279ef7e68ca2e3cfc4",
-    "productSize": [
-      "S",
-      "M",
-      "L"
-    ],
-    "productColour": [
-      "White",
-      "Navy"
-    ],
+    "productSize": ["S", "M", "L"],
+    "productColour": ["White", "Navy"],
     "productDescription": "Exclusive co-ord sets designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1583744526277-5fa2e2f3a2b9?w=800&q=80&auto=format&fit=crop",
-        "public_id": "co-ord_sets_4_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1515886657613-9a57f9c8dddf?w=800&q=80&auto=format&fit=crop",
-        "public_id": "co-ord_sets_4_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1585487000160-6a2f89a7b1a8?w=800&q=80&auto=format&fit=crop",
-        "public_id": "co-ord_sets_4_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "co-ord_sets_4_1" },
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "co-ord_sets_4_2" },
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "co-ord_sets_4_3" }
     ],
-    "productStock": {
-      "White": {
-        "S": 5,
-        "M": 4,
-        "L": 3
-      },
-      "Navy": {
-        "S": 6,
-        "M": 7,
-        "L": 4
-      }
-    },
+    "productStock": { "S": 11, "M": 11, "L": 7 },
     "displayAt": "home",
     "exchangePolicy": true
   },
@@ -2055,42 +750,15 @@ const products = [
     "productSellingPrice": 13098,
     "productOriginalPrice": 15087,
     "productCategory": "69a2b6279ef7e68ca2e3cfc4",
-    "productSize": [
-      "S",
-      "M",
-      "L"
-    ],
-    "productColour": [
-      "Emerald",
-      "Ivory"
-    ],
+    "productSize": ["S", "M", "L"],
+    "productColour": ["Emerald", "Ivory"],
     "productDescription": "Exclusive co-ord sets designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1603400521249-cd6e4b17f900?w=800&q=80&auto=format&fit=crop",
-        "public_id": "co-ord_sets_5_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1583744526277-5fa2e2f3a2b9?w=800&q=80&auto=format&fit=crop",
-        "public_id": "co-ord_sets_5_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1515886657613-9a57f9c8dddf?w=800&q=80&auto=format&fit=crop",
-        "public_id": "co-ord_sets_5_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "co-ord_sets_5_1" },
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "co-ord_sets_5_2" },
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "co-ord_sets_5_3" }
     ],
-    "productStock": {
-      "Emerald": {
-        "S": 3,
-        "M": 12,
-        "L": 6
-      },
-      "Ivory": {
-        "S": 4,
-        "M": 8,
-        "L": 2
-      }
-    },
+    "productStock": { "S": 7, "M": 20, "L": 8 },
     "displayAt": "sale",
     "exchangePolicy": false
   },
@@ -2099,42 +767,15 @@ const products = [
     "productSellingPrice": 12752,
     "productOriginalPrice": 14345,
     "productCategory": "69a2b6279ef7e68ca2e3cfc4",
-    "productSize": [
-      "S",
-      "M",
-      "L"
-    ],
-    "productColour": [
-      "Navy",
-      "Emerald"
-    ],
+    "productSize": ["S", "M", "L"],
+    "productColour": ["Navy", "Emerald"],
     "productDescription": "Exclusive co-ord sets designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1585487000160-6a2f89a7b1a8?w=800&q=80&auto=format&fit=crop",
-        "public_id": "co-ord_sets_6_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1603400521249-cd6e4b17f900?w=800&q=80&auto=format&fit=crop",
-        "public_id": "co-ord_sets_6_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1583744526277-5fa2e2f3a2b9?w=800&q=80&auto=format&fit=crop",
-        "public_id": "co-ord_sets_6_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "co-ord_sets_6_1" },
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "co-ord_sets_6_2" },
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "co-ord_sets_6_3" }
     ],
-    "productStock": {
-      "Navy": {
-        "S": 12,
-        "M": 12,
-        "L": 2
-      },
-      "Emerald": {
-        "S": 9,
-        "M": 2,
-        "L": 9
-      }
-    },
+    "productStock": { "S": 21, "M": 14, "L": 11 },
     "displayAt": "sale",
     "exchangePolicy": true
   },
@@ -2143,42 +784,15 @@ const products = [
     "productSellingPrice": 8876,
     "productOriginalPrice": 12410,
     "productCategory": "69a2b6279ef7e68ca2e3cfc4",
-    "productSize": [
-      "S",
-      "M",
-      "L"
-    ],
-    "productColour": [
-      "Pink",
-      "Ivory"
-    ],
+    "productSize": ["S", "M", "L"],
+    "productColour": ["Pink", "Ivory"],
     "productDescription": "Exclusive co-ord sets designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1515886657613-9a57f9c8dddf?w=800&q=80&auto=format&fit=crop",
-        "public_id": "co-ord_sets_7_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1585487000160-6a2f89a7b1a8?w=800&q=80&auto=format&fit=crop",
-        "public_id": "co-ord_sets_7_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1603400521249-cd6e4b17f900?w=800&q=80&auto=format&fit=crop",
-        "public_id": "co-ord_sets_7_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "co-ord_sets_7_1" },
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "co-ord_sets_7_2" },
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "co-ord_sets_7_3" }
     ],
-    "productStock": {
-      "Pink": {
-        "S": 4,
-        "M": 7,
-        "L": 11
-      },
-      "Ivory": {
-        "S": 12,
-        "M": 2,
-        "L": 11
-      }
-    },
+    "productStock": { "S": 16, "M": 9, "L": 22 },
     "displayAt": "home",
     "exchangePolicy": true
   },
@@ -2186,42 +800,15 @@ const products = [
     "productName": "Co-ord Sets Premium Edition 8",
     "productSellingPrice": 7144,
     "productCategory": "69a2b6279ef7e68ca2e3cfc4",
-    "productSize": [
-      "S",
-      "M",
-      "L"
-    ],
-    "productColour": [
-      "Black",
-      "Emerald"
-    ],
+    "productSize": ["S", "M", "L"],
+    "productColour": ["Black", "Emerald"],
     "productDescription": "Exclusive co-ord sets designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1583744526277-5fa2e2f3a2b9?w=800&q=80&auto=format&fit=crop",
-        "public_id": "co-ord_sets_8_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1515886657613-9a57f9c8dddf?w=800&q=80&auto=format&fit=crop",
-        "public_id": "co-ord_sets_8_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1585487000160-6a2f89a7b1a8?w=800&q=80&auto=format&fit=crop",
-        "public_id": "co-ord_sets_8_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "co-ord_sets_8_1" },
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "co-ord_sets_8_2" },
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "co-ord_sets_8_3" }
     ],
-    "productStock": {
-      "Black": {
-        "S": 5,
-        "M": 12,
-        "L": 9
-      },
-      "Emerald": {
-        "S": 6,
-        "M": 2,
-        "L": 12
-      }
-    },
+    "productStock": { "S": 11, "M": 14, "L": 21 },
     "displayAt": "home",
     "exchangePolicy": false
   },
@@ -2230,42 +817,15 @@ const products = [
     "productSellingPrice": 13267,
     "productOriginalPrice": 16132,
     "productCategory": "69a2b6279ef7e68ca2e3cfc4",
-    "productSize": [
-      "S",
-      "M",
-      "L"
-    ],
-    "productColour": [
-      "Emerald",
-      "Black"
-    ],
+    "productSize": ["S", "M", "L"],
+    "productColour": ["Emerald", "Black"],
     "productDescription": "Exclusive co-ord sets designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1603400521249-cd6e4b17f900?w=800&q=80&auto=format&fit=crop",
-        "public_id": "co-ord_sets_9_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1583744526277-5fa2e2f3a2b9?w=800&q=80&auto=format&fit=crop",
-        "public_id": "co-ord_sets_9_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1515886657613-9a57f9c8dddf?w=800&q=80&auto=format&fit=crop",
-        "public_id": "co-ord_sets_9_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=800&q=80&auto=format&fit=crop", "public_id": "co-ord_sets_9_1" },
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "co-ord_sets_9_2" },
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "co-ord_sets_9_3" }
     ],
-    "productStock": {
-      "Emerald": {
-        "S": 9,
-        "M": 10,
-        "L": 7
-      },
-      "Black": {
-        "S": 5,
-        "M": 6,
-        "L": 10
-      }
-    },
+    "productStock": { "S": 14, "M": 16, "L": 17 },
     "displayAt": "new-arrivals",
     "exchangePolicy": true
   },
@@ -2273,46 +833,19 @@ const products = [
     "productName": "Co-ord Sets Premium Edition 10",
     "productSellingPrice": 10888,
     "productCategory": "69a2b6279ef7e68ca2e3cfc4",
-    "productSize": [
-      "S",
-      "M",
-      "L"
-    ],
-    "productColour": [
-      "White",
-      "Emerald"
-    ],
+    "productSize": ["S", "M", "L"],
+    "productColour": ["White", "Emerald"],
     "productDescription": "Exclusive co-ord sets designed for modern women with premium finish and elegant tailoring.",
     "productImages": [
-      {
-        "url": "https://images.unsplash.com/photo-1585487000160-6a2f89a7b1a8?w=800&q=80&auto=format&fit=crop",
-        "public_id": "co-ord_sets_10_1"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1603400521249-cd6e4b17f900?w=800&q=80&auto=format&fit=crop",
-        "public_id": "co-ord_sets_10_2"
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1583744526277-5fa2e2f3a2b9?w=800&q=80&auto=format&fit=crop",
-        "public_id": "co-ord_sets_10_3"
-      }
+      { "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop", "public_id": "co-ord_sets_10_1" },
+      { "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80&auto=format&fit=crop", "public_id": "co-ord_sets_10_2" },
+      { "url": "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop", "public_id": "co-ord_sets_10_3" }
     ],
-    "productStock": {
-      "White": {
-        "S": 4,
-        "M": 10,
-        "L": 3
-      },
-      "Emerald": {
-        "S": 5,
-        "M": 9,
-        "L": 12
-      }
-    },
+    "productStock": { "S": 9, "M": 19, "L": 15 },
     "displayAt": "new-arrivals",
     "exchangePolicy": true
   }
-];
+]
 
 async function seed() {
   try {

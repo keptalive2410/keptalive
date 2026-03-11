@@ -1,17 +1,41 @@
+/* FONTS MUST COME FIRST */
+@import url("https://fonts.cdnfonts.com/css/nexa");
+@import url("https://fonts.cdnfonts.com/css/the-seasons");
+
+/* TAILWIND */
 @import "tailwindcss";
 
+/* ROOT VARIABLES */
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* KeptAlive Brand Colors */
+  --ka-black: #000000;
+  --ka-charcoal: #2B2B2B;
+  --ka-grey: #8A8A8A;
+  --ka-light-grey: #BFC3C7;
+
+  /* Fonts */
+  --font-seasons: "The Seasons", serif;
+  --font-nexa: "Nexa", sans-serif;
 }
 
+/* Tailwind Theme Mapping (Tailwind v4 style) */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  --color-ka-black: var(--ka-black);
+  --color-ka-charcoal: var(--ka-charcoal);
+  --color-ka-grey: var(--ka-grey);
+  --color-ka-light-grey: var(--ka-light-grey);
+
+  --font-sans: var(--font-nexa);
+  --font-display: var(--font-seasons);
 }
 
+/* Dark mode */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -19,8 +43,28 @@
   }
 }
 
+/* GLOBAL BODY */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-nexa);
+}
+
+/* FONT UTILITIES */
+.font-seasons {
+  font-family: var(--font-seasons);
+}
+
+.font-nexa {
+  font-family: var(--font-nexa);
+}
+
+/* Hide scrollbar but allow scrolling */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE & Edge */
+  scrollbar-width: none;     /* Firefox */
 }

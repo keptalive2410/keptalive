@@ -1,4 +1,5 @@
 "use client";
+"use client";
 
 import { useState } from "react";
 import { Mail, Lock, Eye, EyeOff, Phone, Chrome } from "lucide-react";
@@ -6,10 +7,15 @@ import { GoogleLogin } from "@react-oauth/google";
 
 export default function LoginPage() {
   const [loginMethod, setLoginMethod] = useState("email"); // 'email' or 'phone'
+  const [loginMethod, setLoginMethod] = useState("email"); // 'email' or 'phone'
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
+    userEmail: "",
+    userNumber: "",
+    userPassword: "",
     userEmail: "",
     userNumber: "",
     userPassword: "",
@@ -18,10 +24,18 @@ export default function LoginPage() {
   const handleInputChange = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
     setError(""); // Clear error on input change
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    setError(""); // Clear error on input change
   };
 
   const validateForm = () => {
     // Validate email or phone based on login method
+    if (loginMethod === "email") {
+      if (
+        !formData.userEmail ||
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.userEmail)
+      ) {
+        setError("Please enter a valid email address");
     if (loginMethod === "email") {
       if (
         !formData.userEmail ||
@@ -36,12 +50,18 @@ export default function LoginPage() {
         !/^\+?[\d\s-()]{10,}$/.test(formData.userNumber)
       ) {
         setError("Please enter a valid phone number");
+      if (
+        !formData.userNumber ||
+        !/^\+?[\d\s-()]{10,}$/.test(formData.userNumber)
+      ) {
+        setError("Please enter a valid phone number");
         return false;
       }
     }
 
     // Validate password
     if (!formData.userPassword || formData.userPassword.length < 8) {
+      setError("Password must be at least 8 characters long");
       setError("Password must be at least 8 characters long");
       return false;
     }
@@ -52,11 +72,13 @@ export default function LoginPage() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
+
     if (!validateForm()) {
       return;
     }
 
     setLoading(true);
+    setError("");
     setError("");
 
     try {
@@ -67,6 +89,7 @@ export default function LoginPage() {
 
       // Add either email or phone
       if (loginMethod === "email") {
+      if (loginMethod === "email") {
         loginData.userEmail = formData.userEmail.toLowerCase();
       } else {
         loginData.userNumber = formData.userNumber;
@@ -74,7 +97,10 @@ export default function LoginPage() {
 
       const response = await fetch("/api/auth/login", {
         method: "POST",
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
         headers: {
+          "Content-Type": "application/json",
           "Content-Type": "application/json",
         },
         body: JSON.stringify(loginData),
@@ -86,12 +112,17 @@ export default function LoginPage() {
         // Success! Store token and redirect
         if (data.token) {
           localStorage.setItem("token", data.token);
+          localStorage.setItem("token", data.token);
         }
+        window.location.href = "/";
         window.location.href = "/";
       } else {
         setError(data.message || "Invalid credentials. Please try again.");
+        setError(data.message || "Invalid credentials. Please try again.");
       }
     } catch (err) {
+      console.error("Login error:", err);
+      setError("An error occurred. Please try again later.");
       console.error("Login error:", err);
       setError("An error occurred. Please try again later.");
     } finally {
@@ -100,17 +131,180 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        {/* Logo Section */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-black text-white rounded-2xl mb-4">
-            <span className="text-3xl font-bold">I</span>
+    <div
+      className="min-h-screen bg-white flex items-center justify-center p-6"
+      style={{ fontFamily: "'Nexa', sans-serif" }}
+    >
+      {/* Google Fonts + Custom Font Import */}
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap');
+        
+        * { box-sizing: border-box; }
+
+        .font-seasons { font-family: 'Cormorant Garamond', 'Georgia', serif; }
+        .font-nexa { font-family: 'Nexa', 'Helvetica Neue', 'Arial', sans-serif; }
+
+        .input-field {
+          width: 100%;
+          padding: 14px 16px 14px 48px;
+          border: 1.5px solid #BFC3C7;
+          border-radius: 6px;
+          font-family: 'Nexa', 'Helvetica Neue', Arial, sans-serif;
+          font-size: 14px;
+          color: #000;
+          background: #fff;
+          outline: none;
+          transition: border-color 0.2s ease;
+          letter-spacing: 0.02em;
+        }
+        .input-field::placeholder { color: #8A8A8A; font-weight: 300; }
+        .input-field:focus { border-color: #000; }
+        .input-field:disabled { background: #f7f7f7; color: #8A8A8A; }
+
+        .toggle-btn {
+          flex: 1;
+          padding: 10px 0;
+          border-radius: 4px;
+          font-family: 'Nexa', sans-serif;
+          font-size: 13px;
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          transition: all 0.2s ease;
+          cursor: pointer;
+          border: none;
+          background: transparent;
+          color: #8A8A8A;
+        }
+        .toggle-btn.active { background: #000; color: #fff; }
+        .toggle-btn:not(.active):hover { color: #2B2B2B; }
+
+        .btn-primary {
+          width: 100%;
+          padding: 15px;
+          background: #000;
+          color: #fff;
+          border: none;
+          border-radius: 6px;
+          font-family: 'Nexa', sans-serif;
+          font-size: 13px;
+          font-weight: 700;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          cursor: pointer;
+          transition: background 0.2s ease, transform 0.1s ease;
+        }
+        .btn-primary:hover:not(:disabled) { background: #2B2B2B; }
+        .btn-primary:active:not(:disabled) { transform: scale(0.995); }
+        .btn-primary:disabled { background: #BFC3C7; cursor: not-allowed; }
+
+        .btn-google {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 12px;
+          padding: 13px 20px;
+          background: #fff;
+          border: 1.5px solid #000;
+          border-radius: 6px;
+          font-family: 'Nexa', sans-serif;
+          font-size: 13px;
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          color: #000;
+          cursor: pointer;
+          transition: background 0.2s ease;
+        }
+        .btn-google:hover { background: #f7f7f7; }
+
+        .divider-line { width: 100%; height: 1px; background: #BFC3C7; }
+        .divider-text {
+          padding: 0 14px;
+          font-family: 'Nexa', sans-serif;
+          font-size: 10px;
+          font-weight: 700;
+          letter-spacing: 0.15em;
+          color: #8A8A8A;
+          white-space: nowrap;
+          text-transform: uppercase;
+        }
+
+        .error-box {
+          background: #fff;
+          border: 1.5px solid #000;
+          border-left: 4px solid #000;
+          border-radius: 4px;
+          padding: 12px 14px;
+        }
+
+        .label-text {
+          display: block;
+          font-family: 'Nexa', sans-serif;
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: #2B2B2B;
+          margin-bottom: 8px;
+        }
+
+        .card-border {
+          border: 1.5px solid #000;
+          border-radius: 10px;
+          background: #fff;
+        }
+
+        .logo-mark {
+          width: 52px;
+          height: 52px;
+          background: #000;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .spin { animation: spin 1s linear infinite; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+      `}</style>
+
+      <div style={{ width: "100%", maxWidth: "420px" }}>
+        {/* Logo & Header */}
+        <div style={{ textAlign: "center", marginBottom: "40px" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginBottom: "20px",
+            }}
+          >
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1
+            className="font-seasons"
+            style={{
+              fontSize: "38px",
+              fontWeight: 700,
+              color: "#000",
+              letterSpacing: "-0.01em",
+              lineHeight: 1.1,
+              marginBottom: "8px",
+            }}
+          >
             Welcome Back
           </h1>
-          <p className="text-gray-600">Login to your Isabella account</p>
+          <p
+            className="font-nexa"
+            style={{
+              fontSize: "13px",
+              fontWeight: 300,
+              color: "#8A8A8A",
+              letterSpacing: "0.04em",
+            }}
+          >
+            Sign in to your KeptAlive account
+          </p>
         </div>
 
         {/* Login Card */}
@@ -147,58 +341,78 @@ export default function LoginPage() {
           </div>
 
           {/* Divider */}
-          <div className="relative mb-6">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t-2 border-gray-200"></div>
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-white text-gray-500 font-medium">
-                OR
-              </span>
-            </div>
+          <div
+            style={{ display: "flex", alignItems: "center", margin: "24px 0" }}
+          >
+            <div className="divider-line" />
+            <span className="divider-text">or</span>
+            <div className="divider-line" />
           </div>
 
-          {/* Login Method Toggle */}
-          <div className="flex gap-2 mb-6 bg-gray-100 p-1 rounded-lg">
+          {/* Toggle */}
+          <div
+            style={{
+              display: "flex",
+              gap: "4px",
+              background: "#f4f4f4",
+              padding: "4px",
+              borderRadius: "6px",
+              marginBottom: "24px",
+            }}
+          >
             <button
               onClick={() => setLoginMethod("email")}
-              className={`flex-1 py-2.5 rounded-md font-semibold transition-all ${
-                loginMethod === "email"
-                  ? "bg-black text-white shadow-md"
-                  : "bg-transparent text-gray-600 hover:text-gray-900"
-              }`}
+              className={`toggle-btn ${loginMethod === "email" ? "active" : ""}`}
             >
               Email
             </button>
             <button
               onClick={() => setLoginMethod("phone")}
-              className={`flex-1 py-2.5 rounded-md font-semibold transition-all ${
-                loginMethod === "phone"
-                  ? "bg-black text-white shadow-md"
-                  : "bg-transparent text-gray-600 hover:text-gray-900"
-              }`}
+              className={`toggle-btn ${loginMethod === "phone" ? "active" : ""}`}
             >
               Phone
             </button>
           </div>
 
-          {/* Login Form */}
-          <form onSubmit={handleLogin} className="space-y-5">
-            {/* Error Message */}
+          {/* Form */}
+          <form
+            onSubmit={handleLogin}
+            style={{ display: "flex", flexDirection: "column", gap: "18px" }}
+          >
+            {/* Error */}
             {error && (
-              <div className="bg-red-50 border-2 border-red-200 rounded-lg p-3">
-                <p className="text-sm text-red-600 font-medium">{error}</p>
+              <div className="error-box">
+                <p
+                  className="font-nexa"
+                  style={{
+                    fontSize: "12px",
+                    fontWeight: 700,
+                    color: "#000",
+                    letterSpacing: "0.02em",
+                  }}
+                >
+                  {error}
+                </p>
               </div>
             )}
 
-            {/* Email/Phone Input */}
+            {/* Email / Phone */}
             {loginMethod === "email" ? (
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Email Address
-                </label>
-                <div className="relative">
-                  <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <label className="label-text">Email Address</label>
+                <div style={{ position: "relative" }}>
+                  <Mail
+                    style={{
+                      position: "absolute",
+                      left: "16px",
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      width: "16px",
+                      height: "16px",
+                      color: "#8A8A8A",
+                      pointerEvents: "none",
+                    }}
+                  />
                   <input
                     type="email"
                     value={formData.userEmail}
@@ -206,7 +420,7 @@ export default function LoginPage() {
                       handleInputChange("userEmail", e.target.value)
                     }
                     placeholder="your.email@example.com"
-                    className="w-full pl-12 pr-4 py-3.5 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-black text-gray-900 placeholder-gray-400 transition-colors"
+                    className="input-field"
                     required
                     disabled={loading}
                   />
@@ -214,11 +428,20 @@ export default function LoginPage() {
               </div>
             ) : (
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Phone Number
-                </label>
-                <div className="relative">
-                  <Phone className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <label className="label-text">Phone Number</label>
+                <div style={{ position: "relative" }}>
+                  <Phone
+                    style={{
+                      position: "absolute",
+                      left: "16px",
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      width: "16px",
+                      height: "16px",
+                      color: "#8A8A8A",
+                      pointerEvents: "none",
+                    }}
+                  />
                   <input
                     type="tel"
                     value={formData.userNumber}
@@ -226,7 +449,7 @@ export default function LoginPage() {
                       handleInputChange("userNumber", e.target.value)
                     }
                     placeholder="+91 98765 43210"
-                    className="w-full pl-12 pr-4 py-3.5 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-black text-gray-900 placeholder-gray-400 transition-colors"
+                    className="input-field"
                     required
                     disabled={loading}
                   />
@@ -234,13 +457,22 @@ export default function LoginPage() {
               </div>
             )}
 
-            {/* Password Input */}
+            {/* Password */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Password
-              </label>
-              <div className="relative">
-                <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <label className="label-text">Password</label>
+              <div style={{ position: "relative" }}>
+                <Lock
+                  style={{
+                    position: "absolute",
+                    left: "16px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    width: "16px",
+                    height: "16px",
+                    color: "#8A8A8A",
+                    pointerEvents: "none",
+                  }}
+                />
                 <input
                   type={showPassword ? "text" : "password"}
                   value={formData.userPassword}
@@ -248,7 +480,8 @@ export default function LoginPage() {
                     handleInputChange("userPassword", e.target.value)
                   }
                   placeholder="Enter your password"
-                  className="w-full pl-12 pr-12 py-3.5 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-black text-gray-900 placeholder-gray-400 transition-colors"
+                  className="input-field"
+                  style={{ paddingRight: "48px" }}
                   required
                   disabled={loading}
                   minLength={8}
@@ -256,43 +489,79 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                   disabled={loading}
+                  style={{
+                    position: "absolute",
+                    right: "16px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                    color: "#8A8A8A",
+                    padding: 0,
+                    display: "flex",
+                    alignItems: "center",
+                  }}
                 >
                   {showPassword ? (
-                    <EyeOff className="w-5 h-5" />
+                    <Eye style={{ width: "16px", height: "16px" }} />
                   ) : (
-                    <Eye className="w-5 h-5" />
+                    <EyeOff style={{ width: "16px", height: "16px" }} />
                   )}
                 </button>
               </div>
             </div>
 
-            {/* Forgot Password */}
-            <div className="flex items-center justify-end">
+            {/* Forgot */}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                marginTop: "-6px",
+              }}
+            >
               <a
                 href="/forgot-password"
-                className="text-sm font-semibold text-gray-900 hover:underline"
+                className="font-nexa"
+                style={{
+                  fontSize: "11px",
+                  fontWeight: 700,
+                  color: "#000",
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  textDecoration: "none",
+                  borderBottom: "1px solid #000",
+                  paddingBottom: "1px",
+                }}
               >
                 Forgot Password?
               </a>
             </div>
 
-            {/* Login Button */}
+            {/* Submit */}
             <button
               type="submit"
               disabled={loading}
-              className={`w-full py-3.5 rounded-lg font-bold shadow-lg hover:shadow-xl transition-all ${
-                loading
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-black text-white hover:bg-gray-800"
-              }`}
+              className="btn-primary"
+              style={{ marginTop: "4px" }}
             >
               {loading ? (
-                <span className="flex items-center justify-center gap-2">
-                  <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                <span
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "10px",
+                  }}
+                >
+                  <svg
+                    className="spin"
+                    style={{ width: "16px", height: "16px" }}
+                    viewBox="0 0 24 24"
+                  >
                     <circle
-                      className="opacity-25"
+                      style={{ opacity: 0.25 }}
                       cx="12"
                       cy="12"
                       r="10"
@@ -301,42 +570,72 @@ export default function LoginPage() {
                       fill="none"
                     />
                     <path
-                      className="opacity-75"
+                      style={{ opacity: 0.75 }}
                       fill="currentColor"
                       d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                     />
                   </svg>
-                  Logging in...
+                  Signing In...
                 </span>
               ) : (
-                "Login"
+                "Sign In"
               )}
             </button>
           </form>
         </div>
 
-        {/* Sign Up Link */}
-        <div className="text-center mt-6">
-          <p className="text-gray-600">
+        {/* Footer Links */}
+        <div style={{ textAlign: "center", marginTop: "28px" }}>
+          <p
+            className="font-nexa"
+            style={{
+              fontSize: "13px",
+              fontWeight: 300,
+              color: "#8A8A8A",
+              letterSpacing: "0.02em",
+            }}
+          >
             Don't have an account?{" "}
             <a
               href="/Signup"
-              className="font-bold text-gray-900 hover:underline"
+              className="font-nexa"
+              style={{
+                fontWeight: 700,
+                color: "#000",
+                textDecoration: "none",
+                borderBottom: "1px solid #000",
+                paddingBottom: "1px",
+              }}
             >
-              Sign Up
+              Create Account
             </a>
           </p>
         </div>
 
         {/* Terms */}
-        <div className="text-center mt-8">
-          <p className="text-xs text-gray-500">
-            By continuing, you agree to Isabella's{" "}
-            <a href="#" className="underline hover:text-gray-700">
+        <div style={{ textAlign: "center", marginTop: "20px" }}>
+          <p
+            className="font-nexa"
+            style={{
+              fontSize: "10px",
+              fontWeight: 300,
+              color: "#BFC3C7",
+              letterSpacing: "0.05em",
+              lineHeight: 1.7,
+            }}
+          >
+            By continuing, you agree to KeptAlive's{" "}
+            <a
+              href="#"
+              style={{ color: "#8A8A8A", textDecoration: "underline" }}
+            >
               Terms of Service
             </a>{" "}
             and{" "}
-            <a href="#" className="underline hover:text-gray-700">
+            <a
+              href="#"
+              style={{ color: "#8A8A8A", textDecoration: "underline" }}
+            >
               Privacy Policy
             </a>
           </p>

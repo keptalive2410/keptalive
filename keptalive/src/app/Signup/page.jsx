@@ -1,51 +1,39 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import {
-  Mail,
-  Lock,
-  Eye,
-  EyeOff,
-  Phone,
-  Chrome,
-  User,
-  Check,
-  MapPin,
-  Home,
-} from "lucide-react";
-import { GoogleLogin } from "@react-oauth/google";
+import { useState } from 'react';
+import { Mail, Lock, Eye, EyeOff, Phone, Chrome, User, Check, MapPin, Home } from 'lucide-react';
 
 export default function SignupPage() {
-  const [signupMethod, setSignupMethod] = useState("email"); // 'email' or 'phone'
+  const [signupMethod, setSignupMethod] = useState('email'); // 'email' or 'phone'
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [formData, setFormData] = useState({
-    userName: "",
-    userEmail: "",
-    userNumber: "",
-    userPassword: "",
-    confirmPassword: "",
-    authProvider: "local",
+    userName: '',
+    userEmail: '',
+    userNumber: '',
+    userPassword: '',
+    confirmPassword: '',
+    authProvider: 'local',
     userAddress: {
-      AddressLine1: "",
-      AddressLine2: "",
-      City: "",
-      State: "",
-      PinCode: "",
-      Country: "India",
-    },
+      AddressLine1: '',
+      AddressLine2: '',
+      City: '',
+      State: '',
+      PinCode: '',
+      Country: 'India'
+    }
   });
   const [passwordStrength, setPasswordStrength] = useState(0);
 
   const handleInputChange = (field, value) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-    setError(""); // Clear error on input change
-
+    setFormData(prev => ({ ...prev, [field]: value }));
+    setError(''); // Clear error on input change
+    
     // Calculate password strength
-    if (field === "userPassword") {
+    if (field === 'userPassword') {
       let strength = 0;
       if (value.length >= 8) strength++;
       if (/[a-z]/.test(value) && /[A-Z]/.test(value)) strength++;
@@ -56,90 +44,72 @@ export default function SignupPage() {
   };
 
   const handleAddressChange = (field, value) => {
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       userAddress: {
         ...prev.userAddress,
-        [field]: value,
-      },
+        [field]: value
+      }
     }));
-    setError("");
+    setError('');
   };
 
   const validateForm = () => {
     // Validate name
     if (!formData.userName || formData.userName.trim().length < 2) {
-      setError("Please enter a valid name (minimum 2 characters)");
+      setError('Please enter a valid name (minimum 2 characters)');
       return false;
     }
 
     // Validate email or phone based on signup method
-    if (signupMethod === "email") {
-      if (
-        !formData.userEmail ||
-        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.userEmail)
-      ) {
-        setError("Please enter a valid email address");
+    if (signupMethod === 'email') {
+      if (!formData.userEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.userEmail)) {
+        setError('Please enter a valid email address');
         return false;
       }
     } else {
-      if (
-        !formData.userNumber ||
-        !/^\+?[\d\s-()]{10,}$/.test(formData.userNumber)
-      ) {
-        setError("Please enter a valid phone number");
+      if (!formData.userNumber || !/^\+?[\d\s-()]{10,}$/.test(formData.userNumber)) {
+        setError('Please enter a valid phone number');
         return false;
       }
     }
 
     // Validate password (minimum 8 characters as per schema)
     if (!formData.userPassword || formData.userPassword.length < 8) {
-      setError("Password must be at least 8 characters long");
+      setError('Password must be at least 8 characters long');
       return false;
     }
 
     // Check password match
     if (formData.userPassword !== formData.confirmPassword) {
-      setError("Passwords do not match");
+      setError('Passwords do not match');
       return false;
     }
 
     // Validate address fields
-    if (
-      !formData.userAddress.AddressLine1 ||
-      formData.userAddress.AddressLine1.trim().length < 3
-    ) {
-      setError("Please enter a valid address line 1");
+    if (!formData.userAddress.AddressLine1 || formData.userAddress.AddressLine1.trim().length < 3) {
+      setError('Please enter a valid address line 1');
       return false;
     }
 
-    if (
-      !formData.userAddress.City ||
-      formData.userAddress.City.trim().length < 2
-    ) {
-      setError("Please enter a valid city");
+    if (!formData.userAddress.City || formData.userAddress.City.trim().length < 2) {
+      setError('Please enter a valid city');
       return false;
     }
 
-    if (
-      !formData.userAddress.State ||
-      formData.userAddress.State.trim().length < 2
-    ) {
-      setError("Please enter a valid state");
+    if (!formData.userAddress.State || formData.userAddress.State.trim().length < 2) {
+      setError('Please enter a valid state');
       return false;
     }
 
-    if (
-      !formData.userAddress.PinCode ||
-      !/^\d{6}$/.test(formData.userAddress.PinCode)
-    ) {
-      setError("Please enter a valid 6-digit pincode");
+    if (!formData.userAddress.PinCode || !/^\d{6}$/.test(formData.userAddress.PinCode)) {
+      setError('Please enter a valid 6-digit pincode');
       return false;
     }
 
     // Check terms agreement
     if (!agreedToTerms) {
-      setError("Please agree to the Terms of Service and Privacy Policy");
+      setError('Please agree to the Terms of Service and Privacy Policy');
       return false;
     }
 
@@ -148,46 +118,43 @@ export default function SignupPage() {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-
+    
     if (!validateForm()) {
       return;
     }
-
+    
     setLoading(true);
-    setError("");
+    setError('');
 
     try {
       // Prepare data according to schema
       const signupData = {
         userName: formData.userName.trim(),
-        userEmail:
-          signupMethod === "email" ? formData.userEmail.toLowerCase() : "",
-        userNumber: signupMethod === "phone" ? formData.userNumber : "",
+        userEmail: signupMethod === 'email' ? formData.userEmail.toLowerCase() : '',
+        userNumber: signupMethod === 'phone' ? formData.userNumber : '',
         userPassword: formData.userPassword,
-        authProvider: "local",
-        userAddress: [
-          {
-            AddressLine1: formData.userAddress.AddressLine1.trim(),
-            AddressLine2: formData.userAddress.AddressLine2.trim(),
-            City: formData.userAddress.City.trim(),
-            State: formData.userAddress.State.trim(),
-            PinCode: formData.userAddress.PinCode.trim(),
-            Country: formData.userAddress.Country,
-          },
-        ],
+        authProvider: 'local',
+        userAddress: [{
+          AddressLine1: formData.userAddress.AddressLine1.trim(),
+          AddressLine2: formData.userAddress.AddressLine2.trim(),
+          City: formData.userAddress.City.trim(),
+          State: formData.userAddress.State.trim(),
+          PinCode: formData.userAddress.PinCode.trim(),
+          Country: formData.userAddress.Country
+        }]
       };
 
       // Make sure at least email or phone is provided
-      if (signupMethod === "phone" && !signupData.userEmail) {
+      if (signupMethod === 'phone' && !signupData.userEmail) {
         // If signing up with phone, you might want to ask for email later
         // or make email optional in your backend
         signupData.userEmail = `${signupData.userNumber}@temp.com`; // Temporary email
       }
 
-      const response = await fetch("/api/auth/signup", {
-        method: "POST",
+      const response = await fetch('/api/auth/signup', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(signupData),
       });
@@ -196,484 +163,505 @@ export default function SignupPage() {
 
       if (response.ok) {
         // Success! Redirect to login or dashboard
-        alert("Account created successfully!");
-        window.location.href = "/login";
+        alert('Account created successfully!');
+        window.location.href = '/login';
       } else {
-        setError(data.message || "Signup failed. Please try again.");
+        setError(data.message || 'Signup failed. Please try again.');
       }
     } catch (err) {
-      console.error("Signup error:", err);
-      setError("An error occurred. Please try again later.");
+      console.error('Signup error:', err);
+      setError('An error occurred. Please try again later.');
     } finally {
       setLoading(false);
     }
   };
 
+  const handleGoogleSignup = async () => {
+    try {
+      // Redirect to Google OAuth
+      // This should be configured in your backend
+      window.location.href = '/api/auth/google';
+    } catch (err) {
+      console.error('Google signup error:', err);
+      setError('Google signup failed. Please try again.');
+    }
+  };
+
   const getPasswordStrengthColor = () => {
-    if (passwordStrength === 0) return "bg-gray-200";
-    if (passwordStrength === 1) return "bg-red-500";
-    if (passwordStrength === 2) return "bg-yellow-500";
-    if (passwordStrength === 3) return "bg-blue-500";
-    return "bg-green-500";
+    if (passwordStrength === 0) return 'bg-gray-200';
+    if (passwordStrength === 1) return 'bg-red-500';
+    if (passwordStrength === 2) return 'bg-yellow-500';
+    if (passwordStrength === 3) return 'bg-blue-500';
+    return 'bg-green-500';
   };
 
   const getPasswordStrengthText = () => {
-    if (passwordStrength === 0) return "";
-    if (passwordStrength === 1) return "Weak";
-    if (passwordStrength === 2) return "Fair";
-    if (passwordStrength === 3) return "Good";
-    return "Strong";
+    if (passwordStrength === 0) return '';
+    if (passwordStrength === 1) return 'Weak';
+    if (passwordStrength === 2) return 'Fair';
+    if (passwordStrength === 3) return 'Good';
+    return 'Strong';
   };
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center p-4 py-12">
-      <div className="w-full max-w-md">
-        {/* Logo Section */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-black text-white rounded-2xl mb-4">
-            <span className="text-3xl font-bold">I</span>
-          </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+    <div className="min-h-screen bg-white flex items-center justify-center p-6 py-14" style={{ fontFamily: "'Nexa', 'Helvetica Neue', Arial, sans-serif" }}>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap');
+
+        * { box-sizing: border-box; }
+
+        .font-seasons { font-family: 'Cormorant Garamond', 'Georgia', serif; }
+        .font-nexa { font-family: 'Nexa', 'Helvetica Neue', Arial, sans-serif; }
+
+        .ka-input {
+          width: 100%;
+          padding: 13px 16px 13px 46px;
+          border: 1.5px solid #BFC3C7;
+          border-radius: 6px;
+          font-family: 'Nexa', 'Helvetica Neue', Arial, sans-serif;
+          font-size: 14px;
+          font-weight: 300;
+          color: #000;
+          background: #fff;
+          outline: none;
+          transition: border-color 0.2s ease;
+          letter-spacing: 0.02em;
+        }
+        .ka-input-bare {
+          width: 100%;
+          padding: 13px 16px;
+          border: 1.5px solid #BFC3C7;
+          border-radius: 6px;
+          font-family: 'Nexa', 'Helvetica Neue', Arial, sans-serif;
+          font-size: 14px;
+          font-weight: 300;
+          color: #000;
+          background: #fff;
+          outline: none;
+          transition: border-color 0.2s ease;
+          letter-spacing: 0.02em;
+        }
+        .ka-input::placeholder,
+        .ka-input-bare::placeholder { color: #8A8A8A; font-weight: 300; }
+        .ka-input:focus, .ka-input-bare:focus { border-color: #000; }
+        .ka-input:disabled, .ka-input-bare:disabled { background: #f7f7f7; color: #8A8A8A; }
+        .ka-input-bare.bg-muted { background: #f4f4f4; color: #8A8A8A; }
+
+        .ka-input-pw { padding-right: 46px; }
+
+        .ka-label {
+          display: block;
+          font-family: 'Nexa', 'Helvetica Neue', Arial, sans-serif;
+          font-size: 10px;
+          font-weight: 700;
+          letter-spacing: 0.13em;
+          text-transform: uppercase;
+          color: #2B2B2B;
+          margin-bottom: 7px;
+        }
+
+        .ka-label-opt {
+          font-size: 9px;
+          font-weight: 300;
+          letter-spacing: 0.08em;
+          color: #8A8A8A;
+          text-transform: none;
+          margin-left: 5px;
+        }
+
+        .ka-icon {
+          position: absolute;
+          left: 15px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 15px;
+          height: 15px;
+          color: #8A8A8A;
+          pointer-events: none;
+        }
+
+        .ka-toggle {
+          flex: 1;
+          padding: 10px 0;
+          border-radius: 4px;
+          font-family: 'Nexa', 'Helvetica Neue', Arial, sans-serif;
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          transition: all 0.2s ease;
+          cursor: pointer;
+          border: none;
+          background: transparent;
+          color: #8A8A8A;
+        }
+        .ka-toggle.active { background: #000; color: #fff; }
+        .ka-toggle:not(.active):hover { color: #2B2B2B; }
+
+        .ka-btn-primary {
+          width: 100%;
+          padding: 15px;
+          background: #000;
+          color: #fff;
+          border: none;
+          border-radius: 6px;
+          font-family: 'Nexa', 'Helvetica Neue', Arial, sans-serif;
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          cursor: pointer;
+          transition: background 0.2s ease, transform 0.1s ease;
+        }
+        .ka-btn-primary:hover:not(:disabled) { background: #2B2B2B; }
+        .ka-btn-primary:active:not(:disabled) { transform: scale(0.995); }
+        .ka-btn-primary:disabled { background: #BFC3C7; cursor: not-allowed; }
+
+        .ka-btn-google {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          padding: 13px 20px;
+          background: #fff;
+          border: 1.5px solid #000;
+          border-radius: 6px;
+          font-family: 'Nexa', 'Helvetica Neue', Arial, sans-serif;
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: #000;
+          cursor: pointer;
+          transition: background 0.2s ease;
+        }
+        .ka-btn-google:hover { background: #f7f7f7; }
+
+        .ka-divider { width: 100%; height: 1px; background: #BFC3C7; }
+        .ka-divider-text {
+          padding: 0 14px;
+          font-family: 'Nexa', 'Helvetica Neue', Arial, sans-serif;
+          font-size: 9px;
+          font-weight: 700;
+          letter-spacing: 0.18em;
+          color: #8A8A8A;
+          white-space: nowrap;
+          text-transform: uppercase;
+        }
+
+        .ka-error {
+          background: #fff;
+          border: 1.5px solid #000;
+          border-left: 3px solid #000;
+          border-radius: 4px;
+          padding: 11px 14px;
+        }
+
+        .ka-section-divider {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          padding: 8px 0 4px;
+        }
+        .ka-section-line { flex: 1; height: 1px; background: #BFC3C7; }
+        .ka-section-label {
+          font-family: 'Cormorant Garamond', 'Georgia', serif;
+          font-size: 16px;
+          font-weight: 600;
+          letter-spacing: 0.04em;
+          color: #000;
+          white-space: nowrap;
+        }
+
+        .ka-strength-bar {
+          height: 2px;
+          flex: 1;
+          border-radius: 2px;
+          transition: background 0.3s ease;
+        }
+
+        .ka-checkbox {
+          width: 18px;
+          height: 18px;
+          border-radius: 3px;
+          border: 1.5px solid #BFC3C7;
+          background: #fff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.15s ease;
+          flex-shrink: 0;
+          margin-top: 1px;
+        }
+        .ka-checkbox.checked { background: #000; border-color: #000; }
+        .ka-checkbox:hover:not(.checked) { border-color: #000; }
+
+        .ka-link {
+          font-weight: 700;
+          color: #000;
+          text-decoration: none;
+          border-bottom: 1px solid #000;
+          padding-bottom: 1px;
+        }
+        .ka-link:hover { border-bottom-color: transparent; }
+
+        .ka-pw-toggle {
+          position: absolute;
+          right: 14px;
+          top: 50%;
+          transform: translateY(-50%);
+          background: none;
+          border: none;
+          cursor: pointer;
+          color: #8A8A8A;
+          padding: 0;
+          display: flex;
+          align-items: center;
+          transition: color 0.15s;
+        }
+        .ka-pw-toggle:hover { color: #2B2B2B; }
+
+        .ka-logo-mark {
+          width: 50px;
+          height: 50px;
+          background: #000;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .spin { animation: spin 1s linear infinite; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .ka-card {
+          border: 1.5px solid #000;
+          border-radius: 10px;
+          background: #fff;
+          padding: 36px 32px;
+        }
+      `}</style>
+
+      <div style={{ width: '100%', maxWidth: '440px' }}>
+
+        {/* Header */}
+        <div style={{ textAlign: 'center', marginBottom: '36px' }}>
+          {/* <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '18px' }}>
+            <div className="ka-logo-mark">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" fill="white"/>
+              </svg>
+            </div>
+          </div> */}
+          <h1 className="font-seasons" style={{ fontSize: '36px', fontWeight: 700, color: '#000', letterSpacing: '-0.01em', lineHeight: 1.1, marginBottom: '8px' }}>
             Create Account
           </h1>
-          <p className="text-gray-600">Join Isabella today</p>
+          <p className="font-nexa" style={{ fontSize: '13px', fontWeight: 300, color: '#8A8A8A', letterSpacing: '0.03em' }}>
+            Join KeptAlive today
+          </p>
         </div>
 
-        {/* Signup Card */}
-        <div className="bg-white border-2 border-black rounded-2xl p-8 shadow-2xl">
-          {/* Google Signup Button */}
-          <div className="mb-6 flex justify-center">
-            <GoogleLogin
-              onSuccess={async (credentialResponse) => {
-                try {
-                  const res = await fetch("/api/auth/google", {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                      token: credentialResponse.credential,
-                    }),
-                  });
+        {/* Card */}
+        <div className="ka-card">
 
-                  const data = await res.json();
+          {/* Google */}
+          <button onClick={handleGoogleSignup} className="ka-btn-google">
+            <Chrome style={{ width: '15px', height: '15px' }} />
+            <span>Sign up with Google</span>
+          </button>
 
-                  if (res.ok) {
-                    window.location.href = "/";
-                  } else {
-                    setError(data.message || "Google login failed");
-                  }
-                } catch (err) {
-                  console.error(err);
-                  setError("Google login failed");
-                }
-              }}
-              onError={() => setError("Google login failed")}
-            />
-          </div>
           {/* Divider */}
-          <div className="relative mb-6">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t-2 border-gray-200"></div>
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-white text-gray-500 font-medium">
-                OR
-              </span>
-            </div>
+          <div style={{ display: 'flex', alignItems: 'center', margin: '22px 0' }}>
+            <div className="ka-divider" />
+            <span className="ka-divider-text">or</span>
+            <div className="ka-divider" />
           </div>
 
-          {/* Signup Method Toggle */}
-          <div className="flex gap-2 mb-6 bg-gray-100 p-1 rounded-lg">
-            <button
-              onClick={() => setSignupMethod("email")}
-              className={`flex-1 py-2.5 rounded-md font-semibold transition-all ${
-                signupMethod === "email"
-                  ? "bg-black text-white shadow-md"
-                  : "bg-transparent text-gray-600 hover:text-gray-900"
-              }`}
-            >
-              Email
-            </button>
-            <button
-              onClick={() => setSignupMethod("phone")}
-              className={`flex-1 py-2.5 rounded-md font-semibold transition-all ${
-                signupMethod === "phone"
-                  ? "bg-black text-white shadow-md"
-                  : "bg-transparent text-gray-600 hover:text-gray-900"
-              }`}
-            >
-              Phone
-            </button>
+          {/* Toggle */}
+          <div style={{ display: 'flex', gap: '4px', background: '#f4f4f4', padding: '4px', borderRadius: '6px', marginBottom: '24px' }}>
+            <button onClick={() => setSignupMethod('email')} className={`ka-toggle ${signupMethod === 'email' ? 'active' : ''}`}>Email</button>
+            <button onClick={() => setSignupMethod('phone')} className={`ka-toggle ${signupMethod === 'phone' ? 'active' : ''}`}>Phone</button>
           </div>
 
-          {/* Signup Form */}
-          <form onSubmit={handleSignup} className="space-y-5">
-            {/* Error Message */}
+          {/* Form */}
+          <form onSubmit={handleSignup} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+
+            {/* Error */}
             {error && (
-              <div className="bg-red-50 border-2 border-red-200 rounded-lg p-3">
-                <p className="text-sm text-red-600 font-medium">{error}</p>
+              <div className="ka-error">
+                <p className="font-nexa" style={{ fontSize: '12px', fontWeight: 700, color: '#000', letterSpacing: '0.02em', margin: 0 }}>{error}</p>
               </div>
             )}
 
-            {/* User Name */}
+            {/* Full Name */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Full Name
-              </label>
-              <div className="relative">
-                <User className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                <input
-                  type="text"
-                  value={formData.userName}
-                  onChange={(e) =>
-                    handleInputChange("userName", e.target.value)
-                  }
-                  placeholder="Your full name"
-                  className="w-full pl-12 pr-4 py-3.5 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-black text-gray-900 placeholder-gray-400 transition-colors"
-                  required
-                  disabled={loading}
-                />
+              <label className="ka-label">Full Name</label>
+              <div style={{ position: 'relative' }}>
+                <User className="ka-icon" />
+                <input type="text" value={formData.userName} onChange={(e) => handleInputChange('userName', e.target.value)} placeholder="Your full name" className="ka-input" required disabled={loading} />
               </div>
             </div>
 
-            {/* Email/Phone Input */}
-            {signupMethod === "email" ? (
+            {/* Email / Phone */}
+            {signupMethod === 'email' ? (
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Email Address
-                </label>
-                <div className="relative">
-                  <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                  <input
-                    type="email"
-                    value={formData.userEmail}
-                    onChange={(e) =>
-                      handleInputChange("userEmail", e.target.value)
-                    }
-                    placeholder="your.email@example.com"
-                    className="w-full pl-12 pr-4 py-3.5 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-black text-gray-900 placeholder-gray-400 transition-colors"
-                    required
-                    disabled={loading}
-                  />
+                <label className="ka-label">Email Address</label>
+                <div style={{ position: 'relative' }}>
+                  <Mail className="ka-icon" />
+                  <input type="email" value={formData.userEmail} onChange={(e) => handleInputChange('userEmail', e.target.value)} placeholder="your.email@example.com" className="ka-input" required disabled={loading} />
                 </div>
               </div>
             ) : (
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Phone Number
-                </label>
-                <div className="relative">
-                  <Phone className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                  <input
-                    type="tel"
-                    value={formData.userNumber}
-                    onChange={(e) =>
-                      handleInputChange("userNumber", e.target.value)
-                    }
-                    placeholder="+91 98765 43210"
-                    className="w-full pl-12 pr-4 py-3.5 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-black text-gray-900 placeholder-gray-400 transition-colors"
-                    required
-                    disabled={loading}
-                  />
+                <label className="ka-label">Phone Number</label>
+                <div style={{ position: 'relative' }}>
+                  <Phone className="ka-icon" />
+                  <input type="tel" value={formData.userNumber} onChange={(e) => handleInputChange('userNumber', e.target.value)} placeholder="+91 98765 43210" className="ka-input" required disabled={loading} />
                 </div>
               </div>
             )}
 
-            {/* Password Input */}
+            {/* Password */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Password
-              </label>
-              <div className="relative">
-                <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                <input
-                  type={showPassword ? "text" : "password"}
-                  value={formData.userPassword}
-                  onChange={(e) =>
-                    handleInputChange("userPassword", e.target.value)
-                  }
-                  placeholder="Create a strong password (min. 8 characters)"
-                  className="w-full pl-12 pr-12 py-3.5 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-black text-gray-900 placeholder-gray-400 transition-colors"
-                  required
-                  disabled={loading}
-                  minLength={8}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
-                  disabled={loading}
-                >
-                  {showPassword ? (
-                    <EyeOff className="w-5 h-5" />
-                  ) : (
-                    <Eye className="w-5 h-5" />
-                  )}
+              <label className="ka-label">Password</label>
+              <div style={{ position: 'relative' }}>
+                <Lock className="ka-icon" />
+                <input type={showPassword ? 'text' : 'password'} value={formData.userPassword} onChange={(e) => handleInputChange('userPassword', e.target.value)} placeholder="Min. 8 characters" className="ka-input ka-input-pw" required disabled={loading} minLength={8} />
+                <button type="button" onClick={() => setShowPassword(!showPassword)} className="ka-pw-toggle" disabled={loading}>
+                  {showPassword ? <Eye style={{ width: '15px', height: '15px' }} /> : <EyeOff style={{ width: '15px', height: '15px' }} />}
                 </button>
               </div>
-
-              {/* Password Strength Indicator */}
               {formData.userPassword && (
-                <div className="mt-2">
-                  <div className="flex gap-1 mb-1">
+                <div style={{ marginTop: '8px' }}>
+                  <div style={{ display: 'flex', gap: '4px', marginBottom: '5px' }}>
                     {[1, 2, 3, 4].map((level) => (
-                      <div
-                        key={level}
-                        className={`h-1.5 flex-1 rounded-full transition-colors ${
-                          level <= passwordStrength
-                            ? getPasswordStrengthColor()
-                            : "bg-gray-200"
-                        }`}
-                      ></div>
+                      <div key={level} className="ka-strength-bar" style={{ background: level <= passwordStrength ? '#000' : '#BFC3C7' }} />
                     ))}
                   </div>
                   {passwordStrength > 0 && (
-                    <p className="text-xs text-gray-600">
-                      Password strength:{" "}
-                      <span className="font-semibold">
-                        {getPasswordStrengthText()}
-                      </span>
+                    <p className="font-nexa" style={{ fontSize: '10px', fontWeight: 300, color: '#8A8A8A', letterSpacing: '0.05em', margin: 0 }}>
+                      Strength: <span style={{ fontWeight: 700, color: '#000' }}>{getPasswordStrengthText()}</span>
                     </p>
                   )}
                 </div>
               )}
             </div>
 
-            {/* Confirm Password Input */}
+            {/* Confirm Password */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Confirm Password
-              </label>
-              <div className="relative">
-                <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                <input
-                  type={showConfirmPassword ? "text" : "password"}
-                  value={formData.confirmPassword}
-                  onChange={(e) =>
-                    handleInputChange("confirmPassword", e.target.value)
-                  }
-                  placeholder="Re-enter your password"
-                  className="w-full pl-12 pr-12 py-3.5 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-black text-gray-900 placeholder-gray-400 transition-colors"
-                  required
-                  disabled={loading}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
-                  disabled={loading}
-                >
-                  {showConfirmPassword ? (
-                    <EyeOff className="w-5 h-5" />
-                  ) : (
-                    <Eye className="w-5 h-5" />
-                  )}
+              <label className="ka-label">Confirm Password</label>
+              <div style={{ position: 'relative' }}>
+                <Lock className="ka-icon" />
+                <input type={showConfirmPassword ? 'text' : 'password'} value={formData.confirmPassword} onChange={(e) => handleInputChange('confirmPassword', e.target.value)} placeholder="Re-enter your password" className="ka-input ka-input-pw" required disabled={loading} />
+                <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="ka-pw-toggle" disabled={loading}>
+                  {showConfirmPassword ? <Eye style={{ width: '15px', height: '15px' }} /> : <EyeOff style={{ width: '15px', height: '15px' }} />}
                 </button>
               </div>
-              {formData.confirmPassword &&
-                formData.userPassword !== formData.confirmPassword && (
-                  <p className="text-xs text-red-600 mt-1">
-                    Passwords do not match
-                  </p>
-                )}
+              {formData.confirmPassword && formData.userPassword !== formData.confirmPassword && (
+                <p className="font-nexa" style={{ fontSize: '10px', fontWeight: 700, color: '#000', letterSpacing: '0.04em', marginTop: '5px' }}>
+                  Passwords do not match
+                </p>
+              )}
             </div>
 
-            {/* Address Section Header */}
-            <div className="pt-4 border-t-2 border-gray-200">
-              <h3 className="text-lg font-bold text-gray-900 mb-4">
-                Delivery Address
-              </h3>
+            {/* Address Section */}
+            <div className="ka-section-divider">
+              <div className="ka-section-line" />
+              <span className="ka-section-label">Delivery Address</span>
+              <div className="ka-section-line" />
             </div>
 
             {/* Address Line 1 */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Address Line 1 <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="text"
-                value={formData.userAddress.AddressLine1}
-                onChange={(e) =>
-                  handleAddressChange("AddressLine1", e.target.value)
-                }
-                placeholder="House/Flat No., Building Name"
-                className="w-full px-4 py-3.5 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-black text-gray-900 placeholder-gray-400 transition-colors"
-                required
-                disabled={loading}
-              />
+              <label className="ka-label">Address Line 1</label>
+              <input type="text" value={formData.userAddress.AddressLine1} onChange={(e) => handleAddressChange('AddressLine1', e.target.value)} placeholder="House / Flat No., Building Name" className="ka-input-bare" required disabled={loading} />
             </div>
 
             {/* Address Line 2 */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Address Line 2{" "}
-                <span className="text-gray-400 text-xs">(Optional)</span>
-              </label>
-              <input
-                type="text"
-                value={formData.userAddress.AddressLine2}
-                onChange={(e) =>
-                  handleAddressChange("AddressLine2", e.target.value)
-                }
-                placeholder="Street, Area, Landmark"
-                className="w-full px-4 py-3.5 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-black text-gray-900 placeholder-gray-400 transition-colors"
-                disabled={loading}
-              />
+              <label className="ka-label">Address Line 2 <span className="ka-label-opt">Optional</span></label>
+              <input type="text" value={formData.userAddress.AddressLine2} onChange={(e) => handleAddressChange('AddressLine2', e.target.value)} placeholder="Street, Area, Landmark" className="ka-input-bare" disabled={loading} />
             </div>
 
-            {/* City and State */}
-            <div className="grid grid-cols-2 gap-4">
+            {/* City + State */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  City <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  value={formData.userAddress.City}
-                  onChange={(e) => handleAddressChange("City", e.target.value)}
-                  placeholder="Mumbai"
-                  className="w-full px-4 py-3.5 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-black text-gray-900 placeholder-gray-400 transition-colors"
-                  required
-                  disabled={loading}
-                />
+                <label className="ka-label">City</label>
+                <input type="text" value={formData.userAddress.City} onChange={(e) => handleAddressChange('City', e.target.value)} placeholder="Mumbai" className="ka-input-bare" required disabled={loading} />
               </div>
-
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  State <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  value={formData.userAddress.State}
-                  onChange={(e) => handleAddressChange("State", e.target.value)}
-                  placeholder="Maharashtra"
-                  className="w-full px-4 py-3.5 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-black text-gray-900 placeholder-gray-400 transition-colors"
-                  required
-                  disabled={loading}
-                />
+                <label className="ka-label">State</label>
+                <input type="text" value={formData.userAddress.State} onChange={(e) => handleAddressChange('State', e.target.value)} placeholder="Maharashtra" className="ka-input-bare" required disabled={loading} />
               </div>
             </div>
 
-            {/* Pincode and Country */}
-            <div className="grid grid-cols-2 gap-4">
+            {/* Pincode + Country */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Pincode <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  value={formData.userAddress.PinCode}
-                  onChange={(e) =>
-                    handleAddressChange("PinCode", e.target.value)
-                  }
-                  placeholder="400001"
-                  maxLength={6}
-                  className="w-full px-4 py-3.5 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-black text-gray-900 placeholder-gray-400 transition-colors"
-                  required
-                  disabled={loading}
-                />
+                <label className="ka-label">Pincode</label>
+                <input type="text" value={formData.userAddress.PinCode} onChange={(e) => handleAddressChange('PinCode', e.target.value)} placeholder="400001" maxLength={6} className="ka-input-bare" required disabled={loading} />
               </div>
-
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Country
-                </label>
-                <input
-                  type="text"
-                  value={formData.userAddress.Country}
-                  onChange={(e) =>
-                    handleAddressChange("Country", e.target.value)
-                  }
-                  className="w-full px-4 py-3.5 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-black text-gray-900 placeholder-gray-400 transition-colors bg-gray-50"
-                  disabled={loading}
-                />
+                <label className="ka-label">Country</label>
+                <input type="text" value={formData.userAddress.Country} onChange={(e) => handleAddressChange('Country', e.target.value)} className="ka-input-bare bg-muted" disabled={loading} />
               </div>
             </div>
 
-            {/* Terms Checkbox */}
-            <div className="flex items-start gap-3">
+            {/* Terms */}
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', paddingTop: '4px' }}>
               <button
                 type="button"
                 onClick={() => setAgreedToTerms(!agreedToTerms)}
-                className={`shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center transition-colors ${
-                  agreedToTerms
-                    ? "bg-black border-black"
-                    : "bg-white border-gray-300 hover:border-black"
-                }`}
+                className={`ka-checkbox ${agreedToTerms ? 'checked' : ''}`}
               >
-                {agreedToTerms && <Check className="w-3.5 h-3.5 text-white" />}
+                {agreedToTerms && <Check style={{ width: '11px', height: '11px', color: '#fff' }} />}
               </button>
-              <label
-                className="text-sm text-gray-600 cursor-pointer"
-                onClick={() => setAgreedToTerms(!agreedToTerms)}
-              >
-                I agree to Isabella's{" "}
-                <a
-                  href="#"
-                  className="font-semibold text-gray-900 underline hover:no-underline"
-                >
-                  Terms of Service
-                </a>{" "}
-                and{" "}
-                <a
-                  href="#"
-                  className="font-semibold text-gray-900 underline hover:no-underline"
-                >
-                  Privacy Policy
-                </a>
-              </label>
+              <p className="font-nexa" style={{ fontSize: '12px', fontWeight: 300, color: '#8A8A8A', letterSpacing: '0.02em', lineHeight: 1.7, margin: 0 }}>
+                I agree to KeptAlive's{' '}
+                <a href="#" className="ka-link" style={{ fontSize: '12px' }}>Terms of Service</a>
+                {' '}and{' '}
+                <a href="#" className="ka-link" style={{ fontSize: '12px' }}>Privacy Policy</a>
+              </p>
             </div>
 
-            {/* Signup Button */}
-            <button
-              type="submit"
-              disabled={loading}
-              className={`w-full py-3.5 rounded-lg font-bold shadow-lg hover:shadow-xl transition-all ${
-                loading
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-black text-white hover:bg-gray-800"
-              }`}
-            >
+            {/* Submit */}
+            <button type="submit" disabled={loading} className="ka-btn-primary" style={{ marginTop: '4px' }}>
               {loading ? (
-                <span className="flex items-center justify-center gap-2">
-                  <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                      fill="none"
-                    />
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    />
+                <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
+                  <svg className="spin" style={{ width: '15px', height: '15px' }} viewBox="0 0 24 24">
+                    <circle style={{ opacity: 0.25 }} cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                    <path style={{ opacity: 0.75 }} fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                   </svg>
                   Creating Account...
                 </span>
               ) : (
-                "Create Account"
+                'Create Account'
               )}
             </button>
+
           </form>
         </div>
 
         {/* Login Link */}
-        <div className="text-center mt-6">
-          <p className="text-gray-600">
-            Already have an account?{" "}
-            <a
-              href="/Login"
-              className="font-bold text-gray-900 hover:underline"
-            >
-              Login
-            </a>
+        <div style={{ textAlign: 'center', marginTop: '28px' }}>
+          <p className="font-nexa" style={{ fontSize: '13px', fontWeight: 300, color: '#8A8A8A', letterSpacing: '0.02em' }}>
+            Already have an account?{' '}
+            <a href="/Login" className="ka-link" style={{ fontSize: '13px' }}>Sign In</a>
           </p>
         </div>
+
+        {/* Terms Fine Print */}
+        <div style={{ textAlign: 'center', marginTop: '18px' }}>
+          <p className="font-nexa" style={{ fontSize: '10px', fontWeight: 300, color: '#BFC3C7', letterSpacing: '0.05em', lineHeight: 1.7 }}>
+            By continuing, you agree to KeptAlive's{' '}
+            <a href="#" style={{ color: '#8A8A8A', textDecoration: 'underline' }}>Terms of Service</a>
+            {' '}and{' '}
+            <a href="#" style={{ color: '#8A8A8A', textDecoration: 'underline' }}>Privacy Policy</a>
+          </p>
+        </div>
+
       </div>
     </div>
   );

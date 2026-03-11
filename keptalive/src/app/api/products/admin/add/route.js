@@ -4,7 +4,7 @@ import { uploadToCloudinary } from "@/lib/services/uploadservice.js";
 import { createProduct } from "@/lib/services/productService.js";
 import cloudinary from "@/lib/services/cloudinary.js";
 
-export const runtime = "nodejs";             // Dont know why
+export const runtime = "nodejs"; // Dont know why
 
 export async function POST(request) {
   await connectDB();
@@ -23,7 +23,6 @@ export async function POST(request) {
     const exchangePolicy = formData.get("exchangePolicy") === "true";
 
     const productSize = JSON.parse(formData.get("productSize"));
-    const productColour = JSON.parse(formData.get("productColour"));
     const productStock = JSON.parse(formData.get("productStock"));
 
     const files = formData.getAll("images");
@@ -32,21 +31,47 @@ export async function POST(request) {
     if (!productName || !productSellingPrice || !productCategory) {
       return NextResponse.json(
         { success: false, message: "Required fields missing" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     if (productOriginalPrice && productOriginalPrice < productSellingPrice) {
       return NextResponse.json(
-        { success: false, message: "Original price must be greater than selling price" },
-        { status: 400 }
+        {
+          success: false,
+          message: "Original price must be greater than selling price",
+        },
+        { status: 400 },
       );
+    }
+
+    if (!productSize || !productStock) {
+      return NextResponse.json(
+        { success: false, message: "Size and stock required" },
+        { status: 400 },
+      );
+    }
+
+    for (const size of productSize) {
+      if (!(size in productStock)) {
+        return NextResponse.json(
+          { success: false, message: `Stock missing for size ${size}` },
+          { status: 400 },
+        );
+      }
+
+      if (typeof productStock[size] !== "number" || productStock[size] < 0) {
+        return NextResponse.json(
+          { success: false, message: `Invalid stock for size ${size}` },
+          { status: 400 },
+        );
+      }
     }
 
     if (!files.length) {
       return NextResponse.json(
         { success: false, message: "At least one image required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -56,9 +81,11 @@ export async function POST(request) {
 
       uploadedImages.push({
         url: result.secure_url,
-        public_id: result.public_id
+        public_id: result.public_id,
       });
     }
+
+    const stockMap = new Map(Object.entries(productStock));
 
     // ---------- CREATE PRODUCT ----------
     const product = await createProduct({
@@ -67,21 +94,18 @@ export async function POST(request) {
       productOriginalPrice,
       productCategory,
       productSize,
-      productColour,
       productDescription,
       productImages: uploadedImages,
-      productStock,
+      productStock: stockMap,
       displayAt,
-      exchangePolicy
+      exchangePolicy,
     });
 
     return NextResponse.json({
       success: true,
-      product
+      product,
     });
-
   } catch (error) {
-
     // 🔥 Rollback images if DB fails
     for (const img of uploadedImages) {
       await cloudinary.uploader.destroy(img.public_id);
@@ -91,7 +115,7 @@ export async function POST(request) {
 
     return NextResponse.json(
       { success: false, message: "Server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
