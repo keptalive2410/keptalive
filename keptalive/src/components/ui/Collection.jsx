@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
-// import Image from "next/image";
+import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const tabs = [
   { id: "home", label: "Collection" },
@@ -12,21 +11,36 @@ const tabs = [
   { id: "sale", label: "SALE" },
 ];
 
+const mobileTabs = tabs.filter((t) => t.id !== "sale");
 
 export default function CollectionsSection() {
   const [activeTab, setActiveTab] = useState("home");
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const carouselRef = useRef(null);
+
+  useEffect(() => {
+    const el = carouselRef.current;
+    if (!el) return;
+    const handleScroll = () => {
+      const index = Math.round(el.scrollLeft / el.offsetWidth);
+      setActiveIndex(index);
+    };
+    el.addEventListener("scroll", handleScroll, { passive: true });
+    return () => el.removeEventListener("scroll", handleScroll);
+  }, [products]);
+
+  // Reset index when tab changes
+  useEffect(() => {
+    setActiveIndex(0);
+  }, [activeTab]);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-
-        const res = await fetch(
-          `/api/products?displayAt=${activeTab}&limit=8`
-        );
-
+        const res = await fetch(`/api/products?displayAt=${activeTab}&limit=4`);
         const data = await res.json();
         setProducts(data.products || []);
       } catch (error) {
@@ -35,126 +49,205 @@ export default function CollectionsSection() {
         setLoading(false);
       }
     };
-
     fetchProducts();
   }, [activeTab]);
 
-  const scrollCarousel = (direction) => {
-    const carousel = document.getElementById("product-carousel");
-    if (carousel) {
-      const scrollAmount = direction === "left" ? -400 : 400;
-      carousel.scrollBy({ left: scrollAmount, behavior: "smooth" });
-    }
-  };
-
   return (
-    <section className="py-16 px-4 bg-linear-to-b from-gray-50 to-white">
-      <div className="max-w-7xl mx-auto">
-        {/* Section Title */}
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-serif mb-3 text-black">COLLECTIONS</h2>
-          <div className="w-16 h-0.5 bg-gray-400 mx-auto"></div>
+    <section className="py-2 bg-white">
+      <div className="w-full">
+        {/* Title */}
+        <div className="text-center mb-5">
+          <h2
+            className="text-[clamp(2rem,5vw,3.2rem)] font-bold text-black tracking-wide mb-4"
+            style={{ fontFamily: "'The Seasons', serif" }}
+          >
+            Collections
+          </h2>
         </div>
 
-        {/* Tabs Navigation */}
-        <div className="flex justify-center items-center mb-12 flex-wrap gap-4">
-          {tabs.map((tab) => (
+        {/* Tabs — mobile: 3 tabs, desktop: all 4 */}
+        <div className="md:hidden flex justify-start items-center mb-8 gap-2 overflow-x-auto px-4 pb-1 no-scrollbar">
+          <style>{`.no-scrollbar::-webkit-scrollbar { display: none; }`}</style>
+          {mobileTabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-6 py-2 text-sm tracking-wider transition-all duration-300 ${activeTab === tab.id
-                ? "bg-black text-white"
-                : "bg-gray-100 text-gray-800 hover:bg-gray-200"
-                }`}
+              className={`flex-shrink-0 px-5 py-2 text-[0.65rem] font-bold tracking-[0.16em] transition-all duration-200 ${
+                activeTab === tab.id
+                  ? "bg-black text-white"
+                  : "border border-[#BFC3C7] text-[#2B2B2B] hover:border-black hover:text-black"
+              }`}
+              style={{ fontFamily: "'Nexa', sans-serif" }}
             >
-              {tab.label}
+              {tab.label.toUpperCase()}
             </button>
           ))}
         </div>
 
-        {/* Products Carousel */}
-        <div className="relative">
-          {/* Left Arrow */}
-          <button
-            onClick={() => scrollCarousel("left")}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-10 h-10 bg-white shadow-lg rounded-full flex items-center justify-center hover:bg-gray-50 transition-all"
-            aria-label="Scroll left"
-          >
-            <ChevronLeft size={20} />
-          </button>
+        <div className="hidden md:flex justify-center items-center mb-8 gap-2 flex-wrap px-4">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex-shrink-0 px-5 py-2 text-[0.65rem] font-bold tracking-[0.16em] transition-all duration-200 ${
+                activeTab === tab.id
+                  ? "bg-black text-white"
+                  : "border border-[#BFC3C7] text-[#2B2B2B] hover:border-black hover:text-black"
+              }`}
+              style={{ fontFamily: "'Nexa', sans-serif" }}
+            >
+              {tab.label.toUpperCase()}
+            </button>
+          ))}
+        </div>
 
-          {/* Right Arrow */}
-          <button
-            onClick={() => scrollCarousel("right")}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-10 h-10 bg-white shadow-lg rounded-full flex items-center justify-center hover:bg-gray-50 transition-all"
-            aria-label="Scroll right"
-          >
-            <ChevronRight size={20} />
-          </button>
-
-          {/* Products Grid */}
-          <div
-            id="product-carousel"
-            className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth pb-4"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-          >
-            {products?.map((product) => (
-              <div
-                key={product._id}
-                className="shrink-0 w-72 group cursor-pointer"
-              >
-                <Link href={`/products/${product.slug}`}>
-                  {/* Product Image */}
-                  <div className="relative aspect-3/4 mb-4 overflow-hidden bg-gray-100">
-                    <img
-                      src={product.productImages[0].url}
-                      alt={product.productName}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-
-                    {/* Sold Out Badge */}
-                    {product.soldOut && (
-                      <div className="absolute top-4 right-4 bg-white px-3 py-1 text-xs tracking-wider">
-                        SOLD OUT
-                      </div>
-                    )}
-
-                    {/* Hover Overlay */}
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300" />
-                  </div>
-
-                  {/* Product Info */}
-                  <div className="text-center">
-                    <h3 className="text-gray-600 text-sm mb-2 group-hover:text-gray-800 transition-colors">
-                      {product.productName}
-                    </h3>
-                    <div className="flex items-center justify-center gap-2">
-                      {product.productOriginalPrice && (
-                        <span className="text-sm text-gray-600 line-through">
-                          {product.productOriginalPrice}
-                        </span>
-                      )}
-                      <span className="text-sm font-semibold text-gray-500">
-                        {product.productSellingPrice}
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              </div>
-            ))}
+        {/* Loading */}
+        {loading && (
+          <div className="flex justify-center py-20">
+            <p
+              className="text-[0.75rem] font-light text-[#8A8A8A] tracking-widest"
+              style={{ fontFamily: "'Nexa', sans-serif" }}
+            >
+              LOADING...
+            </p>
           </div>
-        </div>
+        )}
 
-        {/* View All Button */}
-        <div className="text-center mt-12">
-          <Link
-            href={`/products/type/${activeTab}`}
-            className="inline-block px-8 py-3 bg-black text-white text-sm uppercase tracking-wider hover:bg-gray-800 transition-all duration-300"
-          >
-            View All {tabs.find((t) => t.id === activeTab)?.label}
-          </Link>
-        </div>
+        {/* Products */}
+        {!loading && (
+          <>
+            {/* Mobile: full-width snap carousel */}
+            <div className="md:hidden">
+              <div
+                ref={carouselRef}
+                className="flex overflow-x-auto snap-x snap-mandatory no-scrollbar"
+                style={{ scrollbarWidth: "none" }}
+              >
+                {products?.map((product) => (
+                  <Link
+                    key={product._id}
+                    href={`/products/${product.slug}`}
+                    className="flex-shrink-0 w-full snap-center group px-4"
+                  >
+                    <div
+                      className="relative overflow-hidden bg-[#f4f4f4] w-full mb-4"
+                      style={{ aspectRatio: "3/4" }}
+                    >
+                      <Image
+                        src={product.productImages[0].url}
+                        alt={product.productName}
+                        fill
+                        sizes="100vw"
+                        className="object-cover"
+                      />
+                      {product.soldOut && (
+                        <div
+                          className="absolute top-3 left-3 bg-black text-white px-2.5 py-1 text-[0.62rem] font-bold tracking-widest"
+                          style={{ fontFamily: "'Nexa', sans-serif" }}
+                        >
+                          SOLD OUT
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="flex flex-col items-center gap-1 pb-6">
+                      <p
+                        className="text-[0.95rem] font-light text-[#2B2B2B] tracking-wide leading-snug text-center"
+                        style={{ fontFamily: "'Nexa', sans-serif" }}
+                      >
+                        {product.productName}
+                      </p>
+                      <div className="flex items-center justify-center gap-2 mt-0.5">
+                        <span
+                          className="text-[0.85rem] font-bold text-black"
+                          style={{ fontFamily: "'Nexa', sans-serif" }}
+                        >
+                          Rs. {product.productSellingPrice?.toLocaleString()}
+                        </span>
+                        {product.productOriginalPrice && (
+                          <span
+                            className="text-[0.75rem] font-light text-[#8A8A8A] line-through"
+                            style={{ fontFamily: "'Nexa', sans-serif" }}
+                          >
+                            Rs. {product.productOriginalPrice?.toLocaleString()}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+
+              {/* Dynamic scroll indicator */}
+              <div className="flex justify-center px-8 mt-3">
+                <div className="w-[160px] h-[2px] bg-[#BFC3C7] rounded-full relative">
+                  <div
+                    className="absolute top-0 left-0 h-full bg-black rounded-full transition-all duration-300"
+                    style={{
+                      width: `${100 / (products?.length || 1)}%`,
+                      transform: `translateX(${activeIndex * 100}%)`,
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Desktop: 4-column grid */}
+            <div className="hidden md:grid grid-cols-4 gap-2 px-6">
+              {products?.map((product) => (
+                <div key={product._id} className="group cursor-pointer">
+                  <Link href={`/products/${product.slug}`}>
+                    <div
+                      className="relative overflow-hidden bg-[#f4f4f4] rounded-2xl mb-3"
+                      style={{ aspectRatio: "3/4" }}
+                    >
+                      <Image
+                        src={product.productImages[0].url}
+                        alt={product.productName}
+                        fill
+                        sizes="25vw"
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      {product.soldOut && (
+                        <div
+                          className="absolute top-3 left-3 bg-black text-white px-2.5 py-1 text-[0.62rem] font-bold tracking-widest"
+                          style={{ fontFamily: "'Nexa', sans-serif" }}
+                        >
+                          SOLD OUT
+                        </div>
+                      )}
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-all duration-300 rounded-2xl" />
+                    </div>
+                    <div className="px-1 flex flex-col gap-1">
+                      <p
+                        className="text-[0.8rem] font-light text-[#2B2B2B] tracking-wide leading-snug group-hover:underline underline-offset-2 line-clamp-2"
+                        style={{ fontFamily: "'Nexa', sans-serif" }}
+                      >
+                        {product.productName}
+                      </p>
+                      <div className="flex items-center gap-2">
+                        <span
+                          className="text-[0.82rem] font-bold text-black"
+                          style={{ fontFamily: "'Nexa', sans-serif" }}
+                        >
+                          Rs. {product.productSellingPrice?.toLocaleString()}
+                        </span>
+                        {product.productOriginalPrice && (
+                          <span
+                            className="text-[0.72rem] font-light text-[#8A8A8A] line-through"
+                            style={{ fontFamily: "'Nexa', sans-serif" }}
+                          >
+                            Rs. {product.productOriginalPrice?.toLocaleString()}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </section>
   );

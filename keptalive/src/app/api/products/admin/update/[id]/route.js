@@ -19,7 +19,7 @@ export async function PUT(request, context) {
     if (!product) {
       return NextResponse.json(
         { success: false, message: "Product Not Found" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -33,7 +33,6 @@ export async function PUT(request, context) {
     const exchangePolicyRaw = formData.get("exchangePolicy");
 
     const productSizeRaw = formData.get("productSize");
-    const productColourRaw = formData.get("productColour");
     const productStockRaw = formData.get("productStock");
     const imagesToRemoveRaw = formData.get("imagesToRemove");
 
@@ -46,7 +45,7 @@ export async function PUT(request, context) {
       }
 
       product.productImages = product.productImages.filter(
-        (img) => !imagesToRemove.includes(img.public_id)
+        (img) => !imagesToRemove.includes(img.public_id),
       );
     }
 
@@ -67,8 +66,7 @@ export async function PUT(request, context) {
     product.productImages.push(...uploadedImages);
 
     // ---------- UPDATE FIELDS ----------
-    if (productName !== null)
-      product.productName = productName;
+    if (productName !== null) product.productName = productName;
 
     if (productSellingPriceRaw !== null)
       product.productSellingPrice = Number(productSellingPriceRaw);
@@ -76,26 +74,28 @@ export async function PUT(request, context) {
     if (productOriginalPriceRaw !== null)
       product.productOriginalPrice = Number(productOriginalPriceRaw);
 
-    if (productCategory !== null)
-      product.productCategory = productCategory;
+    if (productCategory !== null) product.productCategory = productCategory;
 
     if (productDescription !== null)
       product.productDescription = productDescription;
 
-    if (displayAt !== null)
-      product.displayAt = displayAt;
+    if (displayAt !== null) product.displayAt = displayAt;
 
     if (exchangePolicyRaw !== null)
       product.exchangePolicy = exchangePolicyRaw === "true";
 
-    if (productSizeRaw)
-      product.productSize = JSON.parse(productSizeRaw);
+    if (productSizeRaw) {
+      const parsedSize = JSON.parse(productSizeRaw);
+      product.productSize = parsedSize;
+    }
+    
+    if (productStockRaw) {
+      const parsedStock = JSON.parse(productStockRaw);
 
-    if (productColourRaw)
-      product.productColour = JSON.parse(productColourRaw);
+      const stockMap = new Map(Object.entries(parsedStock));
 
-    if (productStockRaw)
-      product.productStock = JSON.parse(productStockRaw);
+      product.productStock = stockMap;
+    }
 
     await product.save();
 
@@ -103,9 +103,7 @@ export async function PUT(request, context) {
       success: true,
       product,
     });
-
   } catch (error) {
-
     // Rollback newly uploaded images
     for (const img of uploadedImages) {
       await cloudinary.uploader.destroy(img.public_id);
@@ -115,7 +113,7 @@ export async function PUT(request, context) {
 
     return NextResponse.json(
       { success: false, message: "Server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

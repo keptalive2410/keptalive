@@ -33,10 +33,10 @@ const ProductSchema = new mongoose.Schema({
       required: true,
     },
 
-    productColour: {
-      type: [String],
-      default: [],
-    },
+    // productColour: {
+    //   type: [String],
+    //   default: [],
+    // },
 
     productDescription: {           // To be changed
       type: String,
@@ -55,13 +55,19 @@ const ProductSchema = new mongoose.Schema({
       }
     ],
 
+    // productStock: {
+    //   type: Map,
+    //   of: {
+    //     type: Map,
+    //     of: Number,
+    //   },
+    //   required: true,
+    // },
+
     productStock: {
       type: Map,
-      of: {
-        type: Map,
-        of: Number,
-      },
-      required: true,
+      of: Number,
+      required: true
     },
 
     displayAt: {

@@ -15,7 +15,7 @@ export async function POST(request) {
     const { items } = await request.json();
 
     for (const item of items) {
-      const { productID, color, size, quantity } = item;
+      const { productID, size, quantity } = item;
 
       const product = await Product.findById(productID).session(session);
 

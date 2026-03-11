@@ -27,35 +27,41 @@ export default function FeaturesSection() {
   return (
     <section className="pt-4 pb-12 px-4 bg-white">
       <div className="max-w-7xl mx-auto">
+
         {/* Section Title */}
-        <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-3xl font-serif tracking-wide text-gray-900">
+        <div className="text-center mb-4">
+          <h2
+            className="text-[clamp(1.4rem,3vw,2rem)] font-bold text-black tracking-wide"
+            style={{ fontFamily: "'The Seasons', serif" }}
+          >
             Why Shop With Us
           </h2>
-          <div className="w-12 h-0.5 bg-black mx-auto mt-3"></div>
+          <div className="w-10 h-px bg-black mx-auto mt-2" />
         </div>
 
         <div className="grid md:grid-cols-3 gap-12">
           {features.map((feature) => (
             <div key={feature.id} className="text-center">
+
               {/* Icon */}
-              <div className="flex justify-center mb-4">
+              <div className="flex justify-center mb-5">
                 <feature.icon
-                  size={48}
+                  size={44}
                   strokeWidth={1}
-                  className="text-gray-700"
+                  className="text-[#2B2B2B]"
                 />
               </div>
 
               {/* Title */}
-              <h3 className="text-lg md:text-xl font-serif mb-3 tracking-wide text-gray-600">
+              <h3 className="text-[0.82rem] font-bold tracking-[0.14em] text-black mb-3">
                 {feature.title}
               </h3>
 
               {/* Description */}
-              <p className="text-sm md:text-base text-gray-600 leading-relaxed">
+              <p className="text-[0.78rem] font-light text-[#8A8A8A] leading-relaxed tracking-wide">
                 {feature.description}
               </p>
+
             </div>
           ))}
         </div>

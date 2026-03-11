@@ -1,50 +1,52 @@
 const mongoose = require("mongoose");
 
-const cartSchema = new mongoose.Schema({
-  productID:{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Products",
-    required: true
+const cartSchema = new mongoose.Schema(
+  {
+    productID: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Products",
+      required: true,
+    },
+    productQuantity: {
+      type: Number,
+      required: true,
+    },
+    productSize: {
+      type: String,
+      required: true,
+    },
   },
-  productQuantity:{
-    type: Number,
-    required: true
-  },
-  productColor:{
-    type: String,
-    required: true
-  },
-  productSize: {
-    type: String,
-    required: true
-  }
-}, {_id: false});
+  { _id: false },
+);
 
-const AddressSchema = new mongoose.Schema({
-  AddressLine1: {
-    type: String,
-    required: true
+const AddressSchema = new mongoose.Schema(
+  {
+    AddressLine1: {
+      type: String,
+      required: true,
+    },
+    AddressLine2: {
+      type: String,
+    },
+    State: {
+      type: String,
+      required: true,
+    },
+    City: {
+      type: String,
+      required: true,
+    },
+    PinCode: {
+      type: String,
+      required: true,
+    },
+    Country: {
+      type: String,
+      default: "India",
+    },
   },
-  AddressLine2: {
-    type: String,
-  },
-  State: {
-    type: String,
-    required: true
-  },
-  City: {
-    type: String,
-    required: true
-  },
-  PinCode: {
-    type: String,
-    required: true
-  },
-  Country: {
-    type: String,
-    default: "India"
-  }
-}, {_id: false});
+  { _id: false },
+);
 
 const userSchema = new mongoose.Schema({
   userName: {
@@ -61,12 +63,12 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
     lowercase: true,
-    index: true
+    index: true,
   },
 
   userAddress: {
     type: [AddressSchema],
-    default: []
+    default: [],
   },
 
   userPassword: {
@@ -77,20 +79,20 @@ const userSchema = new mongoose.Schema({
   authProvider: {
     type: String,
     enum: ["local", "google"],
-    default: "local"
+    default: "local",
   },
 
   googleId: {
     type: String,
     unique: true,
-    sparse: true
+    sparse: true,
   },
 
   userRole: {
     type: String,
     enum: ["user", "admin"],
     default: "user",
-    index: true
+    index: true,
   },
 
   resetToken: String,
@@ -101,10 +103,18 @@ const userSchema = new mongoose.Schema({
     default: Date.now,
   },
 
-  cartData:{
+  cartData: {
     type: [cartSchema],
-    default: []
-  }
+    default: [],
+  },
+
+  wishListData: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Products",
+    },
+  ],
 });
 
-export default mongoose.models.User || mongoose.model("User", userSchema);
+const User = mongoose.models.User || mongoose.model("User", userSchema);
+export default User;
