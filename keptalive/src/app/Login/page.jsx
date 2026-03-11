@@ -1,5 +1,4 @@
 "use client";
-"use client";
 
 import { useState } from "react";
 import { Mail, Lock, Eye, EyeOff, Phone, Chrome } from "lucide-react";
@@ -7,15 +6,10 @@ import { GoogleLogin } from "@react-oauth/google";
 
 export default function LoginPage() {
   const [loginMethod, setLoginMethod] = useState("email"); // 'email' or 'phone'
-  const [loginMethod, setLoginMethod] = useState("email"); // 'email' or 'phone'
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
-    userEmail: "",
-    userNumber: "",
-    userPassword: "",
     userEmail: "",
     userNumber: "",
     userPassword: "",
@@ -24,18 +18,10 @@ export default function LoginPage() {
   const handleInputChange = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
     setError(""); // Clear error on input change
-    setFormData((prev) => ({ ...prev, [field]: value }));
-    setError(""); // Clear error on input change
   };
 
   const validateForm = () => {
     // Validate email or phone based on login method
-    if (loginMethod === "email") {
-      if (
-        !formData.userEmail ||
-        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.userEmail)
-      ) {
-        setError("Please enter a valid email address");
     if (loginMethod === "email") {
       if (
         !formData.userEmail ||
@@ -50,18 +36,12 @@ export default function LoginPage() {
         !/^\+?[\d\s-()]{10,}$/.test(formData.userNumber)
       ) {
         setError("Please enter a valid phone number");
-      if (
-        !formData.userNumber ||
-        !/^\+?[\d\s-()]{10,}$/.test(formData.userNumber)
-      ) {
-        setError("Please enter a valid phone number");
         return false;
       }
     }
 
     // Validate password
     if (!formData.userPassword || formData.userPassword.length < 8) {
-      setError("Password must be at least 8 characters long");
       setError("Password must be at least 8 characters long");
       return false;
     }
@@ -79,7 +59,6 @@ export default function LoginPage() {
 
     setLoading(true);
     setError("");
-    setError("");
 
     try {
       // Prepare login data according to schema
@@ -87,8 +66,6 @@ export default function LoginPage() {
         userPassword: formData.userPassword,
       };
 
-      // Add either email or phone
-      if (loginMethod === "email") {
       if (loginMethod === "email") {
         loginData.userEmail = formData.userEmail.toLowerCase();
       } else {
@@ -97,10 +74,7 @@ export default function LoginPage() {
 
       const response = await fetch("/api/auth/login", {
         method: "POST",
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
         headers: {
-          "Content-Type": "application/json",
           "Content-Type": "application/json",
         },
         body: JSON.stringify(loginData),
@@ -112,17 +86,12 @@ export default function LoginPage() {
         // Success! Store token and redirect
         if (data.token) {
           localStorage.setItem("token", data.token);
-          localStorage.setItem("token", data.token);
         }
-        window.location.href = "/";
         window.location.href = "/";
       } else {
         setError(data.message || "Invalid credentials. Please try again.");
-        setError(data.message || "Invalid credentials. Please try again.");
       }
     } catch (err) {
-      console.error("Login error:", err);
-      setError("An error occurred. Please try again later.");
       console.error("Login error:", err);
       setError("An error occurred. Please try again later.");
     } finally {
