@@ -1,9 +1,10 @@
-"use client";
+ "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { X, Tag, Gift } from "lucide-react";
+import { X, Heart } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import toast from "react-hot-toast";
 
 export default function CartPage() {
   const [showAddressModal, setShowAddressModal] = useState(false);
@@ -27,37 +28,56 @@ export default function CartPage() {
   const [cartCount, setCartCount] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchCart = async () => {
-      try {
-        const res = await fetch("/api/cart", {
-          method: "GET"
-        });
+  const fetchCart = async () => {
+    try {
+      const res = await fetch("/api/cart", {
+        method: "GET"
+      });
 
-        const data = await res.json();
+      const data = await res.json();
 
-        if (data.success) {
-          setCartItems(data.cart);
-          setCartTotal(data.cartTotal);
-        }
-
-        setLoading(false);
-      } catch (error) {
-        console.error(error);
-        setLoading(false);
+      if (data.success) {
+        setCartItems(data.cart);
+        setCartTotal(data.cartTotal);
       }
-    };
 
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchCart();
   }, []);
 
 
-  const removeItem = (productID, size) => {
-    setCartItems(prev =>
-      prev.filter(
-        item => !(item.productID === productID && item.size === size)
-      )
-    );
+  const removeItem = async (productID, size) => {
+    try {
+      const res = await fetch("/api/cart/delete", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          productID,
+          productSize: size,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        toast.success("Product removed from cart");
+        fetchCart();
+      }else{
+        toast.error("Product removal failed");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong");
+    }
   };
 
   const totalMRP = cartItems.reduce(
@@ -132,7 +152,8 @@ export default function CartPage() {
             <div className="lg:col-span-2 space-y-4">
               {/* Items Selection Header */}
               <div className="bg-white border border-[#BFC3C7] p-4">
-              
+                <h1 className="text-black text-2xl text-center">Your Products</h1>
+
                 {/* Cart Items */}
                 <div className="space-y-6">
                   {cartItems?.map((item) => (
@@ -178,12 +199,23 @@ export default function CartPage() {
                                 ✓ 7 days return available
                               </p>
                             </div>
-                            <button
-                              onClick={() => removeItem(item.productID , item.size)}
-                              className="text-[#BFC3C7] hover:text-black transition"
-                            >
-                              <X className="w-4 h-4" />
-                            </button>
+                            <div className="flex items-center gap-3">
+                              <button
+                                title="Move to wishlist"
+                                onClick={() => moveToWishlist(item.productID, item.size)}
+                                className="text-[#BFC3C7] hover:text-black transition"
+                              >
+                                <Heart className="w-6 h-6" />
+                              </button>
+
+                              <button
+                                title="Remove from cart"
+                                onClick={() => removeItem(item.productID, item.size)}
+                                className="text-[#BFC3C7] hover:text-black transition"
+                              >
+                                <X className="w-6 h-6" />
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>

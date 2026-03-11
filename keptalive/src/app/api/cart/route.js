@@ -43,7 +43,6 @@ export async function GET() {
 
     const formattedCart = cart.map((item) => {
       const product = item.productID;
-      console.log(product);
 
       const price = product.productSellingPrice;
 
