@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import toast from "react-hot-toast";
 import Navbar from "@/components/layout/Navbar"
 import Footer from "@/components/layout/Footer"
 import {
@@ -102,8 +103,10 @@ export default function ProfilePage() {
       if (!res.ok) throw new Error(data.message)
       setProfileData(data.user)
       setIsEditing(false)
+      toast.success("Profile updated successfully");
     } catch (error) {
       console.error(error)
+      toast.error("Profile update failed");
     }
   }
 
@@ -172,8 +175,10 @@ export default function ProfilePage() {
     try {
       await fetch("/api/auth/logout", { method: "POST" })
       window.location.href = "/Login"
+      toast.success("Logged out successfully");
     } catch (error) {
       console.error("Logout failed:", error)
+      toast.error("Logout failed");
     }
   }
 

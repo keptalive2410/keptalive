@@ -5,6 +5,9 @@ import { Heart, ChevronLeft, ChevronRight } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { useParams, useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import { useCart } from "@/context/CartContext";
+
 
 export default function ProductPage() {
   const [selectedSize, setSelectedSize] = useState("S");
@@ -16,6 +19,7 @@ export default function ProductPage() {
   const [activeSlide, setActiveSlide] = useState(0);
   const { slug } = useParams();
   const router = useRouter();
+  const {incrementCart, incrementWishlist, decrementWishlist} = useCart();
 
   useEffect(() => {
     if (!slug) return;
@@ -79,10 +83,25 @@ export default function ProductPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ productID: product._id }),
       });
+
       const data = await res.json();
-      if (data.success) setWishlist(data.action === "added");
+
+      if (data.success) {
+        if (data.action === "added") {
+          setWishlist(true);
+          toast.success("Product added to wishlist");
+          incrementWishlist();
+        }
+        else if (data.action === "removed") {
+          setWishlist(false);
+          toast.success("Product removed from wishlist");
+          decrementWishlist();
+        }
+      }
+
     } catch (error) {
       console.error(error);
+      toast.error("Something went wrong. Please try again.");
     }
   };
 
@@ -103,14 +122,15 @@ export default function ProductPage() {
       const data = await res.json();
 
       if (data.success) {
-        alert("Product added to cart successfully!");
+        toast.success("Product added to cart");
         setQuantity(1);
+        incrementCart();
       } else {
-        alert(data.message || "Failed to add product to cart.");
+        toast.error(data.message || "Failed to add product to cart.");
       }
     } catch (error) {
       console.error(error);
-      alert("Something went wrong. Please try again.");
+      toast.error("Something went wrong. Please try again.");
     }
   };
 
@@ -145,7 +165,7 @@ export default function ProductPage() {
                 style={{ transform: `translateX(-${activeSlide * 100}%)` }}
               >
                 {allImages.map((image, index) => (
-                  <div key={index} className="min-w-full h-full flex-shrink-0">
+                  <div key={index} className="min-w-full h-full shrink-0">
                     <img
                       src={image.url}
                       alt={`${product.productName} view ${index + 1}`}
@@ -349,7 +369,7 @@ export default function ProductPage() {
               {product.productImages.slice(1, 5).map((image, index) => (
                 <div
                   key={index}
-                  className="relative overflow-hidden rounded-2xl bg-[#f4f4f4] flex-shrink-0 w-full scroll-hide"
+                  className="relative overflow-hidden rounded-2xl bg-[#f4f4f4] shrink-0 w-full scroll-hide"
                   style={{ aspectRatio: "3/4" }}
                 >
                   <img
@@ -500,7 +520,7 @@ export default function ProductPage() {
                     />
                     <button
                       className="absolute top-3 right-3 bg-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                      onClick={(e) => e.stopPropagation()}
+                      onClick={toggleWishlist}
                     >
                       <Heart className="w-4 h-4 text-[#2B2B2B]" />
                     </button>

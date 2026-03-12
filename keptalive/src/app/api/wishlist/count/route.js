@@ -14,24 +14,18 @@ export async function GET() {
     const token = cookieStore.get("token")?.value;
 
     if (!token) {
-      return NextResponse.json({ cartCount: 0 });
+      return NextResponse.json({ wishlistCount: 0 });
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const userID = decoded.id;
 
-    const user = await User.findById(userID).select("cartData");
+    const user = await User.findById(userID).select("wishListData");
 
-    if (!user) {
-      return NextResponse.json({ cartCount: 0 });
-    }
+    const wishlistCount = user.wishListData.length;
 
-    const cartCount = user.cartData.length;
-
-    return NextResponse.json({ cartCount });
-
+    return NextResponse.json({ wishlistCount });
   } catch (err) {
-    console.error(err);
-    return NextResponse.json({ cartCount: 0 });
+    return NextResponse.json({ wishlistCount: 0 });
   }
 }

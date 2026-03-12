@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Mail, Lock, Eye, EyeOff, Phone, Chrome } from "lucide-react";
 import { GoogleLogin } from "@react-oauth/google";
+import toast from "react-hot-toast";
 
 export default function LoginPage() {
   const [loginMethod, setLoginMethod] = useState("email"); // 'email' or 'phone'
@@ -52,7 +53,6 @@ export default function LoginPage() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-
     if (!validateForm()) {
       return;
     }
@@ -83,17 +83,21 @@ export default function LoginPage() {
       const data = await response.json();
 
       if (response.ok) {
-        // Success! Store token and redirect
+        toast.success("Login successful!");
         if (data.token) {
           localStorage.setItem("token", data.token);
         }
         window.location.href = "/";
       } else {
-        setError(data.message || "Invalid credentials. Please try again.");
+        const msg = data.message || "Invalid credentials. Please try again.";
+        setError(msg);
+        toast.error(msg);
       }
     } catch (err) {
       console.error("Login error:", err);
-      setError("An error occurred. Please try again later.");
+      const msg = "An error occurred. Please try again later.";
+      setError(msg);
+      toast.error(msg);
     } finally {
       setLoading(false);
     }
@@ -248,8 +252,7 @@ export default function LoginPage() {
               justifyContent: "center",
               marginBottom: "20px",
             }}
-          >
-          </div>
+          ></div>
           <h1
             className="font-seasons"
             style={{
@@ -297,12 +300,16 @@ export default function LoginPage() {
 
                   if (res.ok) {
                     window.location.href = "/";
+                    toast.success("Logged in with Google successfully");
                   } else {
-                    setError(data.message || "Google login failed");
+                    const msg = data.message || "Google login failed";
+                    setError(msg);
+                    toast.error(msg);
                   }
                 } catch (err) {
                   console.error(err);
                   setError("Google login failed");
+                  toast.error("Google login failed");
                 }
               }}
               onError={() => setError("Google login failed")}

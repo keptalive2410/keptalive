@@ -5,10 +5,15 @@ import { X, Heart, ShoppingBag, Search, User } from 'lucide-react';
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { useEffect } from "react";
+import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
+import { useCart } from '@/context/CartContext';
 
 export default function WishlistPage() {
   const [wishlistItems, setWishlistItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const {decrementWishlist, incrementCart} = useCart();
+  const router = useRouter();
 
   useEffect(() => {
 
@@ -58,20 +63,66 @@ export default function WishlistPage() {
         setWishlistItems(prev =>
           prev.filter(item => item._id !== productID)
         );
-
+        toast.success("Product removed from wishlist");
+        decrementWishlist();
       }
 
     } catch (error) {
       console.error(error);
+      toast.error("Something went wrong");
     }
 
   };
 
-  const moveToCart = (id) => {
-    // Logic to move item to cart
-    console.log('Moving item to cart:', id);
-    removeFromWishlist(id);
-  };
+  const addToCart = async (item) => {
+  try {
+
+    const size = item.productSize?.[0] || "M"; // default size
+    const quantity = 1;
+
+    const res = await fetch("/api/cart/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        productID: item._id,
+        productSize: size,
+        productQuantity: quantity,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+
+      // remove from wishlist
+      await fetch("/api/wishlist/toggle", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ productID: item._id })
+      });
+
+      setWishlistItems(prev =>
+        prev.filter(p => p._id !== item._id)
+      );
+
+      toast.success("Moved to bag");
+      incrementCart();
+      decrementWishlist();
+
+    } else {
+      toast.error(data.message || "Failed to add product to cart");
+    }
+
+  } catch (error) {
+    console.error(error);
+    toast.error("Something went wrong");
+  }
+};
+
 
   return (
     <>
@@ -110,6 +161,7 @@ export default function WishlistPage() {
                   <div
                     className="relative overflow-hidden bg-[#f4f4f4] rounded-2xl mb-3"
                     style={{ aspectRatio: '3/4' }}
+                    onClick={() => router.push(`/products/${item.slug}`)}
                   >
                     <img
                       src={item.productImages?.[0]?.url}
@@ -136,7 +188,7 @@ export default function WishlistPage() {
 
                     {/* Move to Bag */}
                     <button
-                      onClick={() => moveToCart(item._id)}
+                      onClick={() => addToCart(item)}
                       className="mt-2 w-full py-2 border border-black text-black text-[0.68rem] font-bold tracking-[0.14em] hover:bg-black hover:text-white transition"
                     >
                       MOVE TO BAG

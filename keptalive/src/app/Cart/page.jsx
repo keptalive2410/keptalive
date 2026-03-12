@@ -1,10 +1,11 @@
- "use client";
+"use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { X, Heart } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import toast from "react-hot-toast";
+import { useCart } from "@/context/CartContext";
 
 export default function CartPage() {
   const [showAddressModal, setShowAddressModal] = useState(false);
@@ -27,6 +28,7 @@ export default function CartPage() {
   const [cartTotal, setCartTotal] = useState(0);
   const [cartCount, setCartCount] = useState(0);
   const [loading, setLoading] = useState(true);
+  const {decrementCart, incrementWishlist} = useCart();
 
   const fetchCart = async () => {
     try {
@@ -71,8 +73,55 @@ export default function CartPage() {
       if (data.success) {
         toast.success("Product removed from cart");
         fetchCart();
-      }else{
+        decrementCart();
+      } else {
         toast.error("Product removal failed");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong");
+    }
+  };
+
+  const moveToWishlist = async (productID, size) => {
+    try {
+      // 1️⃣ Add to wishlist
+      const wishlistRes = await fetch("/api/wishlist/toggle", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ productID }),
+      });
+
+      const wishlistData = await wishlistRes.json();
+
+      if (!wishlistData.success) {
+        toast.error("Failed to move to wishlist");
+        return;
+      }
+
+      // 2️⃣ Remove from cart
+      const cartRes = await fetch("/api/cart/delete", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          productID,
+          productSize: size,
+        }),
+      });
+
+      const cartData = await cartRes.json();
+
+      if (cartData.success) {
+        toast.success("Moved to wishlist");
+        fetchCart(); // refetch cart
+        incrementWishlist();
+        decrementCart();
+      } else {
+        toast.error("Failed to update cart");
       }
     } catch (error) {
       console.error(error);
@@ -222,21 +271,6 @@ export default function CartPage() {
                     </div>
                   ))}
                 </div>
-              </div>
-
-              {/* Login Prompt */}
-              <div className="bg-white border border-[#BFC3C7] p-4 flex justify-between items-center">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-[#f4f4f4] rounded-full" />
-                  <span className="text-[0.78rem] font-light text-[#2B2B2B] tracking-wide">
-                    Login to see items from your existing bag and wishlist.
-                  </span>
-                </div>
-                <Link href="/Login"
-                  className="text-[0.7rem] font-bold tracking-widest text-black hover:underline underline-offset-2 transition"
-                >
-                  LOGIN NOW
-                </Link>
               </div>
             </div>
 

@@ -3,18 +3,32 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ShoppingCart, Heart, User, ChevronDown } from 'lucide-react';
-
+import toast from "react-hot-toast";
+import { useCart } from '@/context/CartContext';
+import { useRouter } from "next/navigation";
 
 export default function Header() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
+  const {
+    cartCount,
+    wishlistCount,
+    fetchCounts,
+    setCartCount,
+    setWishlistCount
+  } = useCart();
+  const router = useRouter();
 
   useEffect(() => {
     const checkAuth = async () => {
       try {
         const res = await fetch('/api/auth/me');
         setIsLoggedIn(res.ok);
+
+        if (res.ok) {
+          fetchCounts();
+        }
       } catch {
         setIsLoggedIn(false);
       } finally {
@@ -23,22 +37,25 @@ export default function Header() {
     };
 
     checkAuth();
-  }, []);
-
+  }, [fetchCounts]);
   const handleLogout = async () => {
     setIsProfileOpen(false);
 
     try {
       await fetch('/api/auth/logout', { method: 'POST' });
       setIsLoggedIn(false);
-      window.location.href = '/Login';
+      toast.success("Logged out successfully");
+      setCartCount(0);
+      setWishlistCount(0);
+      router.push("/Login");
     } catch (error) {
       console.error('Logout failed:', error);
+      toast.error("Logout failed");
     }
   };
 
   return (
-    <header className="fixed top-0 left-0 w-full bg-black text-white py-4 px-6 z-99">
+    <header className="fixed top-0 left-0 w-full bg-black text-white py-4 px-6 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Left - Logo */}
         <div className="shrink-0">
@@ -65,11 +82,21 @@ export default function Header() {
           {/* Cart */}
           <Link href="/Cart" className="relative hover:text-gray-300 transition-colors">
             <ShoppingCart size={22} />
+            {cartCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-white text-black text-[10px] font-bold px-1.5 py-[1px] rounded-full min-w-[16px] flex items-center justify-center">
+                {cartCount}
+              </span>
+            )}
           </Link>
 
           {/* Wishlist */}
           <Link href="/Wishlist" className="relative hover:text-gray-300 transition-colors">
             <Heart size={22} />
+            {wishlistCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-white text-black text-[10px] font-bold px-1.5 py-[1px] rounded-full min-w-[16px] flex items-center justify-center">
+                {wishlistCount}
+              </span>
+            )}
           </Link>
 
           {/* Profile / Auth */}

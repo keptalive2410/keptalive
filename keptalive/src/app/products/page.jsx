@@ -121,7 +121,7 @@ function ProductCard({ product, onClick }) {
         ))}
 
         {/* subtle dark gradient at bottom for depth */}
-        <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t from-black/10 to-transparent rounded-b-2xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-linear-to-t from-black/10 to-transparent rounded-b-2xl pointer-events-none" />
       </div>
 
       {/* Info */}
@@ -130,7 +130,7 @@ function ProductCard({ product, onClick }) {
           {product.productName}
         </p>
         <div className="flex items-center gap-2">
-          <p className="text-[#000] text-[0.8rem] font-bold tracking-wide">
+          <p className="text-black text-[0.8rem] font-bold tracking-wide">
             Rs. {product.productSellingPrice?.toLocaleString()}
           </p>
           {product.productMrp &&
@@ -303,11 +303,11 @@ export default function NewSeasonPage() {
                   {
                     id: "4-grid",
                     icon: (
-                      <div className="grid grid-cols-4 gap-[2px] w-[18px] h-[18px]">
+                      <div className="grid grid-cols-4 gap-0.5 w-4.5 h-4.5">
                         {Array.from({ length: 16 }).map((_, i) => (
                           <span
                             key={i}
-                            className="w-[3px] h-[3px] bg-current block"
+                            className="w-0.75 h-0.75 bg-current block"
                           ></span>
                         ))}
                       </div>
@@ -427,9 +427,9 @@ export default function NewSeasonPage() {
           </div>
 
           {/* Product Grid */}
-          <div className="w-full px-[10px] sm:px-[14px] lg:px-[18px]">
+          <div className="w-full px-2.5 sm:px-3.5 lg:px-4.5">
             <div
-              className={`grid gap-[10px] ${
+              className={`grid gap-2.5 ${
                 selectedView === "2-grid"
                   ? "grid-cols-1 sm:grid-cols-2"
                   : selectedView === "3-grid"

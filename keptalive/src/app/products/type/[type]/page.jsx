@@ -57,7 +57,7 @@ function ProductCard({ product, onClick }) {
         ))}
 
         {/* subtle dark gradient at bottom for depth */}
-        <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t from-black/10 to-transparent rounded-b-2xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-linear-to-t from-black/10 to-transparent rounded-b-2xl pointer-events-none" />
       </div>
 
       {/* Info */}
@@ -66,7 +66,7 @@ function ProductCard({ product, onClick }) {
           {product.productName}
         </p>
         <div className="flex items-center gap-2">
-          <p className="text-[#000] text-[0.8rem] font-bold tracking-wide">
+          <p className="text-black text-[0.8rem] font-bold tracking-wide">
             Rs. {product.productSellingPrice?.toLocaleString()}
           </p>
           {product.productMrp &&
@@ -192,7 +192,7 @@ export default function NewSeasonPage() {
         {/* Page Title */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 text-center">
           <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] font-bold tracking-[0.02em] text-black" style={{ fontFamily: "'The Seasons', serif" }}>
-            NEW ARRIVALS
+            {type.toLocaleUpperCase()}
           </h2>
         </div>
 
