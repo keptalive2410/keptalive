@@ -47,7 +47,7 @@ export default function FeaturedCollection() {
 
             {/* CTA Button */}
             <Link
-              href="/collections/midnight-bloom"
+              href="/products/type/new-arrivals"
               className="inline-block px-8 py-3 border-2 border-black text-black text-sm uppercase tracking-wider font-semibold hover:bg-black hover:text-white transition-all duration-300"
             >
               Discover Now

@@ -348,10 +348,10 @@ export default function NewSeasonPage() {
                             type="checkbox"
                             className="accent-black"
                             checked={filters.categories.includes(
-                              category.categoryName,
+                              category._id,
                             )}
                             onChange={() =>
-                              toggleFilter("categories", category.categoryName)
+                              toggleFilter("categories", category._id)
                             }
                           />
                           {category.categoryName}

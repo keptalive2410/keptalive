@@ -12,7 +12,7 @@ const slides = [
     subtitle: 'Spring/Summer 2024',
     description: 'Discover the latest trends in fashion',
     buttonText: 'Shop Now',
-    buttonLink: '/products',
+    buttonLink: '/products/type/new-arrivals',
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ const slides = [
     subtitle: 'Limited Edition',
     description: 'Elevate your style with our curated pieces',
     buttonText: 'Explore',
-    buttonLink: '/products',
+    buttonLink: '/sale',
   },
   {
     id: 3,

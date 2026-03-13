@@ -6,7 +6,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import toast from "react-hot-toast";
 import { useCart } from "@/context/CartContext";
-
+import { useRouter } from "next/navigation";
 export default function CartPage() {
   const [showAddressModal, setShowAddressModal] = useState(false);
   const [savedAddresses, setSavedAddresses] = useState([]); // Empty initially - will show modal
@@ -24,11 +24,13 @@ export default function CartPage() {
     paymentType: "COD",
   });
 
+  const router = useRouter();
+
   const [cartItems, setCartItems] = useState([]);
   const [cartTotal, setCartTotal] = useState(0);
   const [cartCount, setCartCount] = useState(0);
   const [loading, setLoading] = useState(true);
-  const {decrementCart, incrementWishlist} = useCart();
+  const { decrementCart, incrementWishlist } = useCart();
 
   const fetchCart = async () => {
     try {
@@ -83,9 +85,35 @@ export default function CartPage() {
     }
   };
 
+  const updateQuantity = async (productID, size, action) => {
+    try {
+      const res = await fetch("/api/cart/update", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          productID,
+          productSize: size,
+          action,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        fetchCart();
+      } else {
+        toast.error(data.message || "Failed to update quantity");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong");
+    }
+  };
+
   const moveToWishlist = async (productID, size) => {
     try {
-      // 1️⃣ Add to wishlist
       const wishlistRes = await fetch("/api/wishlist/toggle", {
         method: "POST",
         headers: {
@@ -101,7 +129,6 @@ export default function CartPage() {
         return;
       }
 
-      // 2️⃣ Remove from cart
       const cartRes = await fetch("/api/cart/delete", {
         method: "DELETE",
         headers: {
@@ -117,7 +144,7 @@ export default function CartPage() {
 
       if (cartData.success) {
         toast.success("Moved to wishlist");
-        fetchCart(); // refetch cart
+        fetchCart();
         incrementWishlist();
         decrementCart();
       } else {
@@ -147,7 +174,6 @@ export default function CartPage() {
     if (savedAddresses.length === 0) {
       setShowAddressModal(true);
     } else {
-      // Navigate to address page
       window.location.href = "/address";
     }
   };
@@ -224,12 +250,28 @@ export default function CartPage() {
                                 {item.productName}
                               </p>
                               <div className="flex gap-3 mt-2">
-                                <select className="border border-[#BFC3C7] px-3 py-1.5 text-[0.75rem] font-light text-[#2B2B2B] bg-white focus:outline-none focus:border-black transition">
-                                  <option>Size: {item.size}</option>
-                                </select>
-                                <select className="border border-[#BFC3C7] px-3 py-1.5 text-[0.75rem] font-light text-[#2B2B2B] bg-white focus:outline-none focus:border-black transition">
-                                  <option>Qty: {item.quantity}</option>
-                                </select>
+                                <div className="border border-[#BFC3C7] px-3 py-1.5 text-[0.75rem] font-light text-black bg-white focus:outline-none focus:border-black transition">
+                                  <span>Size: {item.size}</span>
+                                </div>
+                                <div className="flex items-center border border-[#BFC3C7] text-black">
+                                    <button
+                                      onClick={() => updateQuantity(item.productID, item.size, "dec")}
+                                      className="px-3 py-1 text-sm hover:bg-gray-100"
+                                    >
+                                      −
+                                    </button>
+
+                                    <span className="px-3 text-[0.8rem]">
+                                      {item.quantity}
+                                    </span>
+
+                                    <button
+                                      onClick={() => updateQuantity(item.productID, item.size, "inc")}
+                                      className="px-3 py-1 text-sm hover:bg-gray-100"
+                                    >
+                                      +
+                                    </button>
+                                </div>
                                 {item.badge && (
                                   <span className="bg-black text-white px-2 py-1 text-[0.65rem] font-bold tracking-widest">
                                     {item.badge}
