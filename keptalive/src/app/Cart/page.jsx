@@ -25,6 +25,7 @@ export default function CartPage() {
   });
 
   const router = useRouter();
+  const [selectedAddressIndex, setSelectedAddressIndex] = useState(0);
 
   const [cartItems, setCartItems] = useState([]);
   const [cartTotal, setCartTotal] = useState(0);
@@ -35,7 +36,7 @@ export default function CartPage() {
   const fetchCart = async () => {
     try {
       const res = await fetch("/api/cart", {
-        method: "GET"
+        method: "GET",
       });
 
       const data = await res.json();
@@ -56,13 +57,12 @@ export default function CartPage() {
     fetchCart();
   }, []);
 
-
   const removeItem = async (productID, size) => {
     try {
       const res = await fetch("/api/cart/delete", {
         method: "DELETE",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           productID,
@@ -158,12 +158,12 @@ export default function CartPage() {
 
   const totalMRP = cartItems.reduce(
     (sum, item) => sum + item.originalPrice * item.quantity,
-    0
+    0,
   );
 
   const totalPrice = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
+    (sum, item) => sum + item.sellingPrice * item.quantity,
+    0,
   );
 
   const discount = totalMRP - totalPrice;
@@ -217,6 +217,44 @@ export default function CartPage() {
     });
   };
 
+  const placeOrder = async () => {
+    if (cartItems.length === 0) {
+      toast.error("Cart is empty");
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/orders/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          addressIndex: selectedAddressIndex, // index of selected address
+          shipping: {
+            method: "standard",
+            cost: 23,
+          },
+          razorpayOrderID: "test123", // for testing
+          paymentMethod: "razorpay", // or "UPI"
+        }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        toast.success("Order placed successfully!");
+        // Optional: navigate to order success page
+        window.location.href = `/Order-Success/${data.order._id}`;
+      } else {
+        toast.error(data.message || "Order failed");
+      }
+    } catch (error) {
+      console.error("Place order error:", error);
+      toast.error("Something went wrong while placing order");
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -227,7 +265,9 @@ export default function CartPage() {
             <div className="lg:col-span-2 space-y-4">
               {/* Items Selection Header */}
               <div className="bg-white border border-[#BFC3C7] p-4">
-                <h1 className="text-black text-2xl text-center">Your Products</h1>
+                <h1 className="text-black text-2xl text-center">
+                  Your Products
+                </h1>
 
                 {/* Cart Items */}
                 <div className="space-y-6">
@@ -245,7 +285,6 @@ export default function CartPage() {
                         <div className="flex-1">
                           <div className="flex justify-between items-start">
                             <div className="flex flex-col gap-1">
-
                               <p className="text-[0.78rem] font-light text-[#2B2B2B] tracking-wide">
                                 {item.productName}
                               </p>
@@ -293,7 +332,9 @@ export default function CartPage() {
                             <div className="flex items-center gap-3">
                               <button
                                 title="Move to wishlist"
-                                onClick={() => moveToWishlist(item.productID, item.size)}
+                                onClick={() =>
+                                  moveToWishlist(item.productID, item.size)
+                                }
                                 className="text-[#BFC3C7] hover:text-black transition"
                               >
                                 <Heart className="w-6 h-6" />
@@ -301,7 +342,9 @@ export default function CartPage() {
 
                               <button
                                 title="Remove from cart"
-                                onClick={() => removeItem(item.productID, item.size)}
+                                onClick={() =>
+                                  removeItem(item.productID, item.size)
+                                }
                                 className="text-[#BFC3C7] hover:text-black transition"
                               >
                                 <X className="w-6 h-6" />
@@ -367,7 +410,7 @@ export default function CartPage() {
                 </div>
 
                 <button
-                  onClick={handlePlaceOrder}
+                  onClick={placeOrder}
                   className="w-full bg-black text-white py-4 text-[0.75rem] font-bold tracking-[0.18em] uppercase hover:bg-[#2B2B2B] transition mt-6"
                 >
                   PLACE ORDER
