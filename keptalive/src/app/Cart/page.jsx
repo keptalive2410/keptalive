@@ -210,7 +210,7 @@ export default function CartPage() {
       if (data.success) {
         toast.success("Order placed successfully!");
         // Optional: navigate to order success page
-        window.location.href = `/Order-Success/${data.order._id}`;
+        // window.location.href = `/Order-Success/${data.order._id}`;
       } else {
         toast.error(data.message || "Order failed");
       }
