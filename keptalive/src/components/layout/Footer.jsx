@@ -20,7 +20,7 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-12">
           {/* Column 1 - Brand */}
           <div className="md:col-span-1">
-            <h2 className="text-3xl font-serif mb-4 tracking-wider">ISABELLA</h2>
+            <h2 className="text-3xl font-serif mb-4 tracking-wider">kep̃talive</h2>
             <p className="text-sm text-gray-400 leading-relaxed">
               Elevating your style with premium occasionwear. Where comfort meets sophistication.
             </p>
@@ -137,7 +137,7 @@ export default function Footer() {
                 >
                   <Facebook size={20} />
                 </Link>
-                <Link
+                {/* <Link
                   href="https://twitter.com/isabella"
                   target="_blank"
                   className="w-12 h-12 bg-gray-900 rounded-full flex items-center justify-center text-white hover:bg-gray-800 transition-colors"
@@ -166,7 +166,7 @@ export default function Footer() {
                   aria-label="Phone"
                 >
                   <Phone size={20} />
-                </Link>
+                </Link> */}
               </div>
               <p className="text-sm text-gray-400">Follow us for style inspiration and latest updates</p>
             </div>

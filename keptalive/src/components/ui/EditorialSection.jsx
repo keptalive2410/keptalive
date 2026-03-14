@@ -5,21 +5,21 @@ import Link from 'next/link';
 const editorialCards = [
   {
     id: 1,
-    image: 'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=800&q=80',
+    image: '/Images/1.jpeg',
     title: 'LOOKBOOK',
     description: 'Discover our latest Spring \'26 collection in the heart of Santorini, where timeless elegance meets modern sophistication.',
     link: '/lookbook',
   },
   {
     id: 2,
-    image: 'https://images.unsplash.com/photo-1523438885200-e635ba2c371e?w=800&q=80',
+    image: '/Images/6.jpeg',
     title: 'JOURNAL',
     description: 'Take a look behind the scenes at Isabella. From concept to creation and everything in between.',
     link: '/Journal',
   },
   {
     id: 3,
-    image: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&q=80',
+    image: '/Images/5.jpeg',
     title: 'WHO WE ARE',
     description: 'Learn more about our journey, our dreams and aspirations.',
     link: '/about',

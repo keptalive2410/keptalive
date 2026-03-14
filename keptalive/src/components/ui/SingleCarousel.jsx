@@ -60,7 +60,7 @@ export default function ProductShowcaseSection() {
                 fontFamily: "'The Seasons', serif",
                 fontWeight: 700,
                 color: "#000000",
-              }}
+              }} 
             >
               MIDNIGHT BLOOM
             </h2>
@@ -154,7 +154,7 @@ export default function ProductShowcaseSection() {
         <div style={{ backgroundColor: "#8A8A8A" }}>
           <div className="relative w-full h-[600px] overflow-hidden">
             <img
-              src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=1000&q=80"
+              src="/Images/4.jpeg"
               alt="Lifestyle"
               className="w-full h-full object-cover"
             />

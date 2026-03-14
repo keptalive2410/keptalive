@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Eye,
   X,
@@ -12,198 +12,6 @@ import {
 } from "lucide-react";
 import StatusBadge from "./StatusBadge";
 
-// ── Mock data (replace with API) ─────────────────────────────
-const MOCK_ORDERS = [
-  {
-    _id: "ord1",
-    orderID: "ORD1",
-    customerName: "Aanya Sharma",
-    customerEmail: "aanya@email.com",
-    customerPhone: "+91 98765 43210",
-    productsBought: [
-      {
-        productID: "p1",
-        productName: "Oversized Linen Shirt",
-        productCategory: "Tops",
-        size: "M",
-        quantity: 1,
-        price: 2499,
-        productDiscount: 0,
-      },
-    ],
-    orderTotal: 2499,
-    paymentType: "UPI",
-    paymentStatus: "paid",
-    orderStatus: "delivered",
-    deliveryAddress: "42 Marine Drive",
-    deliveryCity: "Mumbai",
-    deliveryState: "Maharashtra",
-    deliveryPincode: "400001",
-    deliveryInstructions: "Leave at door",
-    shiprocket: {
-      status: "delivered",
-      courierName: "Delhivery",
-      awbCode: "AWB123456",
-    },
-    orderDate: "2025-06-10T10:30:00Z",
-    razorpayOrderID: "rzp_order_001",
-    razorpayPaymentId: "rzp_pay_001",
-  },
-  {
-    _id: "ord2",
-    orderID: "ORD2",
-    customerName: "Rishika Rajput",
-    customerEmail: "priya@email.com",
-    customerPhone: "+91 76543 21098",
-    productsBought: [
-      {
-        productID: "p3",
-        productName: "Structured Wool Blazer",
-        productCategory: "Outerwear",
-        size: "S",
-        quantity: 1,
-        price: 5999,
-        productDiscount: 0,
-      },
-      {
-        productID: "p4",
-        productName: "Leather Tote Bag",
-        productCategory: "Accessories",
-        size: "ONE SIZE",
-        quantity: 1,
-        price: 4299,
-        productDiscount: 0,
-      },
-    ],
-    orderTotal: 10298,
-    paymentType: "UPI",
-    paymentStatus: "paid",
-    orderStatus: "pending",
-    deliveryAddress: "15 Indiranagar",
-    deliveryCity: "Bangalore",
-    deliveryState: "Karnataka",
-    deliveryPincode: "560038",
-    deliveryInstructions: "",
-    shiprocket: {
-      status: "pickup_scheduled",
-      courierName: "BlueDart",
-      awbCode: "AWB234567",
-    },
-    orderDate: "2025-06-12T14:00:00Z",
-    razorpayOrderID: "rzp_order_002",
-    razorpayPaymentId: "rzp_pay_002",
-  },
-  {
-    _id: "ord3",
-    orderID: "ORD3",
-    customerName: "Aditya Baldawa",
-    customerEmail: "rohan@email.com",
-    customerPhone: "+91 87654 32109",
-    productsBought: [
-      {
-        productID: "p6",
-        productName: "Cotton Crew Neck Tee",
-        productCategory: "Tops",
-        size: "L",
-        quantity: 2,
-        price: 1998,
-        productDiscount: 10,
-      },
-    ],
-    orderTotal: 1998,
-    paymentType: "Cash",
-    paymentStatus: "pending",
-    orderStatus: "pending",
-    deliveryAddress: "8 Hauz Khas",
-    deliveryCity: "Delhi",
-    deliveryState: "Delhi",
-    deliveryPincode: "110016",
-    deliveryInstructions: "Call before delivery",
-    shiprocket: { status: "not_created" },
-    orderDate: "2025-06-14T09:15:00Z",
-    razorpayOrderID: "",
-    razorpayPaymentId: "",
-  },
-  {
-    _id: "ord4",
-    orderID: "ORD4",
-    customerName: "Neil Sulhyan",
-    customerEmail: "meera@email.com",
-    customerPhone: "+91 43210 98765",
-    productsBought: [
-      {
-        productID: "p5",
-        productName: "Minimal Ankle Boots",
-        productCategory: "Footwear",
-        size: "38",
-        quantity: 1,
-        price: 6499,
-        productDiscount: 0,
-      },
-      {
-        productID: "p2",
-        productName: "Tailored Wide Leg Trousers",
-        productCategory: "Bottoms",
-        size: "M",
-        quantity: 1,
-        price: 3199,
-        productDiscount: 0,
-      },
-    ],
-    orderTotal: 9698,
-    paymentType: "UPI",
-    paymentStatus: "paid",
-    orderStatus: "delivered",
-    deliveryAddress: "22 Jubilee Hills",
-    deliveryCity: "Hyderabad",
-    deliveryState: "Telangana",
-    deliveryPincode: "500033",
-    deliveryInstructions: "",
-    shiprocket: {
-      status: "delivered",
-      courierName: "DTDC",
-      awbCode: "AWB345678",
-    },
-    orderDate: "2025-06-09T16:45:00Z",
-    razorpayOrderID: "rzp_order_004",
-    razorpayPaymentId: "rzp_pay_004",
-  },
-  {
-    _id: "ord5",
-    orderID: "ORD5",
-    customerName: "Kabir Nair",
-    customerEmail: "kabir@email.com",
-    customerPhone: "+91 65432 10987",
-    productsBought: [
-      {
-        productID: "p1",
-        productName: "Oversized Linen Shirt",
-        productCategory: "Tops",
-        size: "L",
-        quantity: 1,
-        price: 2499,
-        productDiscount: 0,
-      },
-    ],
-    orderTotal: 2499,
-    paymentType: "UPI",
-    paymentStatus: "paid",
-    orderStatus: "pending",
-    deliveryAddress: "5 T Nagar",
-    deliveryCity: "Chennai",
-    deliveryState: "Tamil Nadu",
-    deliveryPincode: "600017",
-    deliveryInstructions: "",
-    shiprocket: {
-      status: "in_transit",
-      courierName: "Ecom Express",
-      awbCode: "AWB456789",
-    },
-    orderDate: "2025-06-13T11:00:00Z",
-    razorpayOrderID: "rzp_order_005",
-    razorpayPaymentId: "rzp_pay_005",
-  },
-];
 
 // ── Order Detail Modal ───────────────────────────────────────
 function OrderModal({ order, onClose, onUpdate }) {
@@ -467,9 +275,65 @@ function OrderModal({ order, onClose, onUpdate }) {
 
 // ── Orders Page ──────────────────────────────────────────────
 export default function OrdersPage() {
-  const [orders, setOrders] = useState(MOCK_ORDERS);
+  const [orders, setOrders] = useState([]);
   const [filter, setFilter] = useState("all");
   const [selected, setSelected] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
+  const fetchOrders = async () => {
+    try {
+      const res = await fetch("/api/orders/admin/fetch");
+      const data = await res.json();
+
+      if (data.success) {
+        const formatted = data.orders.map((o) => ({
+          _id: o._id,
+          orderID: o.orderNumber,
+          customerName: o.userID?.userName || "Customer",
+          customerEmail: o.userID?.userEmail || "",
+          customerPhone: o.userID?.phone || "",
+
+          productsBought: o.items.map((i) => ({
+            productID: i.productID,
+            productName: i.productName,
+            size: i.productSize,
+            quantity: i.quantity,
+            price: i.sellingPrice,
+            productDiscount: 0,
+          })),
+
+          orderTotal: o.totalAmount,
+          paymentType: o.paymentMethod,
+          paymentStatus: o.paymentStatus,
+          orderStatus: o.orderStatus,
+
+          deliveryAddress: o.shippingAddress?.AddressLine1,
+          deliveryCity: o.shippingAddress?.City,
+          deliveryState: o.shippingAddress?.State,
+          deliveryPincode: o.shippingAddress?.PinCode,
+          deliveryInstructions: "",
+
+          shiprocket: {
+            status: o.shipping?.shippingStatus,
+          },
+
+          orderDate: o.orderDate,
+          razorpayOrderID: o.razorpayOrderID,
+          razorpayPaymentId: o.razorpayPaymentId,
+        }));
+
+        setOrders(formatted);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const counts = {
     all: orders.length,
@@ -486,7 +350,13 @@ export default function OrdersPage() {
       prev.map((o) => (o._id === id ? { ...o, ...updates } : o)),
     );
   };
-
+  if (loading) {
+    return (
+      <div className="p-10 text-center text-gray-500">
+        Loading orders...
+      </div>
+    );
+  }
   return (
     <div className="space-y-6">
       {/* Heading */}

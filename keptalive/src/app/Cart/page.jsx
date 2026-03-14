@@ -158,56 +158,71 @@ export default function CartPage() {
 
   const totalMRP = cartItems.reduce(
     (sum, item) => sum + item.originalPrice * item.quantity,
-    0,
+    0
   );
 
   const totalPrice = cartItems.reduce(
     (sum, item) => sum + item.sellingPrice * item.quantity,
-    0,
+    0
   );
 
   const discount = totalMRP - totalPrice;
-  const platformFee = 23;
+  const platformFee = 0;
   const finalAmount = totalPrice + platformFee;
 
-  const handlePlaceOrder = () => {
-    if (savedAddresses.length === 0) {
-      setShowAddressModal(true);
-    } else {
-      window.location.href = "/address";
-    }
-  };
+  const handleSaveAddress = async () => {
+    try {
+      if (
+        !addressForm.name ||
+        !addressForm.email ||
+        !addressForm.mobile ||
+        !addressForm.pincode ||
+        !addressForm.address
+      ) {
+        toast.error("Please fill all required fields");
+        return;
+      }
 
-  const handleSaveAddress = () => {
-    if (
-      !addressForm.name ||
-      !addressForm.email ||
-      !addressForm.mobile ||
-      !addressForm.pincode ||
-      !addressForm.address
-    ) {
-      alert("Please fill all required fields");
-      return;
+      const res = await fetch("/api/orders/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          shippingAddress: {
+            name: addressForm.name,
+            email: addressForm.email,
+            mobile: addressForm.mobile,
+            AddressLine1: addressForm.houseNumber,
+            AddressLine2: addressForm.address,
+            City: addressForm.city,
+            State: addressForm.state,
+            PinCode: addressForm.pincode,
+            Country: "India",
+          },
+          shipping: {
+            method: "standard",
+            cost: 23,
+          },
+          razorpayOrderID: "test123",
+          paymentMethod: addressForm.paymentType,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        toast.success("Order placed successfully!");
+        router.push(`/Cart`);
+        setShowAddressModal(false);
+        fetchCart();
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong");
     }
-    // Add the address to saved addresses
-    setSavedAddresses([...savedAddresses, { ...addressForm, id: Date.now() }]);
-    setShowAddressModal(false);
-    // Reset form
-    setAddressForm({
-      name: "",
-      email: "",
-      mobile: "",
-      pincode: "",
-      houseNumber: "",
-      address: "",
-      locality: "",
-      city: "",
-      state: "",
-      addressType: "Home",
-      paymentType: "COD",
-    });
-    // Navigate to address selection page
-    window.location.href = "/address";
   };
 
   const handleInputChange = (e) => {
@@ -293,23 +308,23 @@ export default function CartPage() {
                                   <span>Size: {item.size}</span>
                                 </div>
                                 <div className="flex items-center border border-[#BFC3C7] text-black">
-                                    <button
-                                      onClick={() => updateQuantity(item.productID, item.size, "dec")}
-                                      className="px-3 py-1 text-sm hover:bg-gray-100"
-                                    >
-                                      −
-                                    </button>
+                                  <button
+                                    onClick={() => updateQuantity(item.productID, item.size, "dec")}
+                                    className="px-3 py-1 text-sm hover:bg-gray-100"
+                                  >
+                                    −
+                                  </button>
 
-                                    <span className="px-3 text-[0.8rem]">
-                                      {item.quantity}
-                                    </span>
+                                  <span className="px-3 text-[0.8rem]">
+                                    {item.quantity}
+                                  </span>
 
-                                    <button
-                                      onClick={() => updateQuantity(item.productID, item.size, "inc")}
-                                      className="px-3 py-1 text-sm hover:bg-gray-100"
-                                    >
-                                      +
-                                    </button>
+                                  <button
+                                    onClick={() => updateQuantity(item.productID, item.size, "inc")}
+                                    className="px-3 py-1 text-sm hover:bg-gray-100"
+                                  >
+                                    +
+                                  </button>
                                 </div>
                                 {item.badge && (
                                   <span className="bg-black text-white px-2 py-1 text-[0.65rem] font-bold tracking-widest">
@@ -369,7 +384,7 @@ export default function CartPage() {
                 <div className="space-y-3 text-[0.78rem]">
                   <div className="flex justify-between">
                     <span className="font-light text-[#2B2B2B] tracking-wide">
-                      Total MRP
+                      Total
                     </span>
                     <span className="font-light text-[#2B2B2B]">
                       ₹{totalMRP.toLocaleString()}
@@ -377,20 +392,20 @@ export default function CartPage() {
                   </div>
                   <div className="flex justify-between">
                     <span className="font-light text-[#2B2B2B] tracking-wide">
-                      Discount on MRP
+                      Discount
                     </span>
                     <span className="font-bold text-black">
                       − ₹{discount.toLocaleString()}
                     </span>
                   </div>
-                  <div className="flex justify-between">
+                  {/* <div className="flex justify-between">
                     <span className="font-light text-[#2B2B2B] tracking-wide">
                       Coupon Discount
                     </span>
                     <button className="font-bold text-black underline underline-offset-2 hover:no-underline transition">
                       Apply Coupon
                     </button>
-                  </div>
+                  </div> */}
                   <div className="flex justify-between">
                     <span className="font-light text-[#2B2B2B] tracking-wide">
                       Platform Fee
@@ -410,7 +425,7 @@ export default function CartPage() {
                 </div>
 
                 <button
-                  onClick={placeOrder}
+                  onClick={() => setShowAddressModal(true)}
                   className="w-full bg-black text-white py-4 text-[0.75rem] font-bold tracking-[0.18em] uppercase hover:bg-[#2B2B2B] transition mt-6"
                 >
                   PLACE ORDER
@@ -599,7 +614,7 @@ export default function CartPage() {
               <div className="bg-[#f4f4f4] p-8 border-l border-[#BFC3C7]">
                 <div className="bg-white border border-[#BFC3C7] p-6 sticky top-6">
                   <h3 className="text-[0.7rem] font-bold tracking-[0.14em] text-black mb-5">
-                    PRICE DETAILS ({selectedItems.length} ITEMS)
+                    PRICE DETAILS ({cartItems.length} ITEMS)
                   </h3>
                   <div className="space-y-3 text-[0.78rem]">
                     <div className="flex justify-between">

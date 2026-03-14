@@ -81,7 +81,7 @@ function ProductCard({ product, onClick }) {
     intervalRef.current = setInterval(() => {
       idx = (idx + 1) % images.length;
       setCurrentImg(idx);
-    }, 800);
+    }, 1500);
   };
 
   const stopSlideshow = () => {

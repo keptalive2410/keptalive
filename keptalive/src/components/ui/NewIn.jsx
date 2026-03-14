@@ -11,7 +11,7 @@ export default function FeaturedCollection() {
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{
-              backgroundImage: `url('https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=800&q=80')`,
+              backgroundImage: `url('/Images/6.jpeg')`,
             }}
           >
             {/* Optional overlay for better text readability if needed */}

@@ -128,7 +128,7 @@ export default function WishlistPage() {
     <>
       <Navbar />
       <div className="min-h-screen bg-white pt-16">
-        <main className="max-w-7xl mx-auto px-4 py-12">
+        <main className="max-w-full mx-auto px-12  py-12">
 
           {/* Header */}
           <div className="flex items-baseline gap-4 mb-10 border-b border-[#BFC3C7] pb-6">

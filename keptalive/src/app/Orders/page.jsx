@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   X,
   Star,
@@ -22,72 +22,55 @@ export default function OrdersPage() {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [activeTab, setActiveTab] = useState("exchange");
   const [searchQuery, setSearchQuery] = useState("");
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const recommendations = [
-    {
-      id: 1,
-      brand: "SOTRUE",
-      name: "Sotrue Strobe Cream for Face",
-      price: 349,
-      image:
-        "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&q=80",
-    },
-    {
-      id: 2,
-      brand: "MARS",
-      name: "MARS Edge Of Desire Matte Long Lasting Lipstick",
-      price: 64,
-      originalPrice: 69,
-      discount: "7% OFF",
-      size: "Onesize",
-      image:
-        "https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&q=80",
-    },
-    {
-      id: 3,
-      brand: "Lakme",
-      name: "Lakme Perfect Radiance Day Gel Cream",
-      price: 332,
-      originalPrice: 415,
-      discount: "20% OFF",
-      size: "40-50gm",
-      image:
-        "https://images.unsplash.com/photo-1556229010-aa3c720dfb96?w=400&q=80",
-    },
-  ];
+  useEffect(() => {
+    fetchOrders();
+  }, []);
 
-  const orders = [
-    {
-      id: 1,
-      status: "refund",
-      refundAmount: 1199.0,
-      refundDate: "Sun, 28 Sep",
-      products: [
-        {
-          brand: "GLO GLAMP",
-          name: "Women White Ribbon High Pencil Heels Gladiators",
-          size: "7",
-          image:
-            "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400&q=80",
-        },
-      ],
-    },
-    {
-      id: 2,
-      status: "delivered",
-      deliveryDate: "Fri, 2 Aug 2024",
-      exchangeReturnDeadline: "Fri, 9 Aug 2024",
-      products: [
-        {
-          brand: "ADRO",
-          name: "Men Printed Hooded Pullover Sweatshirt",
-          size: "L",
-          image:
-            "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&q=80",
-        },
-      ],
-    },
-  ];
+  const fetchOrders = async () => {
+    try {
+      const res = await fetch("/api/orders/users", {
+        credentials: "include",
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        const formatted = data.orders.map((o) => ({
+          id: o._id,
+          status: o.orderStatus,
+          deliveryDate: new Date(o.orderDate).toDateString(),
+
+          products: o.items.map((item) => ({
+            brand: item.productName,
+            name: item.productName,
+            size: item.productSize,
+            image: item.productImage,
+          })),
+        }));
+
+        setOrders(formatted);
+      }
+    } catch (error) {
+      console.error("Failed to fetch orders:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <div className="min-h-screen flex items-center justify-center">
+          <p className="text-sm text-gray-500">Loading orders...</p>
+        </div>
+        <Footer />
+      </>
+    );
+  }
 
   const openModal = (order) => {
     setSelectedOrder(order);
@@ -134,50 +117,6 @@ export default function OrdersPage() {
               <SlidersHorizontal className="w-4 h-4" />
               FILTER
             </button>
-          </div>
-
-          {/* Recommendations */}
-          <div className="bg-[#f4f4f4] p-6 mb-10">
-            <p className="text-[0.7rem] font-bold tracking-[0.14em] text-black mb-5">
-              FREQUENTLY BOUGHT BY SHOPPERS LIKE YOU
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {recommendations.map((item) => (
-                <div
-                  key={item.id}
-                  className="bg-white p-3 flex gap-3 cursor-pointer hover:border hover:border-[#BFC3C7] transition"
-                >
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-14 h-14 object-cover bg-[#f4f4f4] shrink-0"
-                  />
-                  <div className="flex flex-col gap-0.5">
-                    <p className="text-[0.7rem] font-bold text-black tracking-wide">
-                      {item.brand}
-                    </p>
-                    <p className="text-[0.7rem] font-light text-[#2B2B2B] line-clamp-2 leading-snug">
-                      {item.name}
-                    </p>
-                    <div className="flex items-center gap-2 mt-1">
-                      <span className="text-[0.75rem] font-bold text-black">
-                        ₹{item.price}
-                      </span>
-                      {item.originalPrice && (
-                        <span className="text-[0.68rem] font-light text-[#8A8A8A] line-through">
-                          ₹{item.originalPrice}
-                        </span>
-                      )}
-                      {item.discount && (
-                        <span className="text-[0.65rem] font-bold text-white bg-black px-1 py-0.5 tracking-wide">
-                          {item.discount}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
 
           {/* Orders List */}
@@ -321,11 +260,10 @@ export default function OrdersPage() {
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
-                    className={`flex-1 py-4 text-[0.7rem] font-bold tracking-[0.14em] transition ${
-                      activeTab === tab
-                        ? "text-black border-b-2 border-black"
-                        : "text-[#8A8A8A] hover:text-black"
-                    }`}
+                    className={`flex-1 py-4 text-[0.7rem] font-bold tracking-[0.14em] transition ${activeTab === tab
+                      ? "text-black border-b-2 border-black"
+                      : "text-[#8A8A8A] hover:text-black"
+                      }`}
                   >
                     {tab === "exchange" ? "EXCHANGE ITEM" : "RETURN ITEM"}
                   </button>
