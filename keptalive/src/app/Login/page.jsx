@@ -498,7 +498,7 @@ export default function LoginPage() {
               }}
             >
               <a
-                href="/forgot-password"
+                href="/Forgot-Password"
                 className="font-nexa"
                 style={{
                   fontSize: "11px",
