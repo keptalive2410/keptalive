@@ -7,12 +7,12 @@ import Image from 'next/image';
 const slides = [
   {
     id: 1,
-    image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1920&q=80',
+    image: '/Images/1.jpeg',
     title: 'New Collection',
     subtitle: 'Spring/Summer 2024',
     description: 'Discover the latest trends in fashion',
     buttonText: 'Shop Now',
-    buttonLink: '/products',
+    buttonLink: '/products/type/new-arrivals',
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ const slides = [
     subtitle: 'Limited Edition',
     description: 'Elevate your style with our curated pieces',
     buttonText: 'Explore',
-    buttonLink: '/products',
+    buttonLink: '/sale',
   },
   {
     id: 3,
@@ -67,7 +67,7 @@ export default function HeroCarousel() {
   };
 
   return (
-    <section className="relative w-full h-[85vh] overflow-hidden">
+    <section className="relative w-full h-screen overflow-hidden">
       {/* Slides */}
       {slides.map((slide, index) => (
         <div

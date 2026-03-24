@@ -23,6 +23,15 @@ export async function POST(req) {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     const user = await User.findById(decoded.id).populate("cartData.productID");
+    const { shippingAddress, paymentMethod, shipping, razorpayOrderID } =
+      await req.json();
+
+    if (!shippingAddress) {
+      return NextResponse.json(
+        { success: false, message: "Shipping address required" },
+        { status: 400 },
+      );
+    }
 
     if (!user) {
       return NextResponse.json(
@@ -31,18 +40,9 @@ export async function POST(req) {
       );
     }
 
-    const { addressIndex, paymentMethod, shipping, razorpayOrderID } = await req.json();
-
     if (!user.cartData.length) {
       return NextResponse.json(
         { success: false, message: "Cart is empty" },
-        { status: 400 },
-      );
-    }
-
-    if (!user.userAddress[addressIndex]) {
-      return NextResponse.json(
-        { success: false, message: "Invalid address selected" },
         { status: 400 },
       );
     }
@@ -102,10 +102,10 @@ export async function POST(req) {
       orderNumber: `ORD-${Date.now()}`,
       userID: user._id,
       items,
-      shippingAddress: user.userAddress[addressIndex],
+      shippingAddress,
       shipping,
       razorpayOrderID,
-      paymentMethod: paymentMethod || "razorpay",
+      paymentMethod: "razorpay",
       totalAmount: total + (shipping?.cost || 0),
       totalItems,
     });
