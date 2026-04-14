@@ -1,16 +1,39 @@
-import Category from "@/Models/CategoryModel.js";
-import connectDB from "@/lib/db.js";
+import { shopifyFetch } from "@/lib/shopify";
 import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
 
 export async function GET() {
-    await connectDB();
-
     try {
-        const categories = await Category.find();
+        const query = `
+          query getCollections {
+            collections(first: 20) {
+              edges {
+                node {
+                  id
+                  title
+                  handle
+                  image {
+                    url
+                  }
+                }
+              }
+            }
+          }
+        `;
 
-        if(!categories){
+        const { body } = await shopifyFetch({ query });
+        
+        const shopifyCollections = body?.data?.collections?.edges || [];
+        
+        const categories = shopifyCollections.map(({ node }) => ({
+            _id: node.id,
+            name: node.title,
+            slug: node.handle,
+            image: node.image?.url || null
+        }));
+
+        if(!categories || categories.length === 0){
             return NextResponse.json({
                 success: false,
                 message: 'Categories Not Found!!'
@@ -22,7 +45,7 @@ export async function GET() {
             categories
         }, {status: 200});
     } catch (error) {
-        console.error(error);
+        console.error("Shopify Categories Error:", error);
         return NextResponse.json({
             success: false,
             message: 'Internal server error'

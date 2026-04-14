@@ -1,66 +1,112 @@
-import connectDB from "@/lib/db.js";
+import { shopifyFetch } from "@/lib/shopify";
 import { cookies } from "next/headers";
-import User from "@/Models/UserModel";
 import { NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
 
 export const runtime = "nodejs";
 
 export async function GET() {
   try {
-    await connectDB();
-
     const cookieStore = await cookies();
-    const token = cookieStore.get("token")?.value;
+    const cartId = cookieStore.get("shopify_cart_id")?.value;
 
-    if (!token) {
-      return NextResponse.json(
-        { success: false, message: "Unauthorized" },
-        { status: 401 }
-      );
+    if (!cartId) {
+      return NextResponse.json({
+        success: true,
+        cart: [],
+        cartCount: 0,
+        cartTotal: 0,
+        checkoutUrl: null
+      });
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const userID = decoded.id;
+    const query = `
+      query getCart($cartId: ID!) {
+        cart(id: $cartId) {
+          id
+          checkoutUrl
+          totalQuantity
+          cost {
+            subtotalAmount {
+              amount
+              currencyCode
+            }
+          }
+          lines(first: 100) {
+            edges {
+              node {
+                id
+                quantity
+                merchandise {
+                  ... on ProductVariant {
+                    id
+                    title
+                    availableForSale
+                    quantityAvailable
+                    price {
+                      amount
+                    }
+                    compareAtPrice {
+                      amount
+                    }
+                    image {
+                      url
+                    }
+                    product {
+                      id
+                      title
+                      handle
+                    }
+                    selectedOptions {
+                      name
+                      value
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `;
 
-    const user = await User.findById(userID).populate({
-      path: "cartData.productID",
-      select:
-        "productName productSellingPrice productOriginalPrice productImages slug productStock",
+    const { body } = await shopifyFetch({
+      query,
+      variables: { cartId }
     });
 
-    if (!user) {
-      return NextResponse.json(
-        { success: false, message: "User not found" },
-        { status: 404 }
-      );
+    const shopifyCart = body?.data?.cart;
+
+    if (!shopifyCart) {
+      return NextResponse.json({
+        success: true,
+        cart: [],
+        cartCount: 0,
+        cartTotal: 0,
+        checkoutUrl: null
+      });
     }
 
-    const cart = user.cartData;
+    const cartCount = shopifyCart.totalQuantity || 0;
+    const cartTotal = Number(shopifyCart.cost?.subtotalAmount?.amount || 0);
+    const checkoutUrl = shopifyCart.checkoutUrl;
 
-    let cartCount = 0;
-    let cartTotal = 0;
-
-    const formattedCart = cart.map((item) => {
-      const product = item.productID;
-
-      const price = product.productSellingPrice;
-
-      cartCount += item.productQuantity;
-      cartTotal += price * item.productQuantity;
-
-      const stockForSize = product.productStock.get(item.productSize) || 0;
+    const formattedCart = shopifyCart.lines.edges.map(({ node }) => {
+      const variant = node.merchandise;
+      const product = variant.product;
+      const price = Number(variant.price?.amount || 0);
 
       return {
-        productID: product._id,
-        productName: product.productName,
-        slug: product.slug,
-        image: product.productImages?.[0]?.url,
+        lineId: node.id,
+        productID: product.id,
+        variantID: variant.id,
+        productName: product.title,
+        slug: product.handle,
+        image: variant.image?.url || null,
         price: price,
-        originalPrice: product.productOriginalPrice,
-        size: item.productSize,
-        quantity: item.productQuantity,
-        availableStock: stockForSize,
+        originalPrice: Number(variant.compareAtPrice?.amount || price),
+        size: variant.selectedOptions?.find(opt => opt.name === 'Size')?.value || variant.title,
+        quantity: node.quantity,
+        availableStock: variant.availableForSale ? (variant.quantityAvailable || 10) : 0,
       };
     });
 
@@ -69,10 +115,10 @@ export async function GET() {
       cart: formattedCart,
       cartCount,
       cartTotal,
+      checkoutUrl
     });
   } catch (error) {
-    console.error(error);
-
+    console.error("Shopify Cart Error:", error);
     return NextResponse.json(
       { success: false, message: "Server Error" },
       { status: 500 }

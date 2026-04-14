@@ -1,88 +1,118 @@
 import { NextResponse } from "next/server";
-import connectDB from "@/lib/db.js";
-import Product from "@/Models/ProductModel.js";
-import '@/Models/CategoryModel.js';
+import { shopifyFetch } from "@/lib/shopify";
 
 export const runtime = "nodejs";
 
 export async function GET(request) {
-  await connectDB();
-
   try {
     const { searchParams } = new URL(request.url);
 
-    const page = Number(searchParams.get("page")) || 1;
-    const limit = Number(searchParams.get("limit")) || 10;
-    const skip = (page - 1) * limit;
+    const first = Number(searchParams.get("limit")) || 20;
+    // Note: Shopify uses cursor-based pagination, so "page" is a bit tricky. We'll simulate fetching first X products.
+    // In a real headless setup, you'd pass "after: cursor" instead of "page".
 
-    const displayAt = searchParams.get("displayAt");
-    const categories = searchParams.get("categories");
-    const minPrice = searchParams.get("minPrice");
-    const maxPrice = searchParams.get("maxPrice");
-    const search = searchParams.get("search");
     const sort = searchParams.get("sort") || "newest";
-    const sizes = searchParams.get("size");
+    let sortKey = 'CREATED_AT';
+    let reverse = true;
 
-    let filter = {};
+    if (sort === "Price: Low to High") { sortKey = 'PRICE'; reverse = false; }
+    if (sort === "Price: High to Low") { sortKey = 'PRICE'; reverse = true; }
 
-    if (displayAt) {
-      filter.displayAt = displayAt;
-    }
+    const query = `
+      query getProducts($first: Int!, $sortKey: ProductSortKeys!, $reverse: Boolean!) {
+        products(first: $first, sortKey: $sortKey, reverse: $reverse) {
+          edges {
+            node {
+              id
+              title
+              handle
+              description
+              createdAt
+              media(first: 5) {
+                edges {
+                  node {
+                    ... on MediaImage {
+                      image {
+                        url
+                      }
+                    }
+                  }
+                }
+              }
+              variants(first: 10) {
+                edges {
+                  node {
+                    id
+                    title
+                    price {
+                      amount
+                      currencyCode
+                    }
+                    compareAtPrice {
+                      amount
+                      currencyCode
+                    }
+                    availableForSale
+                    selectedOptions {
+                      name
+                      value
+                    }
+                  }
+                }
+              }
+            }
+          }
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
+        }
+      }
+    `;
 
-    if(categories){
-        filter.productCategory = {$in: categories.split(",")};
-    }
+    const { body } = await shopifyFetch({
+      query,
+      variables: { first, sortKey, reverse }
+    });
 
-    if(sizes){
-      filter.productSize = {$in: sizes.split(",")};
-    }
+    // Map Shopify response to the exact shape expected by the frontend
+    const shopifyProducts = body?.data?.products?.edges || [];
+    const products = shopifyProducts.map(({ node }) => {
+      const firstVariant = node.variants.edges[0]?.node;
+      const images = node.media.edges.map(e => ({ url: e.node?.image?.url })).filter(img => img.url);
 
-    if (minPrice || maxPrice) {
-      filter.productSellingPrice = {};
+      const sizes = [...new Set(
+        node.variants.edges.map(v => 
+          v.node.selectedOptions.find(opt => opt.name === 'Size' || opt.name === 'Title')?.value
+        ).filter(Boolean)
+      )];
 
-      if (minPrice) filter.productSellingPrice.$gte = Number(minPrice);
-      if (maxPrice) filter.productSellingPrice.$lte = Number(maxPrice);
-    }
-
-    if (search) {
-      filter.productName = { $regex: search, $options: "i" };
-    }
-
-    let sortOption = {};
-
-    switch (sort) {
-      case "Price: Low to High":
-        sortOption = { productSellingPrice: 1 };
-        break;
-      case "Price: High to Low":
-        sortOption = { productSellingPrice: -1 };
-        break;
-      default:
-        sortOption = { createdAt: -1 }; // newest
-    }
-
-    const [products, total] = await Promise.all([
-      Product.find(filter)
-        .populate("productCategory", "name")
-        .sort(sortOption)
-        .skip(skip)
-        .limit(limit),
-      Product.countDocuments(filter),
-    ]);
+      return {
+        _id: node.id,
+        productName: node.title,
+        slug: node.handle,
+        productDescription: node.description,
+        productSellingPrice: Number(firstVariant?.price?.amount || 0),
+        productMrp: Number(firstVariant?.compareAtPrice?.amount || firstVariant?.price?.amount || 0),
+        productImages: images,
+        productStock: firstVariant?.availableForSale ? 10 : 0,
+        productSize: sizes,
+        createdAt: node.createdAt
+      };
+    });
 
     return NextResponse.json({
       success: true,
-      page,
-      totalPages: Math.ceil(total / limit),
-      totalProducts: total,
       products,
-    });
-  } catch (error) {
-    console.error(error);
+      totalPages: 1, // Cursor pagination should be used to support actual paginations in Shopify
+      currentPage: 1
+    }, { status: 200 });
 
-    return NextResponse.json(
-      { success: false, message: "Server error" },
-      { status: 500 },
-    );
+  } catch (error) {
+    console.error("Shopify Products Error:", error);
+    return NextResponse.json({
+      success: false,
+      message: "Internal Server Error"
+    }, { status: 500 });
   }
 }

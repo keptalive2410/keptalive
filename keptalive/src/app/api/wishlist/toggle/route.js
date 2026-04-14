@@ -1,60 +1,41 @@
-import { NextResponse } from "next/server";
-import connectDB from "@/lib/db";
-import User from "@/Models/UserModel";
 import { cookies } from "next/headers";
-import jwt from "jsonwebtoken";
+import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
-
-    await connectDB();
-
     const { productID } = await req.json();
 
     const cookieStore = await cookies();
-    const token = cookieStore.get("token")?.value;
+    const wishlistCookie = cookieStore.get("shopify_wishlist")?.value;
+    
+    let wishlistItems = wishlistCookie ? JSON.parse(wishlistCookie) : [];
+    let action = "";
 
-    if (!token) {
-      return NextResponse.json(
-        { success: false, message: "Unauthorized" },
-        { status: 401 }
-      );
-    }
-
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const userID = decoded.id;
-
-    const user = await User.findById(userID);
-
-    const idx = user.wishListData.findIndex(
-      (id) => id.toString() === productID
-    );
+    const idx = wishlistItems.findIndex(id => id === productID);
 
     if (idx > -1) {
-      user.wishListData.splice(idx, 1);
-
-      await user.save();
-
-      return NextResponse.json({
-        success: true,
-        action: "removed"
-      });
+      wishlistItems.splice(idx, 1);
+      action = "removed";
+    } else {
+      wishlistItems.push(productID);
+      action = "added";
     }
 
-    user.wishListData.push(productID);
-    await user.save();
+    if (wishlistItems.length > 0) {
+      cookieStore.set("shopify_wishlist", JSON.stringify(wishlistItems), { path: '/', maxAge: 60 * 60 * 24 * 30 });
+    } else {
+      cookieStore.delete("shopify_wishlist");
+    }
 
     return NextResponse.json({
       success: true,
-      action: "added"
+      action
     });
 
   } catch (error) {
-
     return NextResponse.json({
       success: false,
       error: error.message
     }, { status: 500 });
-
   }
 }

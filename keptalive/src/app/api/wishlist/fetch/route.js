@@ -1,54 +1,92 @@
-import { NextResponse } from "next/server";
-import connectDB from "@/lib/db";
-import User from "@/Models/UserModel";
+import { shopifyFetch } from "@/lib/shopify";
 import { cookies } from "next/headers";
-import jwt from "jsonwebtoken";
+import { NextResponse } from "next/server";
 
 export async function POST() {
   try {
-
-    await connectDB();
-
-    // Read token from cookies
     const cookieStore = await cookies();
-    const token = cookieStore.get("token")?.value;
-
-    if (!token) {
-      return NextResponse.json(
-        { success: false, message: "Unauthorized" },
-        { status: 401 }
-      );
+    const wishlistCookie = cookieStore.get("shopify_wishlist")?.value;
+    
+    if (!wishlistCookie) {
+      return NextResponse.json({ success: true, wishlist: [] });
     }
 
-    // Decode token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const userID = decoded.id;
+    const wishlistItems = JSON.parse(wishlistCookie);
 
-    // Fetch user and populate products
-    const user = await User.findById(userID).populate({
-      path: "wishListData",
-      select: "productName productSellingPrice productOriginalPrice productImages slug"
+    if (wishlistItems.length === 0) {
+      return NextResponse.json({ success: true, wishlist: [] });
+    }
+
+    // Build query to fetch multiple products by their GraphQL IDs natively from Shopify
+    // In Shopify, the IDs are base64 encoded strings like gid://shopify/Product/12345
+    
+    const query = `
+      query getWishlistProducts($ids: [ID!]!) {
+        nodes(ids: $ids) {
+          ... on Product {
+            id
+            title
+            handle
+            variants(first: 1) {
+              edges {
+                node {
+                  price {
+                    amount
+                  }
+                  compareAtPrice {
+                    amount
+                  }
+                }
+              }
+            }
+            media(first: 1) {
+              edges {
+                node {
+                  ... on MediaImage {
+                    image {
+                      url
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `;
+
+    const { body } = await shopifyFetch({
+      query,
+      variables: { ids: wishlistItems }
     });
 
-    if (!user) {
-      return NextResponse.json(
-        { success: false, message: "User not found" },
-        { status: 404 }
-      );
-    }
+    const nodes = body?.data?.nodes || [];
+    
+    // Clean out nulls if a product was deleted in Shopify
+    const activeNodes = nodes.filter(n => n !== null && n.id);
+
+    const wishlistData = activeNodes.map(node => {
+      const firstVariant = node.variants?.edges[0]?.node;
+      const images = node.media?.edges?.map(e => ({ url: e.node?.image?.url })) || [];
+
+      return {
+        _id: node.id,
+        productName: node.title,
+        slug: node.handle,
+        productSellingPrice: Number(firstVariant?.price?.amount || 0),
+        productOriginalPrice: Number(firstVariant?.compareAtPrice?.amount || firstVariant?.price?.amount || 0),
+        productImages: images
+      };
+    });
 
     return NextResponse.json({
       success: true,
-      wishlist: user.wishListData
+      wishlist: wishlistData
     });
 
   } catch (error) {
-
     return NextResponse.json(
-      {
-        success: false,
-        error: error.message
-      },
+      { success: false, error: error.message },
       { status: 500 }
     );
   }

@@ -29,7 +29,7 @@ export default function CartPage() {
 
   const [cartItems, setCartItems] = useState([]);
   const [cartTotal, setCartTotal] = useState(0);
-  const [cartCount, setCartCount] = useState(0);
+  const [checkoutUrl, setCheckoutUrl] = useState(null);
   const [loading, setLoading] = useState(true);
   const { decrementCart, incrementWishlist } = useCart();
 
@@ -44,6 +44,7 @@ export default function CartPage() {
       if (data.success) {
         setCartItems(data.cart);
         setCartTotal(data.cartTotal);
+        setCheckoutUrl(data.checkoutUrl);
       }
 
       setLoading(false);
@@ -170,103 +171,16 @@ export default function CartPage() {
   const platformFee = 0;
   const finalAmount = totalPrice + platformFee;
 
-  const handleSaveAddress = async () => {
-    try {
-      if (
-        !addressForm.name ||
-        !addressForm.email ||
-        !addressForm.mobile ||
-        !addressForm.pincode ||
-        !addressForm.address
-      ) {
-        toast.error("Please fill all required fields");
-        return;
-      }
-
-      const res = await fetch("/api/orders/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          shippingAddress: {
-            name: addressForm.name,
-            email: addressForm.email,
-            mobile: addressForm.mobile,
-            AddressLine1: addressForm.houseNumber,
-            AddressLine2: addressForm.address,
-            City: addressForm.city,
-            State: addressForm.state,
-            PinCode: addressForm.pincode,
-            Country: "India",
-          },
-          shipping: {
-            method: "standard",
-            cost: 23,
-          },
-          razorpayOrderID: "test123",
-          paymentMethod: addressForm.paymentType,
-        }),
-      });
-
-      const data = await res.json();
-
-      if (data.success) {
-        toast.success("Order placed successfully!");
-        router.push(`/Cart`);
-        setShowAddressModal(false);
-        fetchCart();
-      } else {
-        toast.error(data.message);
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error("Something went wrong");
-    }
-  };
-
-  const handleInputChange = (e) => {
-    setAddressForm({
-      ...addressForm,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const placeOrder = async () => {
+  const handleCheckout = () => {
     if (cartItems.length === 0) {
       toast.error("Cart is empty");
       return;
     }
-
-    try {
-      const res = await fetch("/api/orders/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          addressIndex: selectedAddressIndex, // index of selected address
-          shipping: {
-            method: "standard",
-            cost: 23,
-          },
-          razorpayOrderID: "test123", // for testing
-          paymentMethod: "razorpay", // or "UPI"
-        }),
-      });
-
-      const data = await res.json();
-
-      if (data.success) {
-        toast.success("Order placed successfully!");
-        // Optional: navigate to order success page
-        window.location.href = `/Order-Success/${data.order._id}`;
-      } else {
-        toast.error(data.message || "Order failed");
-      }
-    } catch (error) {
-      console.error("Place order error:", error);
-      toast.error("Something went wrong while placing order");
+    if (checkoutUrl) {
+      // Redirect to Shopify generated Checkout URL
+      window.location.href = checkoutUrl;
+    } else {
+      toast.error("Checkout is currently unavailable");
     }
   };
 
@@ -425,7 +339,7 @@ export default function CartPage() {
                 </div>
 
                 <button
-                  onClick={() => setShowAddressModal(true)}
+                  onClick={handleCheckout}
                   className="w-full bg-black text-white py-4 text-[0.75rem] font-bold tracking-[0.18em] uppercase hover:bg-[#2B2B2B] transition mt-6"
                 >
                   PLACE ORDER

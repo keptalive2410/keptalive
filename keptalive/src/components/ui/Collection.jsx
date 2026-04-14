@@ -72,7 +72,7 @@ export default function CollectionsSection() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex-shrink-0 px-5 py-2 text-[0.65rem] font-bold tracking-[0.16em] transition-all duration-200 ${
+              className={`shrink-0 px-5 py-2 text-[0.65rem] font-bold tracking-[0.16em] transition-all duration-200 ${
                 activeTab === tab.id
                   ? "bg-black text-white"
                   : "border border-[#BFC3C7] text-[#2B2B2B] hover:border-black hover:text-black"
@@ -89,7 +89,7 @@ export default function CollectionsSection() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex-shrink-0 px-5 py-2 text-[0.65rem] font-bold tracking-[0.16em] transition-all duration-200 ${
+              className={`shrink-0 px-5 py-2 text-[0.65rem] font-bold tracking-[0.16em] transition-all duration-200 ${
                 activeTab === tab.id
                   ? "bg-black text-white"
                   : "border border-[#BFC3C7] text-[#2B2B2B] hover:border-black hover:text-black"
@@ -127,7 +127,7 @@ export default function CollectionsSection() {
                   <Link
                     key={product._id}
                     href={`/products/${product.slug}`}
-                    className="flex-shrink-0 w-full snap-center group px-4"
+                    className="shrink-0 w-full snap-center group px-4"
                   >
                     <div
                       className="relative overflow-hidden bg-[#f4f4f4] w-full mb-4"
