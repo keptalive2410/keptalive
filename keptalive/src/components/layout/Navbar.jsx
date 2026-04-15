@@ -76,26 +76,15 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full text-white py-4 px-6 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 w-full text-black py-4 px-6 z-50 transition-all duration-300 ${
         isHomePage
           ? isScrolled
-            ? "bg-black shadow-md"
+            ? "bg-white shadow-md"
             : "bg-transparent"
-          : "bg-black shadow-md"
+          : "bg-white shadow-md"
       }`}
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        {/* Left - Logo */}
-        <div className="shrink-0">
-          <Link
-            href="/"
-            className="text-3xl font-serif tracking-wider hover:opacity-80 transition-opacity"
-          >
-            kep̃talive
-          </Link>
-        </div>
-
-        {/* Middle - Navigation */}
+      <div className="max-w-7xl mx-auto flex items-center justify-evenly space-x-64">
         <nav className="hidden md:flex items-center space-x-8">
           <Link
             href="/products"
@@ -116,8 +105,14 @@ export default function Header() {
             Sale
           </Link>
         </nav>
-
-        {/* Right - Actions */}
+        <div className="shrink-0">
+          <Link
+            href="/"
+            className="text-3xl font-serif tracking-wider hover:opacity-80 transition-opacity 2xl:text-5xl"
+          >
+            kep̃talive
+          </Link>
+        </div>
         <div className="flex items-center space-x-6">
           {/* Cart */}
           <Link
@@ -203,7 +198,7 @@ export default function Header() {
                 </Link>
                 <Link
                   href="/Signup"
-                  className="text-sm uppercase tracking-wide bg-white text-black px-4 py-1.5 rounded hover:bg-gray-200 transition-colors"
+                  className="text-sm uppercase tracking-wide bg-black text-white px-4 py-1.5 rounded hover:bg-gray-200 transition-colors"
                 >
                   Sign Up
                 </Link>

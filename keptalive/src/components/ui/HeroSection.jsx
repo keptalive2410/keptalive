@@ -2,12 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import Image from 'next/image';
 
 const slides = [
   {
     id: 1,
-    image: '/Images/1.jpeg',
+    image: 'https://bluorng.com/cdn/shop/files/htfyjh.jpg?v=1772344996',
     title: 'New Collection',
     subtitle: 'Spring/Summer 2024',
     description: 'Discover the latest trends in fashion',
@@ -16,7 +15,7 @@ const slides = [
   },
   {
     id: 2,
-    image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1920&q=80',
+    image: '/Images/gemini.png',
     title: 'Exclusive Designs',
     subtitle: 'Limited Edition',
     description: 'Elevate your style with our curated pieces',
@@ -78,12 +77,11 @@ export default function HeroCarousel() {
         >
           {/* Background Image */}
           <div className="absolute inset-0 bg-gray-900">
-            {/* Using div with background for demo - replace with actual images */}
-            <div
+            <img
               className="w-full h-full bg-cover bg-center"
               style={{
                 backgroundImage: `url(${slide.image})`,
-                backgroundColor: '#1a1a1a', // Fallback color
+                 // Fallback color
               }}
             />
             {/* Dark overlay */}
@@ -91,32 +89,7 @@ export default function HeroCarousel() {
           </div>
 
           {/* Content Overlay */}
-          <div className="relative h-full flex items-center justify-center text-white">
-            <div className="max-w-4xl mx-auto px-6 text-center">
-              {/* Subtitle */}
-              <p className="text-sm md:text-base uppercase tracking-widest mb-4 opacity-90 animate-fade-in">
-                {slide.subtitle}
-              </p>
-
-              {/* Main Title */}
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif mb-6 animate-slide-up">
-                {slide.title}
-              </h1>
-
-              {/* Description */}
-              <p className="text-lg md:text-xl mb-8 opacity-90 max-w-2xl mx-auto animate-fade-in-delay">
-                {slide.description}
-              </p>
-
-              {/* CTA Button */}
-              <a
-                href={slide.buttonLink}
-                className="inline-block px-8 md:px-12 py-3 md:py-4 bg-white text-black text-sm md:text-base uppercase tracking-wider font-semibold hover:bg-gray-100 transition-all duration-300 animate-fade-in-delay-2"
-              >
-                {slide.buttonText}
-              </a>
-            </div>
-          </div>
+          
         </div>
       ))}
 
