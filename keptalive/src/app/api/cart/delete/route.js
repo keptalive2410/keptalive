@@ -44,7 +44,9 @@ export async function DELETE(req) {
 
       const lineToRemove = lines.find(({ node }) => {
         const isMatchProduct = node.merchandise.product.id === productID;
-        const isMatchSize = node.merchandise.selectedOptions.some(opt => opt.name === 'Size' && opt.value === productSize);
+        const isMatchSize = node.merchandise.selectedOptions.some(opt => 
+          (opt.name === 'Size' || opt.name === 'Title') && opt.value === productSize
+        );
         return isMatchProduct && isMatchSize;
       });
 

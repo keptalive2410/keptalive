@@ -1,23 +1,54 @@
 import { NextResponse } from "next/server"
-import connectDB from "@/lib/db"
-import User from "@/Models/UserModel"
-import bcrypt from "bcryptjs"
+import { shopifyFetch } from "@/lib/shopify"
 
-export async function POST(req){
-    await connectDB()
+export async function POST(req) {
+    try {
+        const { userName, userEmail, userPassword } = await req.json()
 
-    const {userName, userEmail, userPassword} = await req.json()
+        // Split name into first and last for Shopify
+        const nameParts = userName.split(" ")
+        const firstName = nameParts[0] || ""
+        const lastName = nameParts.slice(1).join(" ") || ""
 
-    const existing = await User.findOne({userEmail})
-    if(existing)
-        return NextResponse.json({message: "Email is already registered, "},{status:400})
+        const registerMutation = `
+          mutation customerCreate($input: CustomerCreateInput!) {
+            customerCreate(input: $input) {
+              customer {
+                id
+                email
+              }
+              customerUserErrors {
+                message
+              }
+            }
+          }
+        `
 
-    const hashed = await bcrypt.hash(userPassword, 10)
-    await User.create({
-        userName,
-        userEmail,
-        userPassword: hashed,
-    })
+        const { body } = await shopifyFetch({
+            query: registerMutation,
+            variables: {
+                input: {
+                    firstName,
+                    lastName,
+                    email: userEmail,
+                    password: userPassword
+                }
+            }
+        });
 
-    return NextResponse.json({message: "Registration Successfull"})
+        const errors = body?.data?.customerCreate?.customerUserErrors;
+        
+        if (errors && errors.length > 0) {
+            return NextResponse.json({ message: errors[0].message || "Registration failed" }, { status: 400 })
+        }
+
+        // Technically, Shopify doesn't log them in automatically upon creation. 
+        // The user will either need to log in immediately after, or we do a login mutation here as well.
+        // For now, we return success and standard flow will push them to login
+        return NextResponse.json({ message: "Registration successful" })
+
+    } catch (error) {
+        console.error("Shopify Register Error:", error);
+        return NextResponse.json({ message: "Server Error" }, { status: 500 })
+    }
 }

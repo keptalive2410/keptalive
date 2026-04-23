@@ -1,41 +1,94 @@
-import Order from "@/Models/OrderModel";
-import connectDB from "@/lib/db";
-import jwt from "jsonwebtoken";
+import { shopifyFetch } from "@/lib/shopify";
 import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    await connectDB();
-
-    // get cookie
     const cookieStore = await cookies();
-    const token = cookieStore.get("token")?.value;
+    const token = cookieStore.get("shopify_customer_token")?.value;
 
     if (!token) {
-      return Response.json(
+      return NextResponse.json(
         { success: false, message: "Unauthorized" },
         { status: 401 }
       );
     }
 
-    // verify token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const ordersQuery = `
+      query customerOrders($customerAccessToken: String!) {
+        customer(customerAccessToken: $customerAccessToken) {
+          orders(first: 50, sortKey: PROCESSED_AT, reverse: true) {
+            edges {
+              node {
+                id
+                orderNumber
+                processedAt
+                totalPrice {
+                  amount
+                }
+                financialStatus
+                fulfillmentStatus
+                lineItems(first: 10) {
+                  edges {
+                    node {
+                      title
+                      quantity
+                      variant {
+                        product {
+                          id
+                          handle
+                        }
+                        title
+                        image {
+                          url
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `;
 
-    const userID = decoded.id;
+    const { body } = await shopifyFetch({
+      query: ordersQuery,
+      variables: { customerAccessToken: token }
+    });
 
-    // find orders of that user
-    const orders = await Order.find({ userID })
-      .populate("items.productID")
-      .sort({ orderDate: -1 });
+    const shopifyOrders = body?.data?.customer?.orders?.edges || [];
 
-    return Response.json({
+    const formattedOrders = shopifyOrders.map(({ node }) => {
+      const items = node.lineItems.edges.map(li => ({
+        productID: {
+          productName: li.node.title,
+          slug: li.node.variant?.product?.handle,
+          productImages: [{ url: li.node.variant?.image?.url }]
+        },
+        productSize: li.node.variant?.title,
+        quantity: li.node.quantity
+      }));
+
+      return {
+        _id: node.id,
+        orderNumber: `#${node.orderNumber}`,
+        orderDate: node.processedAt,
+        totalAmount: Number(node.totalPrice?.amount || 0),
+        status: node.fulfillmentStatus || "UNFULFILLED",  
+        paymentStatus: node.financialStatus,
+        items
+      };
+    });
+
+    return NextResponse.json({
       success: true,
-      orders,
+      orders: formattedOrders,
     });
   } catch (error) {
-    console.error(error);
-
-    return Response.json(
+    console.error("Shopify Orders Error:", error);
+    return NextResponse.json(
       { success: false, message: "Internal server error" },
       { status: 500 }
     );

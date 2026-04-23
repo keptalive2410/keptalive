@@ -1,18 +1,16 @@
 import { NextResponse } from "next/server";
-import { verifyToken } from "@/lib/jwt";
 
 export async function middleware(req) {
-  const token = req.cookies.get("token")?.value;
+  const token = req.cookies.get("shopify_customer_token")?.value;
 
   if (!token) {
     return NextResponse.redirect(new URL("/Login", req.url));
   }
 
-  try {
-    const decoded = await verifyToken(token);
-    const { pathname } = req.nextUrl;
+  const { pathname } = req.nextUrl;
 
-    if (pathname.startsWith("/admin") && decoded.role !== "admin") {
+  try {
+    if (pathname.startsWith("/admin")) {
       return NextResponse.redirect(new URL("/", req.url));
     }
 

@@ -1,34 +1,61 @@
 import { NextResponse } from "next/server"
-import connectDB from "@/lib/db"
-import User from "@/Models/UserModel"
-import bcrypt from "bcryptjs"
-import { signToken } from "@/lib/jwt"
+import { shopifyFetch } from "@/lib/shopify"
 
-export async function POST(req){
-    await connectDB()
+export async function POST(req) {
+    try {
+        const { userEmail, userPassword } = await req.json()
 
-    const {userEmail,userPassword} = await req.json()
+        const loginMutation = `
+          mutation customerAccessTokenCreate($input: CustomerAccessTokenCreateInput!) {
+            customerAccessTokenCreate(input: $input) {
+              customerAccessToken {
+                accessToken
+                expiresAt
+              }
+              customerUserErrors {
+                message
+              }
+            }
+          }
+        `
 
-    const user = await User.findOne({userEmail})
-    if(!user)
-        return NextResponse.json({message: "Invalid Credentials, Please Try Again"},{status: 400})
+        const { body } = await shopifyFetch({
+            query: loginMutation,
+            variables: {
+                input: {
+                    email: userEmail,
+                    password: userPassword
+                }
+            }
+        });
 
-    const isMatch = await bcrypt.compare(userPassword,user.userPassword)
-    if(!isMatch)
-         return NextResponse.json({message: "Invalid Credentials, Please Try Again"},{status: 400})
+        const errors = body?.data?.customerAccessTokenCreate?.customerUserErrors;
+        
+        if (errors && errors.length > 0) {
+            return NextResponse.json({ message: errors[0].message || "Invalid Credentials, Please Try Again" }, { status: 400 })
+        }
 
-    const token = signToken(user)
-    const response = NextResponse.json({ message: "Login successful" })
+        const tokenData = body?.data?.customerAccessTokenCreate?.customerAccessToken;
 
-    response.cookies.set({
-        name: "token",
-        value: token,
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-        path: "/",
-        maxAge: 60*60*24
-    })
+        if (!tokenData?.accessToken) {
+            return NextResponse.json({ message: "Invalid Credentials, Please Try Again" }, { status: 400 })
+        }
 
-    return response
+        const response = NextResponse.json({ message: "Login successful", success: true })
+
+        response.cookies.set({
+            name: "shopify_customer_token",
+            value: tokenData.accessToken,
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+            path: "/",
+            expires: new Date(tokenData.expiresAt).getTime()
+        })
+
+        return response
+    } catch (error) {
+        console.error("Shopify Login Error:", error);
+        return NextResponse.json({ message: "Server Error" }, { status: 500 })
+    }
 }
