@@ -7,6 +7,8 @@ import FeaturedCollection from "@/components/ui/NewIn";
 import EditorialSection from "@/components/ui/EditorialSection";
 import ProductShowcaseSection from "@/components/ui/SingleCarousel";
 import FeaturesSection from "@/components/ui/Styles";
+import CategoryAndStory from "@/components/ui/Category";
+import ArchiveGrid from "@/components/ui/Archivesection";
 
 export const metadata = {
   title: "Isabella",
@@ -18,10 +20,8 @@ export default function RootLayout({ children }) {
       <> 
         <NavbarComponent />
         <HeroCarousel/>
-        <CollectionsSection/>
-        <FeaturedCollection/>
-        <ProductShowcaseSection/>
-        <EditorialSection/>
+        <CategoryAndStory />
+        <ArchiveGrid/>
         <FeaturesSection/>
         <Footer/>
         {children} 

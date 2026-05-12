@@ -1,70 +1,54 @@
 "use client";
 
-import { Package, Globe, MessageCircle } from "lucide-react";
+import { useState } from "react";
 
-const features = [
-  {
-    id: 1,
-    icon: Package,
-    title: "FREE RETURNS",
-    description: "Returns within 14 days receive a full refund. UK only.",
-  },
-  {
-    id: 2,
-    icon: Globe,
-    title: "WORLDWIDE SHIPPING",
-    description: "Ship anywhere, rates available at checkout.",
-  },
-  {
-    id: 3,
-    icon: MessageCircle,
-    title: "CONTACT US",
-    description: "For queries about shipping, products and news.",
-  },
-];
+export default function NewsletterSection() {
+  const [email, setEmail] = useState("");
 
-export default function FeaturesSection() {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setEmail("");
+  };
+
   return (
-    <section className="pt-4 pb-12 px-4 bg-white">
-      <div className="max-w-7xl mx-auto">
+    <section className="w-full bg-[#EBEBEB] px-5 md:px-10 lg:px-16 py-10 md:py-12">
+      <div className="max-w-screen-xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-6 md:gap-10">
 
-        {/* Section Title */}
-        <div className="text-center mb-4">
-          <h2
-            className="text-[clamp(1.4rem,3vw,2rem)] font-bold text-black tracking-wide"
-            style={{ fontFamily: "'The Seasons', serif" }}
-          >
-            Why Shop With Us
+        {/* left: copy */}
+        <div className="flex-shrink-0">
+          <p className="font-seasons text-[11px] tracking-[0.1em] text-[#888] mb-2">
+            Join the Archive
+          </p>
+          <h2 className="font-nexa text-[22px] md:text-[26px] leading-[1.2] text-[#111]">
+            Be first to know
+            <br />
+            when new pieces drop.
           </h2>
-          <div className="w-10 h-px bg-black mx-auto mt-2" />
+          <p className="font-seasons text-[11px] text-[#888] mt-2 tracking-[0.03em]">
+            No spam. Only new pieces and archive drops.
+          </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-12">
-          {features.map((feature) => (
-            <div key={feature.id} className="text-center">
-
-              {/* Icon */}
-              <div className="flex justify-center mb-5">
-                <feature.icon
-                  size={44}
-                  strokeWidth={1}
-                  className="text-[#2B2B2B]"
-                />
-              </div>
-
-              {/* Title */}
-              <h3 className="text-[0.82rem] font-bold tracking-[0.14em] text-black mb-3">
-                {feature.title}
-              </h3>
-
-              {/* Description */}
-              <p className="text-[0.78rem] font-light text-[#8A8A8A] leading-relaxed tracking-wide">
-                {feature.description}
-              </p>
-
-            </div>
-          ))}
-        </div>
+        {/* right: form */}
+        <form
+          onSubmit={handleSubmit}
+          className="flex w-full md:max-w-[500px] lg:max-w-[560px]"
+        >
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter your email address"
+            required
+            className="flex-1 bg-white border-0 px-5 py-3.5 font-seasons text-[12px] text-[#111] placeholder:text-[#AAAAAA] tracking-[0.04em] outline-none focus:ring-0"
+          />
+          <button
+            type="submit"
+            className="bg-[#111] text-white font-nexa text-[10px] tracking-[0.18em] uppercase px-6 py-3.5 hover:bg-[#333] transition-colors duration-200 whitespace-nowrap"
+          >
+            Subscribe
+          </button>
+        </form>
       </div>
     </section>
   );
