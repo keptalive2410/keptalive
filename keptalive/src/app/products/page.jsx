@@ -1,83 +1,28 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { ChevronDown, Grid2x2, Grid3x3 } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import { useRouter } from "next/navigation"; 
+import { useRouter } from "next/navigation";
 
-// function ProductCard({ product, onClick }) {
-//   const [currentImg, setCurrentImg] = useState(0);
-//   const images = product.productImages || [];
-//   const intervalRef = useRef(null);
-
-//   const startSlideshow = () => {
-//     if (images.length <= 1) return;
-//     let idx = 0;
-//     intervalRef.current = setInterval(() => {
-//       idx = (idx + 1) % images.length;
-//       setCurrentImg(idx);
-//     }, 800);
-//   };
-
-//   const stopSlideshow = () => {
-//     if (intervalRef.current) {
-//       clearInterval(intervalRef.current);
-//       intervalRef.current = null;
-//     }
-//     setCurrentImg(0);
-//   };
-
-//   useEffect(() => () => clearInterval(intervalRef.current), []);
-
-//   return (
-//     <div
-//       className="cursor-pointer group"
-//       onClick={onClick}
-//       onMouseEnter={startSlideshow}
-//       onMouseLeave={stopSlideshow}
-//     >
-//       {/* Image wrapper */}
-//       <div
-//         className="relative overflow-hidden bg-[#f4f4f4] mb-3"
-//         style={{ aspectRatio: "3/4" }}
-//       >
-//         {images.length === 0 && (
-//           <div className="absolute inset-0 bg-[#f4f4f4]" />
-//         )}
-//         {images.map((img, i) => (
-//           <img
-//             key={i}
-//             src={img.url}
-//             alt={product.productName}
-//             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
-//               i === currentImg ? "opacity-100" : "opacity-0"
-//             }`}
-//           />
-//         ))}
-//       </div>
-
-//       {/* Info */}
-//       <div className="flex flex-col gap-1">
-//         <p className="text-[#2B2B2B] text-[0.82rem] font-light group-hover:underline">
-//           {product.productName}
-//         </p>
-//         <p className="text-[#000] text-[0.82rem] font-bold">
-//           Rs. {product.productSellingPrice?.toLocaleString()}
-//         </p>
-//       </div>
-//     </div>
-//   );
-// }
-
+/* ─────────────────────────────────────────────
+   PRODUCT CARD
+   • Full-bleed image, no border-radius
+   • "VIEW PIECE" button slides up on hover
+   • "Sold out" badge top-right when unavailable
+   • Name + price below; greyed out when sold out
+───────────────────────────────────────────── */
 function ProductCard({ product, onClick }) {
   const [currentImg, setCurrentImg] = useState(0);
+  const [hovered, setHovered] = useState(false);
   const images = product.productImages || [];
   const intervalRef = useRef(null);
+  const isSoldOut = product.isSoldOut || product.stock === 0;
 
   const startSlideshow = () => {
+    setHovered(true);
     if (images.length <= 1) return;
-    let idx = 0; 
+    let idx = 0;
     intervalRef.current = setInterval(() => {
       idx = (idx + 1) % images.length;
       setCurrentImg(idx);
@@ -85,6 +30,7 @@ function ProductCard({ product, onClick }) {
   };
 
   const stopSlideshow = () => {
+    setHovered(false);
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
@@ -101,14 +47,10 @@ function ProductCard({ product, onClick }) {
       onMouseEnter={startSlideshow}
       onMouseLeave={stopSlideshow}
     >
-      {/* Image wrapper */}
-      <div
-        className="relative overflow-hidden bg-[#f4f4f4] rounded-2xl mb-3"
-        style={{ aspectRatio: "3/4" }}
-      >
-        {images.length === 0 && (
-          <div className="absolute inset-0 bg-[#f4f4f4]" />
-        )}
+      {/* Image wrapper — no rounding, no margin between cards */}
+      <div className="relative overflow-hidden bg-[#f0eeec]" style={{ aspectRatio: "3/4" }}>
+        {/* Images */}
+        {images.length === 0 && <div className="absolute inset-0 bg-[#f0eeec]" />}
         {images.map((img, i) => (
           <img
             key={i}
@@ -120,60 +62,66 @@ function ProductCard({ product, onClick }) {
           />
         ))}
 
-        {/* subtle dark gradient at bottom for depth */}
-        <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-linear-to-t from-black/10 to-transparent rounded-b-2xl pointer-events-none" />
+        {/* Sold out badge — top right */}
+        {isSoldOut && (
+          <div className="absolute top-3 right-3 bg-white px-2.5 py-1 text-[0.65rem] tracking-[0.12em] font-medium text-black z-10">
+            Sold out
+          </div>
+        )}
+
+        {/* VIEW PIECE overlay — slides up from bottom on hover */}
+        <div
+          className={`absolute bottom-0 left-0 right-0 flex items-center justify-center py-4 bg-black transition-all duration-300 z-10 ${
+            hovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-full"
+          }`}
+        >
+          <span
+            className="text-white text-[0.65rem] tracking-[0.2em] font-light"
+            style={{ fontFamily: "var(--font-body)" }}
+          >
+            VIEW PIECE
+          </span>
+        </div>
       </div>
 
-      {/* Info */}
-      <div className="flex flex-col gap-1 px-1 mt-1">
-        <p className="text-[#2B2B2B] text-[0.8rem] font-light leading-snug tracking-wide group-hover:underline underline-offset-2">
+      {/* Info — below image */}
+      <div className="pt-2.5 pb-4">
+        <p
+          className={`text-[0.8rem] font-light leading-snug tracking-wide mb-0.5 ${
+            isSoldOut ? "text-[#aaa]" : "text-[#1a1a1a]"
+          }`}
+          style={{ fontFamily: "var(--font-body)" }}
+        >
           {product.productName}
         </p>
-        <div className="flex items-center gap-2">
-          <p className="text-black text-[0.8rem] font-bold tracking-wide">
-            Rs. {product.productSellingPrice?.toLocaleString()}
-          </p>
-          {product.productMrp &&
-            product.productMrp > product.productSellingPrice && (
-              <>
-                <p className="text-[#8A8A8A] text-[0.75rem] font-light line-through tracking-wide">
-                  Rs. {product.productMrp?.toLocaleString()}
-                </p>
-                <p className="text-[0.7rem] font-bold text-white bg-black px-1.5 py-0.5 rounded-sm tracking-wide">
-                  {Math.round(
-                    ((product.productMrp - product.productSellingPrice) /
-                      product.productMrp) *
-                      100,
-                  )}
-                  % OFF
-                </p>
-              </>
-            )}
-        </div>
+        <p
+          className={`text-[0.75rem] font-light tracking-wide ${
+            isSoldOut ? "text-[#aaa]" : "text-[#1a1a1a]"
+          }`}
+          style={{ fontFamily: "var(--font-body)" }}
+        >
+          {product.productSellingPrice?.toLocaleString()}
+        </p>
       </div>
     </div>
   );
 }
 
-export default function NewSeasonPage() {
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [isSortOpen, setIsSortOpen] = useState(false);
-  const [selectedView, setSelectedView] = useState("4-grid");
+/* ─────────────────────────────────────────────
+   MAIN PAGE
+───────────────────────────────────────────── */
+export default function ArchivePage() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
-  const [selectedSort, setSelectedSort] = useState("Featured");
-
-  const sortOptions = [
-    "Featured",
-    "Price: Low to High",
-    "Price: High to Low",
-    "Newest",
-  ];
-  const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
+  const [selectedSort, setSelectedSort] = useState("Newest");
+  const [selectedCategory, setSelectedCategory] = useState(null); // single select like wireframe
+  const [availability, setAvailability] = useState({ available: false, soldOut: false });
   const router = useRouter();
+
+  const sortOptions = ["Newest", "Price: Low to High", "Price: High to Low"];
 
   const [filters, setFilters] = useState({
     categories: [],
@@ -201,9 +149,9 @@ export default function NewSeasonPage() {
         setProducts((prev) => [...prev, ...data.products]);
       }
       setHasMore(page < data.totalPages);
-      setLoading(false);
     } catch (error) {
       console.error(error);
+    } finally {
       setLoading(false);
     }
   };
@@ -224,219 +172,196 @@ export default function NewSeasonPage() {
     fetchCategories();
   }, [filters, selectedSort]);
 
-  const toggleFilter = (filterType, value) => {
+  const handleCategoryClick = (categoryId) => {
+    const newCat = selectedCategory === categoryId ? null : categoryId;
+    setSelectedCategory(newCat);
     setFilters((prev) => ({
       ...prev,
-      [filterType]: prev[filterType].includes(value)
-        ? prev[filterType].filter((item) => item !== value)
-        : [...prev[filterType], value],
+      categories: newCat ? [newCat] : [],
     }));
   };
 
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-white pt-16">
-        {/* Page Title */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 text-center">
-          <h2
-            className="text-[clamp(1.8rem,4vw,2.8rem)] font-bold tracking-[0.02em] text-black"
-            style={{ fontFamily: "'The Seasons', serif" }}
-          >
-            COLLECTIONS
-          </h2>
-        </div>
 
-        <div className="pb-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/* Filter Bar */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4 py-4 border-t border-b border-[#BFC3C7]">
-              <div className="flex items-center gap-4 w-full sm:w-auto">
-                {/* Filter Button */}
-                <button
-                  onClick={() => setIsFilterOpen(!isFilterOpen)}
-                  className="flex items-center gap-2 px-4 py-2 text-sm border border-[#BFC3C7] text-black hover:bg-gray-50 transition tracking-widest"
-                >
-                  <span>FILTER</span>
-                  <ChevronDown
-                    size={16}
-                    className={`transition-transform duration-200 ${isFilterOpen ? "rotate-180" : ""}`}
-                  />
-                </button>
+      {/* Full-width layout below navbar */}
+      <div className="h-screen bg-white pt-15 flex overflow-hidden">
 
-                {/* Sort Dropdown */}
-                <div className="relative flex-1 sm:flex-none">
-                  <button
-                    onClick={() => setIsSortOpen(!isSortOpen)}
-                    className="flex items-center gap-2 px-4 py-2 text-sm border border-[#BFC3C7] text-black hover:bg-gray-50 transition tracking-widest w-full sm:w-auto justify-between"
-                  >
-                    <span>{selectedSort.toUpperCase() || "FEATURED"}</span>
-                    <ChevronDown
-                      size={16}
-                      className={`transition-transform duration-200 ${isSortOpen ? "rotate-180" : ""}`}
-                    />
-                  </button>
-                  {isSortOpen && (
-                    <div className="absolute top-full left-0 mt-1 w-full sm:w-56 bg-white border border-[#BFC3C7] shadow-md z-40">
-                      {sortOptions.map((option) => (
-                        <button
-                          key={option}
-                          className="block w-full text-left px-4 py-3 text-sm text-[#2B2B2B] hover:bg-gray-50 font-light"
-                          onClick={() => {
-                            setSelectedSort(option);
-                            setIsSortOpen(false);
-                          }}
-                        >
-                          {option}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
+        {/* ── LEFT SIDEBAR ─────────────────────────── */}
+        <aside className="hidden lg:block w-75 shrink-0 px-6 pt-8 border-r border-[#e8e8e8] h-full overflow-hidden">
 
-              {/* View Options */}
-              <div className="hidden sm:flex items-center gap-2">
-                {[
-                  { id: "2-grid", icon: <Grid2x2 size={20} /> },
-                  { id: "3-grid", icon: <Grid3x3 size={20} /> },
-                  {
-                    id: "4-grid",
-                    icon: (
-                      <div className="grid grid-cols-4 gap-0.5 w-4.5 h-4.5">
-                        {Array.from({ length: 16 }).map((_, i) => (
-                          <span
-                            key={i}
-                            className="w-0.75 h-0.75 bg-current block"
-                          ></span>
-                        ))}
-                      </div>
-                    ),
-                  },
-                ].map(({ id, icon }) => (
-                  <button
-                    key={id}
-                    onClick={() => setSelectedView(id)}
-                    className={`p-2 border border-[#BFC3C7] transition ${
-                      selectedView === id
-                        ? "bg-black text-white border-black"
-                        : "bg-white text-black hover:bg-gray-50"
-                    }`}
-                  >
-                    {icon}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Filter Panel */}
-            {isFilterOpen && (
-              <div className="mb-8 p-6 border border-[#BFC3C7] bg-white">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
-                  {/* Categories */}
-                  <div>
-                    <h3 className="text-[0.7rem] font-bold tracking-[0.14em] text-black mb-3">
-                      CATEGORIES
-                    </h3>
-                    <div className="flex flex-col gap-2">
-                      {categories.map((category) => (
-                        <label
-                          key={category.categoryName}
-                          className="flex items-center gap-2 cursor-pointer text-[0.82rem] font-light text-[#2B2B2B]"
-                        >
-                          <input
-                            type="checkbox"
-                            className="accent-black"
-                            checked={filters.categories.includes(
-                              category._id,
-                            )}
-                            onChange={() =>
-                              toggleFilter("categories", category._id)
-                            }
-                          />
-                          {category.categoryName}
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Price */}
-                  <div>
-                    <h3 className="text-[0.7rem] font-bold tracking-[0.14em] text-black mb-3">
-                      PRICE
-                    </h3>
-                    <input
-                      type="range"
-                      min="0"
-                      max="50000"
-                      value={filters.priceRange[1]}
-                      className="w-full accent-black mb-2"
-                      onChange={(e) =>
-                        setFilters((prev) => ({
-                          ...prev,
-                          priceRange: [0, parseInt(e.target.value)],
-                        }))
-                      }
-                    />
-                    <div className="flex justify-between text-[0.78rem] font-light text-[#2B2B2B]">
-                      <span>Rs. {filters.priceRange[0]}</span>
-                      <span>Rs. {filters.priceRange[1]}</span>
-                    </div>
-                  </div>
-
-                  {/* Size */}
-                  <div>
-                    <h3 className="text-[0.7rem] font-bold tracking-[0.14em] text-black mb-3">
-                      SIZE
-                    </h3>
-                    <div className="grid grid-cols-3 gap-2">
-                      {sizes.map((size) => (
-                        <button
-                          key={size}
-                          onClick={() => toggleFilter("size", size)}
-                          className={`px-3 py-2 text-sm font-light border transition ${
-                            filters.size.includes(size)
-                              ? "bg-black text-white border-black"
-                              : "bg-white text-[#2B2B2B] border-[#BFC3C7] hover:bg-gray-100"
-                          }`}
-                        >
-                          {size}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Clear Filters */}
-                <div className="mt-6 pt-6 border-t border-[#BFC3C7] flex justify-end">
-                  <button
-                    onClick={() =>
-                      setFilters({
-                        categories: [],
-                        priceRange: [0, 50000],
-                        size: [],
-                      })
-                    }
-                    className="text-sm font-light text-[#2B2B2B] underline hover:no-underline bg-none border-none cursor-pointer"
-                  >
-                    Clear All Filters
-                  </button>
-                </div>
-              </div>
-            )}
+          {/* THE ARCHIVE heading */}
+          <div className="mb-6">
+            <p
+              className="text-[1rem] tracking-[0.18em] font-semibold text-black mb-1 uppercase"
+              style={{ fontFamily: "var(--font-body)" }}
+            >
+              THE ARCHIVE
+            </p>
+            {/* Breadcrumb-style subtitle */}
+            <p
+              className="text-[0.88rem] text-[#999] font-light tracking-wide"
+              style={{ fontFamily: "var(--font-body)" }}
+            >
+              Archive I · 2026
+            </p>
+            <p
+              className="text-[0.88rem] text-[#999] font-light tracking-wide mt-0.5"
+              style={{ fontFamily: "var(--font-body)" }}
+            >
+              {products.length} Pieces
+            </p>
           </div>
 
-          {/* Product Grid */}
-          <div className="w-full px-2.5 sm:px-3.5 lg:px-4.5">
-            <div
-              className={`grid gap-2.5 ${
-                selectedView === "2-grid"
-                  ? "grid-cols-1 sm:grid-cols-2"
-                  : selectedView === "3-grid"
-                    ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-                    : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
-              }`}
+          <div className="w-full h-px bg-[#e8e8e8] mb-6" />
+
+          {/* CATEGORY */}
+          <div className="mb-8">
+            <p
+              className="text-[0.95rem] tracking-[0.18em] font-semibold text-[#999] uppercase mb-3"
+              style={{ fontFamily: "var(--font-body)" }}
             >
+              CATEGORY
+            </p>
+            <ul className="space-y-2">
+              <li>
+                <button
+                  onClick={() => handleCategoryClick(null)}
+                  className={`text-[0.85rem] font-light tracking-wide transition-colors ${
+                    !selectedCategory ? "text-black font-semibold underline underline-offset-2" : "text-[#555] hover:text-black"
+                  }`}
+                  style={{ fontFamily: "var(--font-body)" }}
+                >
+                  All Pieces
+                </button>
+              </li>
+              {categories.map((cat) => (
+                <li key={cat._id}>
+                  <button
+                    onClick={() => handleCategoryClick(cat.slug)}
+                    className={`text-[0.85rem] font-light tracking-wide transition-colors text-left ${
+                      selectedCategory === cat.slug
+                        ? "text-black font-semibold underline underline-offset-2"
+                        : "text-[#555] hover:text-black"
+                    }`}
+                    style={{ fontFamily: "var(--font-body)" }}
+                  >
+                    {cat.name}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="w-full h-px bg-[#e8e8e8] mb-6" />
+
+          {/* AVAILABILITY */}
+          <div className="mb-8">
+            <p
+              className="text-[0.95rem] tracking-[0.18em] font-semibold text-[#999] uppercase mb-3"
+              style={{ fontFamily: "var(--font-body)" }}
+            >
+              AVAILABILITY
+            </p>
+            <div className="space-y-2">
+              {["Available", "Sold Out"].map((label) => {
+                const key = label.toLowerCase().replace(" ", "");
+                return (
+                  <label
+                    key={label}
+                    className="flex items-center gap-2 cursor-pointer"
+                  >
+                    <input
+                      type="checkbox"
+                      className="accent-black w-3 h-3"
+                      checked={availability[key] || false}
+                      onChange={() =>
+                        setAvailability((prev) => ({ ...prev, [key]: !prev[key] }))
+                      }
+                    />
+                    <span
+                      className="text-[0.75rem] font-light text-[#555] tracking-wide"
+                      style={{ fontFamily: "var(--font-body)" }}
+                    >
+                      {label}
+                    </span>
+                  </label>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="w-full h-px bg-[#e8e8e8] mb-6" />
+
+          {/* SORT BY */}
+          <div className="mb-8">
+            <p
+              className="text-[0.95rem] tracking-[0.18em] font-semibold text-[#999] uppercase mb-3"
+              style={{ fontFamily: "var(--font-body)" }}
+            >
+              SORT BY
+            </p>
+            <ul className="space-y-2">
+              {sortOptions.map((option) => (
+                <li key={option}>
+                  <button
+                    onClick={() => setSelectedSort(option)}
+                    className={`text-[0.85rem] font-light tracking-wide transition-colors text-left ${
+                      selectedSort === option
+                        ? "text-black font-semibold"
+                        : "text-[#555] hover:text-black"
+                    }`}
+                    style={{ fontFamily: "var(--font-body)" }}
+                  >
+                    {option}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </aside>
+
+        {/* ── MAIN CONTENT ──────────────────────────── */}
+        <main className="flex-1 min-w-0 overflow-y-auto no-scrollbar">
+
+          {/* Breadcrumb (visible on large screens, matching wireframe) */}
+          <div className="hidden lg:flex items-center gap-2 px-6 pt-6 pb-4">
+            <span
+              className="text-[0.7rem] text-[#888] tracking-wide font-light cursor-pointer hover:text-black transition-colors"
+              style={{ fontFamily: "var(--font-body)" }}
+              onClick={() => router.push("/archive")}
+            >
+              Archive
+            </span>
+            <span className="text-[0.7rem] text-[#bbb]">/</span>
+            <span
+              className="text-[0.7rem] text-[#555] tracking-wide font-light"
+              style={{ fontFamily: "var(--font-body)" }}
+            >
+              Archive I · 2026
+            </span>
+          </div>
+
+          {/* Mobile: simple header */}
+          <div className="lg:hidden px-4 pt-6 pb-3">
+            <h1
+              className="text-xl font-light tracking-widest text-black"
+              style={{ fontFamily: "var(--font-heading, 'The Seasons', serif)" }}
+            >
+              THE ARCHIVE
+            </h1>
+          </div>
+
+          {/* 2-column product grid — edge-to-edge, no outer padding on sides */}
+          {loading && products.length === 0 ? (
+            <div className="grid grid-cols-2">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <div key={i} className="bg-[#f0eeec] animate-pulse" style={{ aspectRatio: "3/4" }} />
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-2">
               {products.map((product) => (
                 <ProductCard
                   key={product._id}
@@ -445,24 +370,27 @@ export default function NewSeasonPage() {
                 />
               ))}
             </div>
-          </div>
+          )}
 
           {/* Load More */}
           {hasMore && (
-            <div className="flex justify-center mt-12">
+            <div className="flex justify-center py-12">
               <button
                 onClick={() => {
                   setPage((prev) => prev + 1);
                   fetchProducts();
                 }}
-                className="px-8 py-3 text-[0.72rem] font-bold tracking-[0.16em] border border-black bg-white text-black hover:bg-black hover:text-white transition cursor-pointer"
+                disabled={loading}
+                className="px-10 py-3 text-[0.65rem] font-light tracking-[0.2em] border border-black bg-white text-black hover:bg-black hover:text-white transition-colors duration-200 cursor-pointer disabled:opacity-50"
+                style={{ fontFamily: "var(--font-body)" }}
               >
                 {loading ? "LOADING..." : "LOAD MORE"}
               </button>
             </div>
           )}
-        </div>
+        </main>
       </div>
+
       <Footer />
     </>
   );

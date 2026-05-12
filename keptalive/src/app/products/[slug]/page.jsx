@@ -1,35 +1,492 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Heart } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+
+import { useState, useEffect } from "react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useCart } from "@/context/CartContext";
 
+// ─── Size & Fit Drawer ────────────────────────────────────────────────────────
+function SizeFitDrawer({ onClose }) {
+  const sizeRows = [
+    ["XS", "80–84", "64–68", "88–92"],
+    ["S", "84–88", "68–72", "92–96"],
+    ["M", "88–92", "72–76", "96–100"],
+    ["L", "92–96", "76–80", "100–104"],
+    ["XL", "96–100", "80–84", "104–108"],
+  ];
+  return (
+    <div className="fixed inset-0 z-50 flex">
+      <div className="flex-1 bg-black/30" onClick={onClose} />
+      <div className="w-full max-w-[420px] bg-white h-full overflow-y-auto flex flex-col shadow-xl">
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-5 border-b border-[#E5E5E5]">
+          <span className="font-nexa text-[0.65rem] uppercase tracking-[0.2em] text-black">
+            Size &amp; Fit Guide
+          </span>
+          <button onClick={onClose} className="p-1 hover:opacity-50 transition">
+            <X className="w-4 h-4 text-black" />
+          </button>
+        </div>
+
+        <div className="px-6 py-6 flex flex-col gap-7">
+          {/* How to measure */}
+          <div>
+            <p className="font-nexa text-[0.6rem] uppercase tracking-[0.18em] text-black mb-2">
+              How to Measure
+            </p>
+            <p className="font-nexa font-light text-[0.7rem] text-black leading-relaxed">
+              Measure your chest at the fullest point. Measure your waist at the
+              narrowest point. Measure your hips at the fullest point.
+            </p>
+          </div>
+
+          {/* Size Chart */}
+          <div>
+            <p className="font-nexa text-[0.6rem] uppercase tracking-[0.18em] text-black mb-3">
+              Size Chart
+            </p>
+            <table className="w-full font-nexa border-collapse text-[0.7rem]">
+              <thead>
+                <tr className="bg-black text-white">
+                  {["Size", "Chest", "Waist", "Hips"].map((h) => (
+                    <th
+                      key={h}
+                      className="py-2.5 px-3 text-left font-light tracking-wide"
+                    >
+                      {h}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {sizeRows.map(([size, chest, waist, hips], i) => (
+                  <tr
+                    key={size}
+                    className={i % 2 === 0 ? "bg-white" : "bg-[#F2F2F0]"}
+                  >
+                    <td className="py-2.5 px-3 text-black">{size}</td>
+                    <td className="py-2.5 px-3 text-black font-light">
+                      {chest}
+                    </td>
+                    <td className="py-2.5 px-3 text-black font-light">
+                      {waist}
+                    </td>
+                    <td className="py-2.5 px-3 text-black font-light">
+                      {hips}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Model note */}
+          <div className="bg-[#F2F2F0] px-4 py-3">
+            <p className="font-nexa text-[0.7rem] text-black">
+              This piece has a relaxed, oversized fit.
+            </p>
+          </div>
+
+          {/* Fit Notes */}
+          <div>
+            <p className="font-nexa text-[0.6rem] uppercase tracking-[0.18em] text-black mb-3">
+              Fit Notes
+            </p>
+            <ul className="flex flex-col gap-2.5">
+              {[
+                "Relaxed, slightly oversized silhouette",
+                "True to size, size down if between sizes",
+                "Length hits mid-thigh on a 5'9\" frame",
+              ].map((note, i) => (
+                <li key={i} className="flex items-start gap-2.5">
+                  <span className="w-2.5 h-2.5 bg-black flex-shrink-0 mt-[2px]" />
+                  <span className="font-nexa font-light text-[0.7rem] text-black">
+                    {note}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Still unsure */}
+          <div>
+            <p className="font-nexa text-[0.7rem] text-black mb-1">
+              Still unsure?
+            </p>
+            <p className="font-nexa font-light text-[0.7rem] text-black mb-5">
+              Contact us and we'll help you find the right size.
+            </p>
+            <a
+              href="mailto:hello@keptalive.com"
+              className="inline-block border border-black px-5 py-2.5 font-nexa text-[0.65rem] tracking-[0.18em] uppercase text-black hover:bg-black hover:text-white transition"
+            >
+              Get in Touch
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Accordion ────────────────────────────────────────────────────────────────
+function Accordion({ label, children }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="border-t border-[#E5E5E5]">
+      <button
+        className="w-full flex items-center justify-between py-[14px] text-left"
+        onClick={() => setOpen(!open)}
+      >
+        <span className="font-nexa text-[0.65rem] uppercase tracking-[0.18em] text-black">
+          {label}
+        </span>
+        <span className="font-nexa text-base text-black leading-none">
+          {open ? "−" : "+"}
+        </span>
+      </button>
+      {open && <div className="pb-4">{children}</div>}
+    </div>
+  );
+}
+
+// ─── Details & Care Content ───────────────────────────────────────────────────
+function DetailsCareContent({ product }) {
+  const details = product?.productDetails || {
+    Fabric: "100% Cotton · Lightweight woven",
+    Print: "Botanical · Hand-painted · Gold zari embellishment",
+    Fit: "Relaxed, slightly oversized",
+    Length: "Hip length · Slightly longer at back",
+    Sleeves: "3/4 length · Flutter hem",
+    Closure: "Pull over · No fastenings",
+    Lining: "Unlined",
+  };
+  const care = product?.productCare || [
+    "Hand wash cold · Mild detergent only",
+    "Do not tumble dry · Lay flat to dry",
+    "Iron on low heat inside out",
+    "Do not bleach",
+    "Dry clean recommended for embellished areas",
+  ];
+
+  return (
+    <div className="border border-[#E5E5E5] bg-[#F9F9F8]">
+      <div className="px-4 pt-4 pb-2">
+        <p className="font-nexa text-[0.6rem] uppercase tracking-[0.18em] text-black">
+          Details
+        </p>
+      </div>
+
+      <table className="w-full font-nexa text-[0.7rem] border-collapse">
+        <tbody>
+          {Object.entries(details).map(([key, val], i) => (
+            <tr key={key} className={i % 2 === 0 ? "bg-white" : "bg-[#F2F2F0]"}>
+              <td className="py-2.5 px-4 text-[#8A8A8A] font-light w-28 capitalize">
+                {key}
+              </td>
+              <td className="py-2.5 px-4 text-black font-light">{val}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <div className="px-4 pt-5 pb-2">
+        <p className="font-nexa text-[0.6rem] uppercase tracking-[0.18em] text-black">
+          Care
+        </p>
+      </div>
+      <div className="px-4 pb-4 flex flex-col gap-2">
+        {care.map((c, i) => (
+          <div key={i} className="flex items-start gap-2.5">
+            <span className="w-2.5 h-2.5 bg-black flex-shrink-0 mt-[3px]" />
+            <span className="font-nexa font-light text-[0.7rem] text-black">
+              {c}
+            </span>
+          </div>
+        ))}
+      </div>
+      <div className="px-4 pb-4">
+        <p className="font-nexa font-light text-[0.65rem] text-[#8A8A8A]">
+          Country of origin: India
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// ─── Shipping & Returns Content ───────────────────────────────────────────────
+function ShippingReturnsContent() {
+  const shippingRows = [
+    ["Standard delivery", "5–7 business days · ₹ 299"],
+    ["Express delivery", "2–3 business days · ₹ 599"],
+    ["International", "7–14 business days · Calculated at checkout"],
+    ["Free shipping", "On all orders over ₹ 5,000"],
+  ];
+  return (
+    <div className="border border-[#E5E5E5] bg-[#F9F9F8]">
+      <div className="px-4 pt-4 pb-2">
+        <p className="font-nexa text-[0.6rem] uppercase tracking-[0.18em] text-black">
+          Shipping
+        </p>
+      </div>
+
+      <table className="w-full font-nexa text-[0.7rem] border-collapse">
+        <tbody>
+          {shippingRows.map(([label, val], i) => (
+            <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-[#F2F2F0]"}>
+              <td className="py-2.5 px-4 text-[#8A8A8A] font-light w-36">
+                {label}
+              </td>
+              <td className="py-2.5 px-4 text-black font-light">{val}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <div className="mx-4 my-3 border border-[#E5E5E5] bg-white px-3 py-2.5">
+        <p className="font-nexa text-[0.7rem] text-black">
+          Orders dispatched within 2–3 business days.
+        </p>
+        <p className="font-nexa font-light text-[0.7rem] text-[#8A8A8A]">
+          Tracking number sent once shipped.
+        </p>
+      </div>
+
+      <div className="px-4 pt-2 pb-1">
+        <p className="font-nexa text-[0.6rem] uppercase tracking-[0.18em] text-black">
+          Returns
+        </p>
+      </div>
+      <div className="px-4 pb-2">
+        <p className="font-nexa font-light text-[0.7rem] text-black mb-3">
+          We do not accept returns for change of mind. Each piece is numbered
+          and final.
+        </p>
+        <p className="font-nexa text-[0.7rem] text-black mb-2">
+          We accept returns if:
+        </p>
+        <div className="flex flex-col gap-2">
+          {[
+            "Piece arrives damaged or defective",
+            "Wrong piece sent",
+            "Piece does not match description",
+          ].map((item, i) => (
+            <div key={i} className="flex items-start gap-2.5">
+              <span className="w-2.5 h-2.5 bg-black flex-shrink-0 mt-[3px]" />
+              <span className="font-nexa font-light text-[0.7rem] text-black">
+                {item}
+              </span>
+            </div>
+          ))}
+        </div>
+        <p className="font-nexa font-light text-[0.7rem] text-[#8A8A8A] mt-3">
+          Contact us within 48 hours of delivery.
+        </p>
+      </div>
+
+      <div className="px-4 pb-5 pt-2 border-t border-[#E5E5E5] mt-3">
+        <a
+          href="mailto:hello@keptalive.com"
+          className="font-nexa text-[0.7rem] text-black border-b border-black pb-px"
+        >
+          hello@keptalive.com
+        </a>
+      </div>
+    </div>
+  );
+}
+
+// ─── Product Info Core ────────────────────────────────────────────────────────
+function ProductInfoCore({
+  product,
+  selectedSize,
+  setSelectedSize,
+  selectedColor,
+  setSelectedColor,
+  colours,
+  stockLeft,
+  isLowStock,
+  wishlist,
+  toggleWishlist,
+  addToCart,
+  setShowSizeDrawer,
+}) {
+  const pieceNumber = product.pieceNumber || "001";
+  const archiveLabel = product.archiveLabel || "Archive I · 2026";
+
+  return (
+    <div className="flex flex-col">
+      {/* Available */}
+      <div className="mb-4">
+        <span className="inline-block border border-[#5C9E6A] text-[#5C9E6A] font-nexa text-[0.58rem] tracking-[0.2em] px-2.5 py-[3px] uppercase">
+          Available
+        </span>
+      </div>
+
+      {/* Name */}
+      <h1 className="font-seasons text-[2rem] leading-tight text-black mb-1">
+        {product.productName}
+      </h1>
+
+      {/* Archive label */}
+      <p className="font-nexa font-light text-[0.65rem] text-[#8A8A8A] mb-5">
+        {archiveLabel}
+      </p>
+
+      {/* Price */}
+      <p className="font-seasons text-[1.9rem] text-black mb-5">
+        ₹ {product.productSellingPrice?.toLocaleString()}
+      </p>
+
+      <div className="border-t border-[#E5E5E5] mb-5" />
+
+      {/* Size */}
+      {product.productSize?.length > 0 && (
+        <div className="mb-5">
+          <p className="font-nexa text-[0.6rem] uppercase tracking-[0.18em] text-black mb-3">
+            Size
+          </p>
+          <div className="flex gap-2 flex-wrap mb-2">
+            {product.productSize.map((size) => (
+              <button
+                key={size}
+                onClick={() => setSelectedSize(size)}
+                className={`w-10 h-10 font-nexa text-xs border transition ${
+                  selectedSize === size
+                    ? "bg-black text-white border-black"
+                    : "bg-white text-black border-[#CCCCCC] hover:border-black"
+                }`}
+              >
+                {size}
+              </button>
+            ))}
+          </div>
+          <button
+            onClick={() => setShowSizeDrawer(true)}
+            className="font-nexa font-light text-[0.65rem] text-[#8A8A8A] underline underline-offset-2 hover:text-black transition"
+          >
+            Size &amp; Fit Guide →
+          </button>
+        </div>
+      )}
+
+      {/* Colour */}
+      {colours.length > 0 && (
+        <div className="mb-5">
+          <p className="font-nexa text-[0.6rem] uppercase tracking-[0.18em] text-black mb-1">
+            Colour
+          </p>
+          <p className="font-nexa font-light text-[0.65rem] text-[#8A8A8A] mb-2">
+            {typeof selectedColor === "string"
+              ? selectedColor
+              : selectedColor?.name || ""}
+          </p>
+          <div className="flex gap-2">
+            {colours.map((col, i) => {
+              const colName = typeof col === "string" ? col : col?.name;
+              const colHex = typeof col === "string" ? null : col?.hex;
+              const active =
+                selectedColor === col || selectedColor?.name === colName;
+              return (
+                <button
+                  key={i}
+                  onClick={() => setSelectedColor(col)}
+                  title={colName}
+                  className={`w-6 h-6 rounded-full border-2 transition ${active ? "border-black" : "border-[#CCCCCC] hover:border-[#8A8A8A]"}`}
+                  style={{
+                    backgroundColor:
+                      colHex || colName?.toLowerCase() || "#ffffff",
+                  }}
+                />
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Low stock */}
+      {isLowStock && (
+        <div className="mb-4">
+          <span className="inline-block font-nexa text-[0.65rem] text-black bg-[#F2F2F0] border border-[#E5E5E5] px-3 py-1.5">
+            Only {stockLeft} pieces remaining
+          </span>
+        </div>
+      )}
+
+      {/* CTAs */}
+      <div className="flex flex-col gap-2 mb-6">
+        <button
+          onClick={addToCart}
+          disabled={!selectedSize}
+          className="w-full bg-black text-white font-nexa text-[0.65rem] tracking-[0.22em] uppercase py-[14px] hover:bg-[#1a1a1a] transition disabled:opacity-40"
+        >
+          Add to Archive
+        </button>
+        <button
+          onClick={toggleWishlist}
+          className={`w-full border font-nexa text-[0.65rem] tracking-[0.22em] uppercase py-[14px] transition ${
+            wishlist
+              ? "bg-black text-white border-black"
+              : "bg-white text-black border-black hover:bg-[#F5F5F3]"
+          }`}
+        >
+          {wishlist ? "Saved" : "Save Piece"}
+        </button>
+      </div>
+
+      {/* About */}
+      <div className="border-t border-[#E5E5E5] pt-4 mb-0">
+        <p className="font-nexa text-[0.6rem] uppercase tracking-[0.18em] text-black mb-2">
+          About this piece
+        </p>
+        <p className="font-nexa font-light text-[0.7rem] text-black leading-relaxed">
+          {product.productDescription}
+        </p>
+      </div>
+
+      {/* Accordions */}
+      <Accordion label="Details & Care">
+        <DetailsCareContent product={product} />
+      </Accordion>
+      <Accordion label="Shipping & Returns">
+        <ShippingReturnsContent />
+      </Accordion>
+
+      {/* Certificate card */}
+      <div className="border border-[#E5E5E5] bg-[#F9F9F8] px-4 py-4 mt-4">
+        <p className="font-nexa text-[0.7rem] text-black mb-1">
+          This piece is numbered and comes with a certificate of authenticity.
+        </p>
+        <p className="font-nexa font-light text-[0.7rem] text-black">
+          Piece #{String(pieceNumber).padStart(3, "0")} of {archiveLabel}.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// ─── Main Page ────────────────────────────────────────────────────────────────
 export default function ProductPage() {
-  const [selectedSize, setSelectedSize] = useState("S");
-  const [quantity, setQuantity] = useState(1);
+  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
   const [wishlist, setWishlist] = useState(false);
-  const [product, setProduct] = useState();
+  const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [relatedProducts, setrelatedProducts] = useState([]);
-  const [selectedImage, setSelectedImage] = useState(0);
+  const [relatedProducts, setRelatedProducts] = useState([]);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [showSizeDrawer, setShowSizeDrawer] = useState(false);
 
   const { slug } = useParams();
   const router = useRouter();
-
-  const {
-    incrementCart,
-    incrementWishlist,
-    decrementWishlist,
-  } = useCart();
+  const { incrementCart, incrementWishlist, decrementWishlist } = useCart();
 
   useEffect(() => {
     if (!slug) return;
-
-    const fetchData = async () => {
+    (async () => {
       try {
         setLoading(true);
 
@@ -46,55 +503,40 @@ export default function ProductPage() {
         if (data.product?.productSize?.length) {
           setSelectedSize(data.product.productSize[0]);
         }
-
-        const wishlistRes = await fetch("/api/wishlist/fetch", {
-          method: "POST",
-        });
-
-        const wishlistData = await wishlistRes.json();
-
-        if (wishlistData.success) {
-          setWishlist(
-            wishlistData.wishlist.some(
-              (p) => p._id === data.product._id
-            )
-          );
+        if (data.product?.productColour?.length) {
+          setSelectedColor(data.product.productColour[0]);
         }
 
-        const relatedRes = await fetch(
-          `/api/products/${slug}/related`
-        );
+        const wRes = await fetch("/api/wishlist/fetch", { method: "POST" });
+        const wData = await wRes.json();
+        if (wData.success)
+          setWishlist(wData.wishlist.some((p) => p._id === data.product._id));
 
-        const relatedData = await relatedRes.json();
-
-        setrelatedProducts(
-          relatedData.relatedProducts || []
-        );
-
-        setLoading(false);
-      } catch (error) {
-        console.error(error);
+        const rRes = await fetch(`/api/products/${slug}/related`);
+        const rData = await rRes.json();
+        setRelatedProducts(rData.relatedProducts || []);
+      } catch (e) {
+        console.error(e);
+      } finally {
         setLoading(false);
       }
-    };
-
-    fetchData();
+    })();
   }, [slug]);
 
   if (loading)
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#f3f1ed]">
-        <p className="text-[11px] tracking-[0.18em] uppercase text-[#666]">
-          Loading
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <p className="font-nexa text-[#8A8A8A] text-[0.65rem] tracking-[0.2em] uppercase">
+          Loading...
         </p>
       </div>
     );
 
   if (!product)
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#f3f1ed]">
-        <p className="text-[11px] tracking-[0.18em] uppercase text-[#666]">
-          Product Not Found
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <p className="font-nexa text-[#8A8A8A] text-[0.65rem] tracking-[0.2em] uppercase">
+          Product not found
         </p>
       </div>
     );
@@ -110,23 +552,22 @@ export default function ProductPage() {
           productID: product._id,
         }),
       });
-
       const data = await res.json();
-
       if (data.success) {
         if (data.action === "added") {
           setWishlist(true);
-          incrementWishlist();
           toast.success("Added to wishlist");
+          incrementWishlist();
         } else {
           setWishlist(false);
+          toast.success("Removed from wishlist");
           decrementWishlist();
           toast.success("Removed from wishlist");
         }
       }
-    } catch (error) {
-      console.error(error);
-      toast.error("Something went wrong");
+    } catch (e) {
+      console.error(e);
+      toast.error("Something went wrong.");
     }
   };
 
@@ -134,516 +575,224 @@ export default function ProductPage() {
     try {
       const res = await fetch("/api/cart/add", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           productID: product._id,
           productSize: selectedSize,
-          productQuantity: quantity,
+          productQuantity: 1,
         }),
       });
-
       const data = await res.json();
-
       if (data.success) {
-        toast.success("Added to cart");
+        toast.success("Added to archive");
         incrementCart();
-      } else {
-        toast.error(data.message);
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error("Something went wrong");
+      } else toast.error(data.message || "Failed to add.");
+    } catch (e) {
+      console.error(e);
+      toast.error("Something went wrong.");
     }
   };
 
-  const discount =
-    product.productOriginalPrice &&
-    product.productSellingPrice
-      ? Math.round(
-          ((product.productOriginalPrice -
-            product.productSellingPrice) /
-            product.productOriginalPrice) *
-            100
-        )
-      : null;
+  const allImages = product.productImages || [];
+  const totalSlides = allImages.length;
+  const prevSlide = () =>
+    setActiveSlide((p) => (p === 0 ? totalSlides - 1 : p - 1));
+  const nextSlide = () =>
+    setActiveSlide((p) => (p === totalSlides - 1 ? 0 : p + 1));
+
+  const stockLeft =
+    product.productStock?.get?.(selectedSize) ??
+    product.productStock?.[selectedSize];
+  const isLowStock = stockLeft != null && stockLeft <= 5;
+  const colours = product.productColour || [];
+
+  const infoProps = {
+    product,
+    selectedSize,
+    setSelectedSize,
+    selectedColor,
+    setSelectedColor,
+    colours,
+    stockLeft,
+    isLowStock,
+    wishlist,
+    toggleWishlist,
+    addToCart,
+    setShowSizeDrawer,
+  };
 
   return (
     <>
       <Navbar />
+      {showSizeDrawer && (
+        <SizeFitDrawer onClose={() => setShowSizeDrawer(false)} />
+      )}
 
-      <div className="bg-[#f3f1ed] md:mt-16 mt-28 min-h-screen">
-        <main className="w-full">
+      <div className="bg-white min-h-screen">
+        {/* Breadcrumb */}
+        <div className="border-b border-[#E5E5E5] px-5 md:px-8 py-3">
+          <p className="font-nexa text-[0.65rem] text-[#8A8A8A]">
+            <button
+              onClick={() => router.push("/archive")}
+              className="hover:text-black transition"
+            >
+              Archive
+            </button>
+            <span className="mx-1.5">/</span>
+            <span className="text-black">{product.productName}</span>
+          </p>
+        </div>
 
-          {/* MOBILE */}
-
-          <div className="xl:hidden bg-white">
-
-            <div className="aspect-[3/4] bg-[#f5f5f3] overflow-hidden">
-              <img
-                src={product.productImages?.[selectedImage]?.url}
-                alt={product.productName}
-                className="w-full h-full object-cover"
-              />
+        {/* ── MOBILE ─────────────────────────────────────────────────── */}
+        <div className="lg:hidden">
+          {/* Carousel */}
+          <div
+            className="relative w-full overflow-hidden bg-[#F2F2F0]"
+            style={{ aspectRatio: "3/4" }}
+          >
+            <div
+              className="flex h-full transition-transform duration-500 ease-in-out"
+              style={{ transform: `translateX(-${activeSlide * 100}%)` }}
+            >
+              {allImages.map((img, i) => (
+                <div key={i} className="min-w-full h-full shrink-0">
+                  <img
+                    src={img.url}
+                    alt={`${product.productName} ${i + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ))}
             </div>
-
-            <div className="grid grid-cols-4 gap-[1px] bg-[#d9d9d9]">
-              {product.productImages?.map((image, index) => (
+            {totalSlides > 1 && (
+              <>
                 <button
-                  key={index}
-                  onClick={() => setSelectedImage(index)}
-                  className="bg-white aspect-[3/4] overflow-hidden"
+                  onClick={prevSlide}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 z-10"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+
+                <button
+                  onClick={nextSlide}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 z-10"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </>
+            )}
+          </div>
+
+          {/* Thumbnails below — 1px gap */}
+          {allImages.length > 1 && (
+            <div className="flex gap-[1px] bg-[#E5E5E5]">
+              {allImages.map((img, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActiveSlide(i)}
+                  style={{ aspectRatio: "3/4" }}
+                  className={`flex-1 overflow-hidden transition ${i === activeSlide ? "opacity-100" : "opacity-40 hover:opacity-70"}`}
                 >
                   <img
-                    src={image.url}
+                    src={img.url}
                     alt=""
                     className="w-full h-full object-cover"
                   />
                 </button>
               ))}
             </div>
+          )}
 
-            <div className="px-5 py-6 flex flex-col gap-7 bg-white">
-
-              <div className="flex items-start justify-between gap-5">
-                <div>
-                  <p className="text-[10px] uppercase tracking-[0.18em] text-[#777] mb-2">
-                    Archive 2026
-                  </p>
-
-                  <h1
-                    className="text-[32px] leading-[36px] tracking-[-0.03em] text-black"
-                    style={{
-                      fontFamily: "'The Seasons', serif",
-                    }}
-                  >
-                    {product.productName}
-                  </h1>
-                </div>
-
-                <button
-                  onClick={toggleWishlist}
-                  className="mt-2"
-                >
-                  <Heart
-                    className={`w-5 h-5 transition-all duration-300 ${
-                      wishlist
-                        ? "fill-black text-black"
-                        : "text-black"
-                    }`}
-                  />
-                </button>
-              </div>
-
-              <div className="border-t border-b border-[#d9d9d9] py-5">
-
-                <div className="flex items-center gap-3">
-                  <span className="text-[28px] tracking-[-0.03em] text-black">
-                    ₹
-                    {product.productSellingPrice?.toLocaleString()}
-                  </span>
-
-                  {product.productOriginalPrice && (
-                    <span className="text-[14px] text-[#888] line-through">
-                      ₹
-                      {product.productOriginalPrice?.toLocaleString()}
-                    </span>
-                  )}
-
-                  {discount && (
-                    <span className="text-[10px] uppercase tracking-[0.15em] text-[#777]">
-                      {discount}% Off
-                    </span>
-                  )}
-                </div>
-
-                <p className="text-[10px] uppercase tracking-[0.15em] text-[#888] mt-2">
-                  Inclusive of all taxes
-                </p>
-              </div>
-
-              {product.productSize?.length > 0 && (
-                <div>
-
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-[10px] uppercase tracking-[0.18em] text-[#777]">
-                      Size
-                    </h3>
-
-                    <button className="text-[10px] uppercase tracking-[0.15em] text-[#888]">
-                      Size Guide
-                    </button>
-                  </div>
-
-                  <div className="flex gap-[1px] bg-[#d9d9d9]">
-                    {product.productSize.map((size) => (
-                      <button
-                        key={size}
-                        onClick={() =>
-                          setSelectedSize(size)
-                        }
-                        className={`w-[42px] h-[32px] text-[11px] transition-all ${
-                          selectedSize === size
-                            ? "bg-[#111] text-white"
-                            : "bg-white text-black"
-                        }`}
-                      >
-                        {size}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              <div>
-
-                <h3 className="text-[10px] uppercase tracking-[0.18em] text-[#777] mb-4">
-                  Quantity
-                </h3>
-
-                <div className="flex gap-[1px] bg-[#d9d9d9] w-fit">
-
-                  <button
-                    onClick={() =>
-                      setQuantity(
-                        Math.max(1, quantity - 1)
-                      )
-                    }
-                    className="w-[42px] h-[42px] bg-white"
-                  >
-                    −
-                  </button>
-
-                  <div className="w-[42px] h-[42px] bg-white flex items-center justify-center text-[12px]">
-                    {quantity}
-                  </div>
-
-                  <button
-                    onClick={() =>
-                      setQuantity(quantity + 1)
-                    }
-                    className="w-[42px] h-[42px] bg-white"
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-[1px] bg-[#d9d9d9]">
-
-                <button
-                  onClick={addToCart}
-                  className="h-[44px] bg-black text-white text-[11px] uppercase tracking-[0.18em]"
-                >
-                  Add To Archive
-                </button>
-
-                <button
-                  onClick={toggleWishlist}
-                  className="h-[44px] bg-white text-[11px] uppercase tracking-[0.18em]"
-                >
-                  Save Piece
-                </button>
-              </div>
-
-              <div className="border-t border-[#d9d9d9] pt-5">
-                <h3 className="text-[10px] uppercase tracking-[0.18em] text-[#777] mb-4">
-                  About The Piece
-                </h3>
-
-                <p className="text-[13px] leading-[24px] text-[#333] font-light">
-                  {product.productDescription}
-                </p>
-              </div>
-            </div>
+          <div className="px-5 pt-7 pb-10">
+            <ProductInfoCore {...infoProps} />
           </div>
+        </div>
 
-          {/* DESKTOP */}
-
-          <div className="hidden xl:grid grid-cols-[1.35fr_0.7fr_1fr] gap-[1px] bg-[#d9d9d9]">
-
-            {/* LEFT */}
-
-            <div className="bg-white">
-
-              <div className="aspect-[3/4] overflow-hidden bg-[#f5f5f3]">
-                <img
-                  src={
-                    product.productImages?.[
-                      selectedImage
-                    ]?.url
-                  }
-                  alt={product.productName}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-
-              <div className="grid grid-cols-4 gap-[1px] mt-[1px] bg-[#d9d9d9]">
-
-                {product.productImages
-                  ?.slice(0, 4)
-                  .map((image, index) => (
-                    <button
-                      key={index}
-                      onClick={() =>
-                        setSelectedImage(index)
-                      }
-                      className="aspect-[3/4] overflow-hidden bg-white"
-                    >
-                      <img
-                        src={image.url}
-                        alt=""
-                        className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-300"
-                      />
-                    </button>
-                  ))}
-              </div>
+        {/* ── DESKTOP ────────────────────────────────────────────────── */}
+        <div className="hidden lg:flex items-start max-w-[1440px] mx-auto">
+          {/* LEFT — sticky, image + thumbnail strip below */}
+          <div className="w-[50%] sticky top-0 self-start">
+            <div
+              className="w-full overflow-hidden bg-[#F2F2F0]"
+              style={{ aspectRatio: "3/4" }}
+            >
+              <img
+                src={allImages[activeSlide]?.url}
+                alt={product.productName}
+                className="w-full h-full object-cover"
+              />
             </div>
 
-            {/* MIDDLE */}
-
-            <div className="bg-white flex flex-col gap-[1px]">
-
-              {product.productImages
-                ?.slice(1, 5)
-                .map((image, index) => (
-                  <div
-                    key={index}
-                    className="aspect-[3/4] overflow-hidden bg-[#f5f5f3]"
+            {/* Thumbnails — 1px gap, below main image */}
+            {allImages.length > 1 && (
+              <div className="flex gap-[1px] bg-[#E5E5E5]">
+                {allImages.map((img, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActiveSlide(i)}
+                    style={{ aspectRatio: "3/4" }}
+                    className={`flex-1 overflow-hidden transition ${i === activeSlide ? "opacity-100" : "opacity-40 hover:opacity-70"}`}
                   >
                     <img
-                      src={image.url}
+                      src={img.url}
                       alt=""
                       className="w-full h-full object-cover"
                     />
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* RIGHT — scrollable product info */}
+          <div className="w-[50%] px-10 py-8 border-l border-[#E5E5E5] min-h-screen">
+            <ProductInfoCore {...infoProps} />
+          </div>
+        </div>
+
+        {/* ── YOU MAY ALSO LIKE ──────────────────────────────────────── */}
+        {relatedProducts.length > 0 && (
+          <section className="border-t border-[#E5E5E5] px-5 md:px-8 pt-10 pb-16">
+            <p className="font-nexa text-[0.6rem] uppercase tracking-[0.2em] text-black mb-0.5">
+              You May Also Like
+            </p>
+            <p className="font-nexa font-light text-[0.65rem] text-[#8A8A8A] mb-7">
+              From Archive I · {new Date().getFullYear()}
+            </p>
+
+            {/* 3 columns, 1px gap using bg trick */}
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-[1px] bg-[#E5E5E5]">
+              {relatedProducts
+                .slice(0, window.innerWidth < 1024 ? 4 : 3)
+                .map((item) => (
+                  <div
+                    key={item._id}
+                    className="bg-white cursor-pointer group"
+                    onClick={() => router.push(`/products/${item.slug}`)}
+                  >
+                    <div
+                      className="w-full overflow-hidden bg-[#F2F2F0]"
+                      style={{ aspectRatio: "3/4" }}
+                    >
+                      <img
+                        src={item.productImages?.[0]?.url}
+                        alt={item.productName}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    </div>
+                    <div className="px-3 pt-3 pb-4">
+                      <p className="font-seasons text-sm text-black mb-0.5 group-hover:underline underline-offset-2">
+                        {item.productName}
+                      </p>
+                      <p className="font-nexa font-light text-[0.65rem] text-black">
+                        ₹ {item.productSellingPrice?.toLocaleString()}
+                      </p>
+                    </div>
                   </div>
                 ))}
             </div>
-
-            {/* RIGHT */}
-
-            <div className="bg-white px-[42px] py-[32px] flex flex-col gap-8 min-h-screen">
-
-              <div>
-
-                <p className="text-[10px] uppercase tracking-[0.18em] text-[#777] mb-3">
-                  Archive 2026
-                </p>
-
-                <h1
-                  className="text-[38px] leading-[42px] font-normal tracking-[-0.03em] text-black"
-                  style={{
-                    fontFamily: "'The Seasons', serif",
-                  }}
-                >
-                  {product.productName}
-                </h1>
-              </div>
-
-              <div className="border-t border-b border-[#d9d9d9] py-6">
-
-                <div className="flex items-center gap-3 flex-wrap">
-
-                  <span className="text-[28px] tracking-[-0.03em] text-black">
-                    ₹
-                    {product.productSellingPrice?.toLocaleString()}
-                  </span>
-
-                  {product.productOriginalPrice && (
-                    <span className="text-[14px] text-[#888] line-through">
-                      ₹
-                      {product.productOriginalPrice?.toLocaleString()}
-                    </span>
-                  )}
-
-                  {discount && (
-                    <span className="text-[10px] uppercase tracking-[0.15em] text-[#777]">
-                      {discount}% Off
-                    </span>
-                  )}
-                </div>
-
-                <p className="text-[10px] uppercase tracking-[0.15em] text-[#888] mt-2">
-                  Inclusive of all taxes
-                </p>
-              </div>
-
-              {product.productSize?.length > 0 && (
-                <div>
-
-                  <div className="flex items-center justify-between mb-4">
-
-                    <h3 className="text-[10px] uppercase tracking-[0.18em] text-[#777]">
-                      Size
-                    </h3>
-
-                    <button className="text-[10px] uppercase tracking-[0.15em] text-[#888]">
-                      Size Guide
-                    </button>
-                  </div>
-
-                  <div className="flex gap-[1px] bg-[#d9d9d9] w-fit">
-
-                    {product.productSize.map((size) => (
-                      <button
-                        key={size}
-                        onClick={() =>
-                          setSelectedSize(size)
-                        }
-                        className={`w-[42px] h-[32px] text-[11px] transition-all ${
-                          selectedSize === size
-                            ? "bg-[#111] text-white"
-                            : "bg-white text-black"
-                        }`}
-                      >
-                        {size}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              <div>
-
-                <h3 className="text-[10px] uppercase tracking-[0.18em] text-[#777] mb-4">
-                  Quantity
-                </h3>
-
-                <div className="flex gap-[1px] bg-[#d9d9d9] w-fit">
-
-                  <button
-                    onClick={() =>
-                      setQuantity(
-                        Math.max(1, quantity - 1)
-                      )
-                    }
-                    className="w-[42px] h-[42px] bg-white"
-                  >
-                    −
-                  </button>
-
-                  <div className="w-[42px] h-[42px] bg-white flex items-center justify-center text-[12px]">
-                    {quantity}
-                  </div>
-
-                  <button
-                    onClick={() =>
-                      setQuantity(quantity + 1)
-                    }
-                    className="w-[42px] h-[42px] bg-white"
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-[1px] bg-[#d9d9d9]">
-
-                <button
-                  onClick={addToCart}
-                  className="h-[44px] bg-black text-white text-[11px] tracking-[0.18em] uppercase"
-                >
-                  Add To Archive
-                </button>
-
-                <button
-                  onClick={toggleWishlist}
-                  className="h-[44px] bg-white text-[11px] tracking-[0.18em] uppercase"
-                >
-                  Save Piece
-                </button>
-              </div>
-
-              <div className="border-t border-[#d9d9d9] pt-6">
-
-                <h3 className="text-[10px] uppercase tracking-[0.18em] text-[#777] mb-4">
-                  About The Piece
-                </h3>
-
-                <p className="text-[13px] leading-[24px] text-[#333] font-light">
-                  {product.productDescription}
-                </p>
-              </div>
-
-              <div className="border-t border-[#d9d9d9] pt-5 text-[10px] uppercase tracking-[0.15em] text-[#777]">
-                This piece is numbered and comes with
-                a certificate of authenticity.
-              </div>
-            </div>
-          </div>
-
-          {/* RELATED */}
-
-          <section className="mt-[1px] bg-[#d9d9d9]">
-
-            <div className="bg-white px-8 py-8 border-b border-[#d9d9d9]">
-
-              <p className="text-[10px] uppercase tracking-[0.18em] text-[#777] mb-2">
-                From Archive 2026
-              </p>
-
-              <h2
-                className="text-[28px] tracking-[-0.03em]"
-                style={{
-                  fontFamily: "'The Seasons', serif",
-                }}
-              >
-                You May Also Like
-              </h2>
-            </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-[1px]">
-
-              {relatedProducts.map((item) => (
-
-                <div
-                  key={item._id}
-                  onClick={() =>
-                    router.push(
-                      `/products/${item.slug}`
-                    )
-                  }
-                  className="bg-white cursor-pointer"
-                >
-
-                  <div className="aspect-[3/4] overflow-hidden bg-[#f5f5f3]">
-
-                    <img
-                      src={
-                        item.productImages?.[0]?.url
-                      }
-                      alt={item.productName}
-                      className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-300"
-                    />
-                  </div>
-
-                  <div className="p-4">
-
-                    <p className="text-[13px] leading-[20px] text-black mb-2">
-                      {item.productName}
-                    </p>
-
-                    <div className="flex items-center gap-2">
-
-                      <span className="text-[13px] text-black">
-                        ₹
-                        {item.productSellingPrice?.toLocaleString()}
-                      </span>
-
-                      {item.productOriginalPrice && (
-                        <span className="text-[12px] text-[#888] line-through">
-                          ₹
-                          {item.productOriginalPrice?.toLocaleString()}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
           </section>
-        </main>
+        )}
       </div>
 
       <Footer />

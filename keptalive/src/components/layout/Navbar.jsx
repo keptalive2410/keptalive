@@ -2,14 +2,14 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ShoppingCart, Heart, User, ChevronDown } from "lucide-react";
+import { Search, ShoppingCart, User, ChevronDown } from "lucide-react";
 import toast from "react-hot-toast";
 import { useCart } from "@/context/CartContext";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 
-export default function Header() {
+export default function Navbar() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
   const {
@@ -20,47 +20,24 @@ export default function Header() {
     setWishlistCount,
   } = useCart();
   const router = useRouter();
-  const pathname = usePathname();
-  const isHomePage = pathname === "/";
 
   useEffect(() => {
     const checkAuth = async () => {
       try {
         const res = await fetch("/api/auth/me");
         setIsLoggedIn(res.ok);
-
-        if (res.ok) {
-          fetchCounts();
-        }
+        if (res.ok) fetchCounts();
       } catch {
         setIsLoggedIn(false);
       } finally {
         setLoading(false);
       }
     };
-
     checkAuth();
   }, [fetchCounts]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
   const handleLogout = async () => {
     setIsProfileOpen(false);
-
     try {
       await fetch("/api/auth/logout", { method: "POST" });
       setIsLoggedIn(false);
@@ -75,159 +52,244 @@ export default function Header() {
   };
 
   return (
-    <header
-      className={`fixed top-0 left-0 w-full text-black py-4 px-6 z-50 transition-all duration-300 ${
-        isHomePage
-          ? isScrolled
-            ? "bg-white shadow-md"
-            : "bg-transparent"
-          : "bg-white shadow-md"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto flex items-center justify-evenly space-x-64">
-        <nav className="hidden md:flex items-center space-x-8">
-          <Link
-            href="/products"
-            className="text-sm uppercase tracking-wide hover:text-gray-300 transition-colors"
-          >
-            Shop
-          </Link>
-          <Link
-            href="/products/type/new-arrivals"
-            className="text-sm uppercase tracking-wide hover:text-gray-300 transition-colors"
-          >
-            New In
-          </Link>
-          <Link
-            href="/products/type/sale"
-            className="text-sm uppercase tracking-wide hover:text-gray-300 transition-colors"
-          >
-            Sale
-          </Link>
-        </nav>
-        <div className="shrink-0">
-          <Link
-            href="/"
-            className="text-3xl font-serif tracking-wider hover:opacity-80 transition-opacity 2xl:text-5xl"
-          >
-            kep̃talive
-          </Link>
-        </div>
-        <div className="flex items-center space-x-6">
-          {/* Cart */}
-          <Link
-            href="/Cart"
-            className="relative hover:text-gray-300 transition-colors"
-          >
-            <ShoppingCart size={22} />
-            {cartCount > 0 && (
-              <span className="absolute -top-2 -right-2 bg-white text-black text-[10px] font-bold px-1.5 py-px rounded-full min-w-4 flex items-center justify-center">
-                {cartCount}
-              </span>
-            )}
-          </Link>
+    <header className="fixed top-0 z-99 w-full bg-white border-b border-[#BFC3C7]">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10">
+        {/* Desktop Layout */}
+        <div className="hidden md:grid grid-cols-3 items-center h-16">
 
-          {/* Wishlist */}
-          <Link
-            href="/Wishlist"
-            className="relative hover:text-gray-300 transition-colors"
-          >
-            <Heart size={22} />
-            {wishlistCount > 0 && (
-              <span className="absolute -top-2 -right-2 bg-white text-black text-[10px] font-bold px-1.5 py-px rounded-full min-w-4 flex items-center justify-center">
-                {wishlistCount}
-              </span>
-            )}
-          </Link>
+          {/* Left Nav */}
+          <nav className="flex items-center gap-8">
+            <Link
+              href="/products"
+              className="font-nexa font-light text-[11px] uppercase tracking-[0.18em] text-[#000000] hover:text-[#8A8A8A] transition-colors duration-200"
+            >
+              Archive
+            </Link>
+            <Link
+              href="/Collections"
+              className="font-nexa font-light text-[11px] uppercase tracking-[0.18em] text-[#000000] hover:text-[#8A8A8A] transition-colors duration-200"
+            >
+              Collection
+            </Link>
+            <Link
+              href="/Label"
+              className="font-nexa font-light text-[11px] uppercase tracking-[0.18em] text-[#000000] hover:text-[#8A8A8A] transition-colors duration-200"
+            >
+              The Label
+            </Link>
+            <Link
+              href="/About"
+              className="font-nexa font-light text-[11px] uppercase tracking-[0.18em] text-[#000000] hover:text-[#8A8A8A] transition-colors duration-200"
+            >
+              About
+            </Link>
+          </nav>
 
-          {/* Profile / Auth */}
-          {!loading &&
-            (isLoggedIn ? (
-              /* Logged-in dropdown */
-              <div className="relative">
-                <button
-                  onClick={() => setIsProfileOpen(!isProfileOpen)}
-                  className="flex items-center space-x-1 hover:text-gray-300 transition-colors"
-                >
-                  <User size={22} />
-                  <ChevronDown size={16} />
-                </button>
+          {/* Center Logo */}
+          <div className="flex justify-center">
+            <Link
+              href="/"
+              className="font-seasons text-[26px] tracking-[0.02em] text-[#000000] hover:opacity-75 transition-opacity duration-200 leading-none"
+            >
+              kep&#771;talive
+            </Link>
+          </div>
 
-                {isProfileOpen && (
-                  <>
-                    {/* Backdrop */}
-                    <div
-                      className="fixed inset-0 z-10"
-                      onClick={() => setIsProfileOpen(false)}
+          {/* Right Icons */}
+          <div className="flex items-center justify-end gap-5">
+            {/* Search */}
+            <button
+              aria-label="Search"
+              className="text-[#000000] hover:text-[#8A8A8A] transition-colors duration-200"
+            >
+              <Search size={18} strokeWidth={1.5} />
+            </button>
+
+            {/* Profile / Auth */}
+            {!loading && (
+              isLoggedIn ? (
+                <div className="relative">
+                  <button
+                    onClick={() => setIsProfileOpen(!isProfileOpen)}
+                    aria-label="Account"
+                    className="flex items-center gap-0.5 text-[#000000] hover:text-[#8A8A8A] transition-colors duration-200"
+                  >
+                    <User size={18} strokeWidth={1.5} />
+                    <ChevronDown
+                      size={12}
+                      strokeWidth={1.5}
+                      className={`transition-transform duration-200 ${isProfileOpen ? "rotate-180" : ""}`}
                     />
+                  </button>
 
-                    {/* Dropdown Menu */}
-                    <div className="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg z-20 overflow-hidden">
-                      <Link
-                        href="/Profile"
-                        className="block px-4 py-3 text-sm hover:bg-gray-100 transition-colors"
+                  {isProfileOpen && (
+                    <>
+                      <div
+                        className="fixed inset-0 z-10"
                         onClick={() => setIsProfileOpen(false)}
-                      >
-                        Profile
-                      </Link>
-                      <Link
-                        href="/Orders"
-                        className="block px-4 py-3 text-sm hover:bg-gray-100 transition-colors"
-                        onClick={() => setIsProfileOpen(false)}
-                      >
-                        Order History
-                      </Link>
-                      <button
-                        className="w-full text-left px-4 py-3 text-sm hover:bg-gray-100 transition-colors border-t border-gray-200"
-                        onClick={handleLogout}
-                      >
-                        Logout
-                      </button>
-                    </div>
-                  </>
-                )}
-              </div>
-            ) : (
-              /* Logged-out: Login / Signup links */
-              <div className="flex items-center space-x-4">
+                      />
+                      <div className="absolute right-0 mt-3 w-44 bg-white border border-[#BFC3C7] z-20 overflow-hidden">
+                        <Link
+                          href="/Profile"
+                          className="block px-5 py-3 font-nexa font-light text-[11px] uppercase tracking-[0.15em] text-[#000000] hover:bg-[#F5F5F5] transition-colors"
+                          onClick={() => setIsProfileOpen(false)}
+                        >
+                          Profile
+                        </Link>
+                        <Link
+                          href="/Orders"
+                          className="block px-5 py-3 font-nexa font-light text-[11px] uppercase tracking-[0.15em] text-[#000000] hover:bg-[#F5F5F5] transition-colors"
+                          onClick={() => setIsProfileOpen(false)}
+                        >
+                          Order History
+                        </Link>
+                        <button
+                          className="w-full text-left px-5 py-3 font-nexa font-light text-[11px] uppercase tracking-[0.15em] text-[#000000] hover:bg-[#F5F5F5] transition-colors border-t border-[#BFC3C7]"
+                          onClick={handleLogout}
+                        >
+                          Logout
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
+              ) : (
                 <Link
                   href="/Login"
-                  className="text-sm uppercase tracking-wide hover:text-gray-300 transition-colors"
+                  aria-label="Account"
+                  className="text-[#000000] hover:text-[#8A8A8A] transition-colors duration-200"
                 >
-                  Login
+                  <User size={18} strokeWidth={1.5} />
                 </Link>
-                <Link
-                  href="/Signup"
-                  className="text-sm uppercase tracking-wide bg-black text-white px-4 py-1.5 rounded hover:bg-gray-200 transition-colors"
-                >
-                  Sign Up
-                </Link>
-              </div>
-            ))}
-        </div>
-      </div>
+              )
+            )}
 
-      {/* Mobile Navigation */}
-      <nav className="md:hidden flex items-center justify-center space-x-6 mt-4 pt-4 border-t border-gray-800">
-        <Link
-          href="/products"
-          className="text-xs uppercase tracking-wide hover:text-gray-300 transition-colors"
-        >
-          Shop
-        </Link>
-        <Link
-          href="/products/type/new-arrivals"
-          className="text-xs uppercase tracking-wide hover:text-gray-300 transition-colors"
-        >
-          New In
-        </Link>
-        <Link
-          href="/products/type/sale"
-          className="text-xs uppercase tracking-wide hover:text-gray-300 transition-colors"
-        >
-          Sale
-        </Link>
-      </nav>
+            {/* Cart */}
+            <Link
+              href="/Cart"
+              aria-label="Cart"
+              className="relative text-[#000000] hover:text-[#8A8A8A] transition-colors duration-200"
+            >
+              <ShoppingCart size={18} strokeWidth={1.5} />
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-[#000000] text-white text-[9px] font-nexa font-bold w-4 h-4 rounded-full flex items-center justify-center leading-none">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
+          </div>
+        </div>
+
+        {/* Mobile Layout */}
+        <div className="md:hidden flex items-center justify-between h-14">
+          {/* Hamburger */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Menu"
+            className="flex flex-col gap-[5px] text-[#000000]"
+          >
+            <span
+              className={`block w-5 h-px bg-current transition-all duration-200 ${isMobileMenuOpen ? "translate-y-[6px] rotate-45" : ""}`}
+            />
+            <span
+              className={`block w-5 h-px bg-current transition-all duration-200 ${isMobileMenuOpen ? "opacity-0" : ""}`}
+            />
+            <span
+              className={`block w-5 h-px bg-current transition-all duration-200 ${isMobileMenuOpen ? "-translate-y-[6px] -rotate-45" : ""}`}
+            />
+          </button>
+
+          {/* Logo */}
+          <Link
+            href="/"
+            className="font-seasons text-[22px] tracking-[0.02em] text-[#000000] leading-none"
+          >
+            kep&#771;talive
+          </Link>
+
+          {/* Right Icons */}
+          <div className="flex items-center gap-4">
+            <button aria-label="Search" className="text-[#000000]">
+              <Search size={17} strokeWidth={1.5} />
+            </button>
+            <Link href="/Cart" aria-label="Cart" className="relative text-[#000000]">
+              <ShoppingCart size={17} strokeWidth={1.5} />
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-[#000000] text-white text-[9px] font-nexa font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
+          </div>
+        </div>
+
+        {/* Mobile Menu Drawer */}
+        {isMobileMenuOpen && (
+          <nav className="md:hidden border-t border-[#BFC3C7] py-6 flex flex-col gap-5">
+            {[
+              { href: "/archive", label: "Archive" },
+              { href: "/products", label: "Collection" },
+              { href: "/the-label", label: "The Label" },
+              { href: "/about", label: "About" },
+            ].map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="font-nexa font-light text-[11px] uppercase tracking-[0.2em] text-[#000000] hover:text-[#8A8A8A] transition-colors"
+              >
+                {label}
+              </Link>
+            ))}
+
+            <div className="border-t border-[#BFC3C7] pt-5 flex flex-col gap-4">
+              {!loading && (
+                isLoggedIn ? (
+                  <>
+                    <Link
+                      href="/Profile"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="font-nexa font-light text-[11px] uppercase tracking-[0.2em] text-[#000000]"
+                    >
+                      Profile
+                    </Link>
+                    <Link
+                      href="/Orders"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="font-nexa font-light text-[11px] uppercase tracking-[0.2em] text-[#000000]"
+                    >
+                      Orders
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="text-left font-nexa font-light text-[11px] uppercase tracking-[0.2em] text-[#000000]"
+                    >
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      href="/Login"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="font-nexa font-light text-[11px] uppercase tracking-[0.2em] text-[#000000]"
+                    >
+                      Login
+                    </Link>
+                    <Link
+                      href="/Signup"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="font-nexa font-light text-[11px] uppercase tracking-[0.2em] text-[#000000]"
+                    >
+                      Sign Up
+                    </Link>
+                  </>
+                )
+              )}
+            </div>
+          </nav>
+        )}
+      </div>
     </header>
   );
 }

@@ -1,195 +1,90 @@
-    'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import Image from 'next/image';
+import Link from "next/link";
 
-const slides = [
-  {
-    id: 1,
-    image: '/Images/1.jpeg',
-    title: 'New Collection',
-    subtitle: 'Spring/Summer 2024',
-    description: 'Discover the latest trends in fashion',
-    buttonText: 'Shop Now',
-    buttonLink: '/products/type/new-arrivals',
-  },
-  {
-    id: 2,
-    image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1920&q=80',
-    title: 'Exclusive Designs',
-    subtitle: 'Limited Edition',
-    description: 'Elevate your style with our curated pieces',
-    buttonText: 'Explore',
-    buttonLink: '/sale',
-  },
-  {
-    id: 3,
-    image: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1920&q=80',
-    title: 'Timeless Elegance',
-    subtitle: 'Classic Collection',
-    description: 'Where sophistication meets comfort',
-    buttonText: 'View Collection',
-    buttonLink: '/products',
-  },
-];
-
-export default function HeroCarousel() {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-
-  useEffect(() => {
-    if (!isAutoPlaying) return;
-
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [isAutoPlaying]);
-
-  const goToSlide = (index) => {
-    setCurrentSlide(index);
-    setIsAutoPlaying(false);
-    setTimeout(() => setIsAutoPlaying(true), 10000);
-  };
-
-  const goToPrevious = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-    setIsAutoPlaying(false);
-    setTimeout(() => setIsAutoPlaying(true), 10000);
-  };
-
-  const goToNext = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
-    setIsAutoPlaying(false);
-    setTimeout(() => setIsAutoPlaying(true), 10000);
-  };
-
+export default function HeroSection() {
   return (
-    <section className="relative w-full h-screen overflow-hidden">
-      {/* Slides */}
-      {slides.map((slide, index) => (
-        <div
-          key={slide.id}
-          className={`absolute inset-0 transition-opacity duration-1000 ${
-            index === currentSlide ? 'opacity-100' : 'opacity-0'
-          }`}
-        >
-          {/* Background Image */}
-          <div className="absolute inset-0 bg-gray-900">
-            {/* Using div with background for demo - replace with actual images */}
-            <div
-              className="w-full h-full bg-cover bg-center"
-              style={{
-                backgroundImage: `url(${slide.image})`,
-                backgroundColor: '#1a1a1a', // Fallback color
-              }}
-            />
-            {/* Dark overlay */}
-            <div className="absolute inset-0 bg-black/40" />
-          </div>
-
-          {/* Content Overlay */}
-          <div className="relative h-full flex items-center justify-center text-white">
-            <div className="max-w-4xl mx-auto px-6 text-center">
-              {/* Subtitle */}
-              <p className="text-sm md:text-base uppercase tracking-widest mb-4 opacity-90 animate-fade-in">
-                {slide.subtitle}
-              </p>
-
-              {/* Main Title */}
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif mb-6 animate-slide-up">
-                {slide.title}
-              </h1>
-
-              {/* Description */}
-              <p className="text-lg md:text-xl mb-8 opacity-90 max-w-2xl mx-auto animate-fade-in-delay">
-                {slide.description}
-              </p>
-
-              {/* CTA Button */}
-              <a
-                href={slide.buttonLink}
-                className="inline-block px-8 md:px-12 py-3 md:py-4 bg-white text-black text-sm md:text-base uppercase tracking-wider font-semibold hover:bg-gray-100 transition-all duration-300 animate-fade-in-delay-2"
-              >
-                {slide.buttonText}
-              </a>
-            </div>
-          </div>
+    <section className="w-full bg-white">
+      {/* ── Wrapper: image + badge overlay ── */}
+      <div className="relative w-full">
+        {/* ARCHIVE I 2025 — top right badge */}
+        <div className="absolute top-5 right-5 z-10">
+          <span className="bg-black text-black border border-black text-[10px] uppercase tracking-[0.2em] px-3 py-[5px] inline-block">
+            ARCHIVE I 2025
+          </span>
         </div>
-      ))}
 
-      {/* Navigation Arrows */}
-      <button
-        onClick={goToPrevious}
-        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full transition-all duration-300 z-10"
-        aria-label="Previous slide"
-      >
-        <ChevronLeft size={24} className="text-white" />
-      </button>
-
-      <button
-        onClick={goToNext}
-        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full transition-all duration-300 z-10"
-        aria-label="Next slide"
-      >
-        <ChevronRight size={24} className="text-white" />
-      </button>
-
-      {/* Dots Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-3 z-10">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => goToSlide(index)}
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${
-              index === currentSlide
-                ? 'bg-white w-8'
-                : 'bg-white/50 hover:bg-white/75'
-            }`}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
+        {/* The masked hero image — photo with wave cutout, bg is transparent */}
+        <img
+          src="/images/hero-sec.png"
+          alt="Archive I 2025 Campaign"
+          className="w-full block"
+        />
       </div>
 
-      {/* <style jsx>{`
-        @keyframes fade-in {
-          from {
-            opacity: 0;
+      {/* ── White section below image — card lives here ── */}
+      <div className="bg-white w-full px-4 sm:px-8 md:px-14 z-10">
+        {/* Info card */}
+        <div className="border border-[#e0e0e0] bg-white p-6 w-[300px] relative -top-[180px] z-20 shadow-sm hidden md:block">
+          {/* Left accent line + eyebrow */}
+          <div className="flex gap-3 items-start mb-3">
+            <div className="w-[2px] bg-black self-stretch shrink-0" />
+            <p className="text-black text-[11px] tracking-[0.15em] uppercase leading-tight">
+              Archive I · 2026
+            </p>
+          </div>
+          {/* Body */}
+          <p className="text-black text-[13px] leading-relaxed mb-5 pl-[14px]">
+            Eighteen pieces. Each one numbered,
+            <br />
+            made once, and never returning.
+          </p>
+          {/* CTA */}
+          <div className="pl-[14px]">
+            <Link
+              href="/archive"
+              className="inline-block bg-black text-white text-[10px] uppercase tracking-[0.2em] px-5 py-3 hover:bg-[#2b2b2b] transition-colors duration-200"
+            >
+              EXPLORE THE ARCHIVE
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Ticker bar ── */}
+      <div className="bg-black overflow-hidden py-[10px] -mt-[180px] relative z-10">
+        <div
+          className="flex whitespace-nowrap"
+          style={{ animation: "heroTicker 24s linear infinite" }}
+        >
+          {[...Array(4)].map((_, i) => (
+            <span
+              key={i}
+              className="flex items-center shrink-0 text-white uppercase text-[10px] tracking-[0.18em]"
+            >
+              <span className="px-7">Made once. Never restocked.</span>
+              <span className="text-[#555]">·</span>
+              <span className="px-7">Each piece is numbered and final.</span>
+              <span className="text-[#555]">·</span>
+              <span className="px-7">Worn. Kept. Archived.</span>
+              <span className="text-[#555]">·</span>
+              <span className="px-7">keptalive &nbsp;&nbsp; Archive I</span>
+              <span className="text-[#555]">·</span>
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <style jsx>{`
+        @keyframes heroTicker {
+          0% {
+            transform: translateX(0);
           }
-          to {
-            opacity: 1;
+          100% {
+            transform: translateX(-25%);
           }
         }
-
-        @keyframes slide-up {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .animate-fade-in {
-          animation: fade-in 1s ease-out;
-        }
-
-        .animate-fade-in-delay {
-          animation: fade-in 1s ease-out 0.3s both;
-        }
-
-        .animate-fade-in-delay-2 {
-          animation: fade-in 1s ease-out 0.6s both;
-        }
-
-        .animate-slide-up {
-          animation: slide-up 1s ease-out 0.2s both;
-        }
-      `}</style> */}
+      `}</style>
     </section>
   );
 }
