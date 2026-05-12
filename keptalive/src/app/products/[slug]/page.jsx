@@ -1,13 +1,12 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { Heart, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Heart } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { useParams, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useCart } from "@/context/CartContext";
-
 
 export default function ProductPage() {
   const [selectedSize, setSelectedSize] = useState("S");
@@ -16,62 +15,86 @@ export default function ProductPage() {
   const [product, setProduct] = useState();
   const [loading, setLoading] = useState(false);
   const [relatedProducts, setrelatedProducts] = useState([]);
-  const [activeSlide, setActiveSlide] = useState(0);
+  const [selectedImage, setSelectedImage] = useState(0);
+
   const { slug } = useParams();
   const router = useRouter();
-  const {incrementCart, incrementWishlist, decrementWishlist} = useCart();
+
+  const {
+    incrementCart,
+    incrementWishlist,
+    decrementWishlist,
+  } = useCart();
 
   useEffect(() => {
     if (!slug) return;
+
     const fetchData = async () => {
       try {
         setLoading(true);
+
         const res = await fetch(`/api/products/${slug}`);
         const data = await res.json();
+
         if (!res.ok) {
           router.push("/products");
           return;
         }
+
         setProduct(data.product);
-        if (data.product?.productSize?.length)
+
+        if (data.product?.productSize?.length) {
           setSelectedSize(data.product.productSize[0]);
-        if (data.product?.productColour?.length)
-          setSelectedColor(data.product.productColour[0]);
+        }
+
         const wishlistRes = await fetch("/api/wishlist/fetch", {
           method: "POST",
         });
+
         const wishlistData = await wishlistRes.json();
+
         if (wishlistData.success) {
           setWishlist(
-            wishlistData.wishlist.some((p) => p._id === data.product._id),
+            wishlistData.wishlist.some(
+              (p) => p._id === data.product._id
+            )
           );
         }
-        const relatedRes = await fetch(`/api/products/${slug}/related`);
+
+        const relatedRes = await fetch(
+          `/api/products/${slug}/related`
+        );
+
         const relatedData = await relatedRes.json();
-        setrelatedProducts(relatedData.relatedProducts || []);
+
+        setrelatedProducts(
+          relatedData.relatedProducts || []
+        );
+
         setLoading(false);
       } catch (error) {
         console.error(error);
         setLoading(false);
       }
     };
+
     fetchData();
   }, [slug]);
 
   if (loading)
     return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
-        <p className="text-[#8A8A8A] text-sm tracking-widest font-light">
-          LOADING...
+      <div className="min-h-screen flex items-center justify-center bg-[#f3f1ed]">
+        <p className="text-[11px] tracking-[0.18em] uppercase text-[#666]">
+          Loading
         </p>
       </div>
     );
 
   if (!product)
     return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
-        <p className="text-[#8A8A8A] text-sm tracking-widest font-light">
-          PRODUCT NOT FOUND
+      <div className="min-h-screen flex items-center justify-center bg-[#f3f1ed]">
+        <p className="text-[11px] tracking-[0.18em] uppercase text-[#666]">
+          Product Not Found
         </p>
       </div>
     );
@@ -80,8 +103,12 @@ export default function ProductPage() {
     try {
       const res = await fetch("/api/wishlist/toggle", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ productID: product._id }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          productID: product._id,
+        }),
       });
 
       const data = await res.json();
@@ -89,19 +116,17 @@ export default function ProductPage() {
       if (data.success) {
         if (data.action === "added") {
           setWishlist(true);
-          toast.success("Product added to wishlist");
           incrementWishlist();
-        }
-        else if (data.action === "removed") {
+          toast.success("Added to wishlist");
+        } else {
           setWishlist(false);
-          toast.success("Product removed from wishlist");
           decrementWishlist();
+          toast.success("Removed from wishlist");
         }
       }
-
     } catch (error) {
       console.error(error);
-      toast.error("Something went wrong. Please try again.");
+      toast.error("Something went wrong");
     }
   };
 
@@ -122,315 +147,355 @@ export default function ProductPage() {
       const data = await res.json();
 
       if (data.success) {
-        toast.success("Product added to cart");
-        setQuantity(1);
+        toast.success("Added to cart");
         incrementCart();
       } else {
-        toast.error(data.message || "Failed to add product to cart.");
+        toast.error(data.message);
       }
     } catch (error) {
       console.error(error);
-      toast.error("Something went wrong. Please try again.");
+      toast.error("Something went wrong");
     }
   };
 
-  const canAddToCart = selectedSize && quantity > 0;
-
   const discount =
-    product.productOriginalPrice && product.productSellingPrice
+    product.productOriginalPrice &&
+    product.productSellingPrice
       ? Math.round(
-        ((product.productOriginalPrice - product.productSellingPrice) /
-          product.productOriginalPrice) *
-        100,
-      )
+          ((product.productOriginalPrice -
+            product.productSellingPrice) /
+            product.productOriginalPrice) *
+            100
+        )
       : null;
-
-  const allImages = product.productImages || [];
-  const totalSlides = allImages.length;
-
-  const prevSlide = () => setActiveSlide((prev) => (prev === 0 ? totalSlides - 1 : prev - 1));
-  const nextSlide = () => setActiveSlide((prev) => (prev === totalSlides - 1 ? 0 : prev + 1));
 
   return (
     <>
       <Navbar />
-      <div className="bg-white md:mt-16 mt-32">
-        <main className="max-w-400 mx-auto">
 
-          {/* ── MOBILE / TABLET: Carousel ── */}
-          <div className="xl:hidden">
-            <div className="relative w-full overflow-hidden bg-[#f4f4f4]" style={{ aspectRatio: "3/4" }}>
-              <div
-                className="flex h-full transition-transform duration-500 ease-in-out"
-                style={{ transform: `translateX(-${activeSlide * 100}%)` }}
-              >
-                {allImages.map((image, index) => (
-                  <div key={index} className="min-w-full h-full shrink-0">
+      <div className="bg-[#f3f1ed] md:mt-16 mt-28 min-h-screen">
+        <main className="w-full">
+
+          {/* MOBILE */}
+
+          <div className="xl:hidden bg-white">
+
+            <div className="aspect-[3/4] bg-[#f5f5f3] overflow-hidden">
+              <img
+                src={product.productImages?.[selectedImage]?.url}
+                alt={product.productName}
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            <div className="grid grid-cols-4 gap-[1px] bg-[#d9d9d9]">
+              {product.productImages?.map((image, index) => (
+                <button
+                  key={index}
+                  onClick={() => setSelectedImage(index)}
+                  className="bg-white aspect-[3/4] overflow-hidden"
+                >
+                  <img
+                    src={image.url}
+                    alt=""
+                    className="w-full h-full object-cover"
+                  />
+                </button>
+              ))}
+            </div>
+
+            <div className="px-5 py-6 flex flex-col gap-7 bg-white">
+
+              <div className="flex items-start justify-between gap-5">
+                <div>
+                  <p className="text-[10px] uppercase tracking-[0.18em] text-[#777] mb-2">
+                    Archive 2026
+                  </p>
+
+                  <h1
+                    className="text-[32px] leading-[36px] tracking-[-0.03em] text-black"
+                    style={{
+                      fontFamily: "'The Seasons', serif",
+                    }}
+                  >
+                    {product.productName}
+                  </h1>
+                </div>
+
+                <button
+                  onClick={toggleWishlist}
+                  className="mt-2"
+                >
+                  <Heart
+                    className={`w-5 h-5 transition-all duration-300 ${
+                      wishlist
+                        ? "fill-black text-black"
+                        : "text-black"
+                    }`}
+                  />
+                </button>
+              </div>
+
+              <div className="border-t border-b border-[#d9d9d9] py-5">
+
+                <div className="flex items-center gap-3">
+                  <span className="text-[28px] tracking-[-0.03em] text-black">
+                    ₹
+                    {product.productSellingPrice?.toLocaleString()}
+                  </span>
+
+                  {product.productOriginalPrice && (
+                    <span className="text-[14px] text-[#888] line-through">
+                      ₹
+                      {product.productOriginalPrice?.toLocaleString()}
+                    </span>
+                  )}
+
+                  {discount && (
+                    <span className="text-[10px] uppercase tracking-[0.15em] text-[#777]">
+                      {discount}% Off
+                    </span>
+                  )}
+                </div>
+
+                <p className="text-[10px] uppercase tracking-[0.15em] text-[#888] mt-2">
+                  Inclusive of all taxes
+                </p>
+              </div>
+
+              {product.productSize?.length > 0 && (
+                <div>
+
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-[10px] uppercase tracking-[0.18em] text-[#777]">
+                      Size
+                    </h3>
+
+                    <button className="text-[10px] uppercase tracking-[0.15em] text-[#888]">
+                      Size Guide
+                    </button>
+                  </div>
+
+                  <div className="flex gap-[1px] bg-[#d9d9d9]">
+                    {product.productSize.map((size) => (
+                      <button
+                        key={size}
+                        onClick={() =>
+                          setSelectedSize(size)
+                        }
+                        className={`w-[42px] h-[32px] text-[11px] transition-all ${
+                          selectedSize === size
+                            ? "bg-[#111] text-white"
+                            : "bg-white text-black"
+                        }`}
+                      >
+                        {size}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div>
+
+                <h3 className="text-[10px] uppercase tracking-[0.18em] text-[#777] mb-4">
+                  Quantity
+                </h3>
+
+                <div className="flex gap-[1px] bg-[#d9d9d9] w-fit">
+
+                  <button
+                    onClick={() =>
+                      setQuantity(
+                        Math.max(1, quantity - 1)
+                      )
+                    }
+                    className="w-[42px] h-[42px] bg-white"
+                  >
+                    −
+                  </button>
+
+                  <div className="w-[42px] h-[42px] bg-white flex items-center justify-center text-[12px]">
+                    {quantity}
+                  </div>
+
+                  <button
+                    onClick={() =>
+                      setQuantity(quantity + 1)
+                    }
+                    className="w-[42px] h-[42px] bg-white"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-[1px] bg-[#d9d9d9]">
+
+                <button
+                  onClick={addToCart}
+                  className="h-[44px] bg-black text-white text-[11px] uppercase tracking-[0.18em]"
+                >
+                  Add To Archive
+                </button>
+
+                <button
+                  onClick={toggleWishlist}
+                  className="h-[44px] bg-white text-[11px] uppercase tracking-[0.18em]"
+                >
+                  Save Piece
+                </button>
+              </div>
+
+              <div className="border-t border-[#d9d9d9] pt-5">
+                <h3 className="text-[10px] uppercase tracking-[0.18em] text-[#777] mb-4">
+                  About The Piece
+                </h3>
+
+                <p className="text-[13px] leading-[24px] text-[#333] font-light">
+                  {product.productDescription}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* DESKTOP */}
+
+          <div className="hidden xl:grid grid-cols-[1.35fr_0.7fr_1fr] gap-[1px] bg-[#d9d9d9]">
+
+            {/* LEFT */}
+
+            <div className="bg-white">
+
+              <div className="aspect-[3/4] overflow-hidden bg-[#f5f5f3]">
+                <img
+                  src={
+                    product.productImages?.[
+                      selectedImage
+                    ]?.url
+                  }
+                  alt={product.productName}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              <div className="grid grid-cols-4 gap-[1px] mt-[1px] bg-[#d9d9d9]">
+
+                {product.productImages
+                  ?.slice(0, 4)
+                  .map((image, index) => (
+                    <button
+                      key={index}
+                      onClick={() =>
+                        setSelectedImage(index)
+                      }
+                      className="aspect-[3/4] overflow-hidden bg-white"
+                    >
+                      <img
+                        src={image.url}
+                        alt=""
+                        className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-300"
+                      />
+                    </button>
+                  ))}
+              </div>
+            </div>
+
+            {/* MIDDLE */}
+
+            <div className="bg-white flex flex-col gap-[1px]">
+
+              {product.productImages
+                ?.slice(1, 5)
+                .map((image, index) => (
+                  <div
+                    key={index}
+                    className="aspect-[3/4] overflow-hidden bg-[#f5f5f3]"
+                  >
                     <img
                       src={image.url}
-                      alt={`${product.productName} view ${index + 1}`}
+                      alt=""
                       className="w-full h-full object-cover"
                     />
                   </div>
                 ))}
-              </div>
-
-              {discount && (
-                <div className="absolute top-3 left-3 bg-black text-white px-2.5 py-1 text-[0.65rem] font-bold tracking-widest z-10">
-                  {discount}% OFF
-                </div>
-              )}
-
-              <button
-                onClick={toggleWishlist}
-                className={`absolute top-3 right-3 p-2.5 rounded-full z-10 transition-all duration-200 ${wishlist ? "bg-black" : "bg-white"
-                  }`}
-              >
-                <Heart
-                  className={`w-5 h-5 transition-all duration-200 ${wishlist ? "fill-white text-white" : "fill-transparent text-[#2B2B2B]"
-                    }`}
-                />
-              </button>
-
-              {totalSlides > 1 && (
-                <>
-                  <button
-                    onClick={prevSlide}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full z-10 shadow"
-                  >
-                    <ChevronLeft className="w-5 h-5 text-[#2B2B2B]" />
-                  </button>
-                  <button
-                    onClick={nextSlide}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full z-10 shadow"
-                  >
-                    <ChevronRight className="w-5 h-5 text-[#2B2B2B]" />
-                  </button>
-                </>
-              )}
-
-              {totalSlides > 1 && (
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
-                  {allImages.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setActiveSlide(index)}
-                      className={`rounded-full transition-all duration-300 ${index === activeSlide
-                        ? "bg-black w-5 h-1.5"
-                        : "bg-white/70 w-1.5 h-1.5"
-                        }`}
-                    />
-                  ))}
-                </div>
-              )}
             </div>
 
-            <div className="px-4 py-6 flex flex-col gap-6">
-              <h1
-                className="text-[clamp(1.4rem,6vw,2rem)] font-bold text-black tracking-wide leading-tight"
-                style={{ fontFamily: "'The Seasons', serif" }}
-              >
-                {product.productName}
-              </h1>
+            {/* RIGHT */}
 
-              <div className="border-t border-b border-[#BFC3C7] py-4 flex flex-col gap-1">
-                <div className="flex items-baseline gap-3 flex-wrap">
-                  <span className="text-[1.6rem] font-bold text-black tracking-tight">
-                    ₹{product.productSellingPrice?.toLocaleString()}
-                  </span>
-                  {product.productOriginalPrice && (
-                    <span className="text-base font-light text-[#8A8A8A] line-through">
-                      ₹{product.productOriginalPrice?.toLocaleString()}
-                    </span>
-                  )}
-                  {discount && (
-                    <span className="text-[0.7rem] font-bold text-white bg-black px-2 py-0.5 tracking-widest">
-                      {discount}% OFF
-                    </span>
-                  )}
-                </div>
-                <p className="text-[0.75rem] font-light text-[#8A8A8A] tracking-wide">
-                  inclusive of all taxes
-                </p>
-              </div>
-
-              {product.productSize?.length > 0 && (
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-[0.7rem] font-bold tracking-[0.16em] text-black">SELECT SIZE</h3>
-                    <button className="text-[0.7rem] font-light text-[#8A8A8A] tracking-widest hover:text-black transition underline underline-offset-2">
-                      Size Chart →
-                    </button>
-                  </div>
-                  <div className="flex gap-2 flex-wrap">
-                    {product.productSize.map((size) => (
-                      <button
-                        key={size}
-                        onClick={() => setSelectedSize(size)}
-                        className={`px-4 py-2 text-sm font-light border tracking-wider transition ${selectedSize === size
-                          ? "bg-black text-white border-black"
-                          : "bg-white text-[#2B2B2B] border-[#BFC3C7] hover:border-black"
-                          }`}
-                      >
-                        {size}
-                      </button>
-                    ))}
-                  </div>
-                  <p className="text-[0.72rem] text-black mt-2">
-                    {product.productStock?.get?.(selectedSize) || product.productStock?.[selectedSize]} pieces left
-                  </p>
-                </div>
-
-
-              )}
+            <div className="bg-white px-[42px] py-[32px] flex flex-col gap-8 min-h-screen">
 
               <div>
-                <h3 className="text-[0.7rem] font-bold tracking-[0.16em] text-black mb-3">QUANTITY</h3>
-                <div className="flex items-center gap-4">
-                  <button
-                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="w-10 h-10 flex items-center justify-center border border-[#BFC3C7] hover:border-black transition text-[#2B2B2B]"
-                  >
-                    <span className="text-lg font-light">−</span>
-                  </button>
-                  <span className="text-sm font-light text-black min-w-[2ch] text-center tracking-widest">
-                    {quantity}
-                  </span>
-                  <button
-                    onClick={() => setQuantity(Math.min(10, quantity + 1))}
-                    className="w-10 h-10 flex items-center justify-center border border-[#BFC3C7] hover:border-black transition text-[#2B2B2B]"
-                  >
-                    <span className="text-lg font-light">+</span>
-                  </button>
-                </div>
-              </div>
 
-              <div className="flex gap-3">
-                <button
-                  onClick={addToCart}
-                  disabled={!canAddToCart}
-                  className="flex-1 bg-black text-white py-4 px-6 text-[0.75rem] font-bold tracking-[0.18em] uppercase hover:bg-[#2B2B2B] transition disabled:opacity-50"
-                >
-                  Add to Bag
-                </button>
-                <button
-                  onClick={toggleWishlist}
-                  className={`p-4 border transition-all duration-200 ${wishlist ? "border-black bg-black" : "border-[#BFC3C7] hover:border-black"
-                    }`}
-                >
-                  <Heart
-                    className={`w-5 h-5 transition-all duration-200 ${wishlist ? "fill-white text-white" : "fill-transparent text-[#2B2B2B]"
-                      }`}
-                  />
-                </button>
-              </div>
-
-              <div className="border-t border-[#BFC3C7] pt-5">
-                <h3 className="text-[0.7rem] font-bold tracking-[0.16em] text-black mb-3">PRODUCT DETAILS</h3>
-                <p className="text-[0.82rem] font-light text-[#2B2B2B] leading-relaxed tracking-wide">
-                  {product.productDescription}
+                <p className="text-[10px] uppercase tracking-[0.18em] text-[#777] mb-3">
+                  Archive 2026
                 </p>
-              </div>
-            </div>
-          </div>
 
-          {/* ── DESKTOP: 3-equal-column layout ── */}
-          <div className="hidden xl:grid grid-cols-3 gap-2 px-2 pt-4 items-start">
-
-            {/* COL 1: Sticky main image */}
-            <div className="sticky top-16 self-start">
-              <div
-                className="relative overflow-hidden rounded-2xl bg-[#f4f4f4] w-full"
-                style={{ aspectRatio: "3/4" }}
-              >
-                <img
-                  src={product.productImages[0]?.url}
-                  alt={product.productName}
-                  className="w-full h-full object-cover"
-                />
-                {discount && (
-                  <div className="absolute top-3 left-3 bg-black text-white px-2.5 py-1 text-[0.65rem] font-bold tracking-widest">
-                    {discount}% OFF
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* COL 2: Scrolling stacked images — same height as col 1 via overflow+maxHeight */}
-            <div
-              className="flex flex-col gap-2 overflow-y-auto"
-              style={{
-                maxHeight: "calc((100vw / 3) * (4/3))",
-                scrollbarWidth: "none",
-                msOverflowStyle: "none",
-              }}
-            >
-              <style>{`.scroll-hide::-webkit-scrollbar { display: none; }`}</style>
-              {product.productImages.slice(1, 5).map((image, index) => (
-                <div
-                  key={index}
-                  className="relative overflow-hidden rounded-2xl bg-[#f4f4f4] shrink-0 w-full scroll-hide"
-                  style={{ aspectRatio: "3/4" }}
+                <h1
+                  className="text-[38px] leading-[42px] font-normal tracking-[-0.03em] text-black"
+                  style={{
+                    fontFamily: "'The Seasons', serif",
+                  }}
                 >
-                  <img
-                    src={image.url}
-                    alt={`${product.productName} view ${index + 2}`}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              ))}
-            </div>
+                  {product.productName}
+                </h1>
+              </div>
 
-            {/* COL 3: Sticky product info */}
-            <div
-              className="sticky top-16 self-start px-6 py-8 flex flex-col gap-7 overflow-y-auto no-scrollbar"
-              style={{ maxHeight: "calc(100vh - 4rem)" }}
-            >
-              <h1
-                className="text-[clamp(1.6rem,2.5vw,2.4rem)] font-bold text-black tracking-wide leading-tight"
-                style={{ fontFamily: "'The Seasons', serif" }}
-              >
-                {product.productName}
-              </h1>
+              <div className="border-t border-b border-[#d9d9d9] py-6">
 
-              <div className="border-t border-b border-[#BFC3C7] py-5 flex flex-col gap-1">
-                <div className="flex items-baseline gap-3">
-                  <span className="text-[1.9rem] font-bold text-black tracking-tight">
-                    ₹{product.productSellingPrice?.toLocaleString()}
+                <div className="flex items-center gap-3 flex-wrap">
+
+                  <span className="text-[28px] tracking-[-0.03em] text-black">
+                    ₹
+                    {product.productSellingPrice?.toLocaleString()}
                   </span>
+
                   {product.productOriginalPrice && (
-                    <span className="text-base font-light text-[#8A8A8A] line-through">
-                      ₹{product.productOriginalPrice?.toLocaleString()}
+                    <span className="text-[14px] text-[#888] line-through">
+                      ₹
+                      {product.productOriginalPrice?.toLocaleString()}
                     </span>
                   )}
+
                   {discount && (
-                    <span className="text-[0.7rem] font-bold text-white bg-black px-2 py-0.5 tracking-widest">
-                      {discount}% OFF
+                    <span className="text-[10px] uppercase tracking-[0.15em] text-[#777]">
+                      {discount}% Off
                     </span>
                   )}
                 </div>
-                <p className="text-[0.75rem] font-light text-[#8A8A8A] tracking-wide">
-                  inclusive of all taxes
+
+                <p className="text-[10px] uppercase tracking-[0.15em] text-[#888] mt-2">
+                  Inclusive of all taxes
                 </p>
               </div>
 
               {product.productSize?.length > 0 && (
                 <div>
+
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-[0.7rem] font-bold tracking-[0.16em] text-black">SELECT SIZE</h3>
-                    <button className="text-[0.7rem] font-light text-[#8A8A8A] tracking-widest hover:text-black transition underline underline-offset-2">
-                      Size Chart →
+
+                    <h3 className="text-[10px] uppercase tracking-[0.18em] text-[#777]">
+                      Size
+                    </h3>
+
+                    <button className="text-[10px] uppercase tracking-[0.15em] text-[#888]">
+                      Size Guide
                     </button>
                   </div>
-                  <div className="flex gap-2 flex-wrap">
+
+                  <div className="flex gap-[1px] bg-[#d9d9d9] w-fit">
+
                     {product.productSize.map((size) => (
                       <button
                         key={size}
-                        onClick={() => setSelectedSize(size)}
-                        className={`px-4 py-2 text-sm font-light border tracking-wider transition ${selectedSize === size
-                          ? "bg-black text-white border-black"
-                          : "bg-white text-[#2B2B2B] border-[#BFC3C7] hover:border-black"
-                          }`}
+                        onClick={() =>
+                          setSelectedSize(size)
+                        }
+                        className={`w-[42px] h-[32px] text-[11px] transition-all ${
+                          selectedSize === size
+                            ? "bg-[#111] text-white"
+                            : "bg-white text-black"
+                        }`}
                       >
                         {size}
                       </button>
@@ -440,102 +505,136 @@ export default function ProductPage() {
               )}
 
               <div>
-                <h3 className="text-[0.7rem] font-bold tracking-[0.16em] text-black mb-4">QUANTITY</h3>
-                <div className="flex items-center gap-4">
+
+                <h3 className="text-[10px] uppercase tracking-[0.18em] text-[#777] mb-4">
+                  Quantity
+                </h3>
+
+                <div className="flex gap-[1px] bg-[#d9d9d9] w-fit">
+
                   <button
-                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="w-10 h-10 flex items-center justify-center border border-[#BFC3C7] hover:border-black transition text-[#2B2B2B]"
+                    onClick={() =>
+                      setQuantity(
+                        Math.max(1, quantity - 1)
+                      )
+                    }
+                    className="w-[42px] h-[42px] bg-white"
                   >
-                    <span className="text-lg font-light">−</span>
+                    −
                   </button>
-                  <span className="text-sm font-light text-black min-w-[2ch] text-center tracking-widest">
+
+                  <div className="w-[42px] h-[42px] bg-white flex items-center justify-center text-[12px]">
                     {quantity}
-                  </span>
+                  </div>
+
                   <button
-                    onClick={() => setQuantity(Math.min(10, quantity + 1))}
-                    className="w-10 h-10 flex items-center justify-center border border-[#BFC3C7] hover:border-black transition text-[#2B2B2B]"
+                    onClick={() =>
+                      setQuantity(quantity + 1)
+                    }
+                    className="w-[42px] h-[42px] bg-white"
                   >
-                    <span className="text-lg font-light">+</span>
+                    +
                   </button>
                 </div>
               </div>
 
-              <div className="flex gap-3 pt-2">
+              <div className="flex flex-col gap-[1px] bg-[#d9d9d9]">
+
                 <button
                   onClick={addToCart}
-                  disabled={!canAddToCart}
-                  className="flex-1 bg-black text-white py-4 px-6 text-[0.75rem] font-bold tracking-[0.18em] uppercase hover:bg-[#2B2B2B] transition">
-                  Add to Bag
+                  className="h-[44px] bg-black text-white text-[11px] tracking-[0.18em] uppercase"
+                >
+                  Add To Archive
                 </button>
+
                 <button
                   onClick={toggleWishlist}
-                  className={`p-4 border transition-all duration-200 ${wishlist ? "border-black bg-black" : "border-[#BFC3C7] hover:border-black"
-                    }`}
+                  className="h-[44px] bg-white text-[11px] tracking-[0.18em] uppercase"
                 >
-                  <Heart
-                    className={`w-5 h-5 transition-all duration-200 ${wishlist ? "fill-white text-white" : "fill-transparent text-[#2B2B2B]"
-                      }`}
-                  />
+                  Save Piece
                 </button>
               </div>
 
-              <div className="border-t border-[#BFC3C7] pt-6">
-                <h3 className="text-[0.7rem] font-bold tracking-[0.16em] text-black mb-4">PRODUCT DETAILS</h3>
-                <p className="text-[0.82rem] font-light text-[#2B2B2B] leading-relaxed tracking-wide">
+              <div className="border-t border-[#d9d9d9] pt-6">
+
+                <h3 className="text-[10px] uppercase tracking-[0.18em] text-[#777] mb-4">
+                  About The Piece
+                </h3>
+
+                <p className="text-[13px] leading-[24px] text-[#333] font-light">
                   {product.productDescription}
                 </p>
+              </div>
+
+              <div className="border-t border-[#d9d9d9] pt-5 text-[10px] uppercase tracking-[0.15em] text-[#777]">
+                This piece is numbered and comes with
+                a certificate of authenticity.
               </div>
             </div>
           </div>
 
-          {/* You May Also Like */}
-          <section className="mt-24 border-t border-[#BFC3C7] pt-16 px-4 sm:px-6 lg:px-8 pb-20">
-            <div className="flex items-end justify-between mb-10">
+          {/* RELATED */}
+
+          <section className="mt-[1px] bg-[#d9d9d9]">
+
+            <div className="bg-white px-8 py-8 border-b border-[#d9d9d9]">
+
+              <p className="text-[10px] uppercase tracking-[0.18em] text-[#777] mb-2">
+                From Archive 2026
+              </p>
+
               <h2
-                className="text-[clamp(1.4rem,3vw,2.2rem)] font-bold text-black tracking-wide"
-                style={{ fontFamily: "'The Seasons', serif" }}
+                className="text-[28px] tracking-[-0.03em]"
+                style={{
+                  fontFamily: "'The Seasons', serif",
+                }}
               >
                 You May Also Like
               </h2>
-              <button className="text-[0.7rem] font-light text-[#8A8A8A] tracking-widest hover:text-black transition underline underline-offset-2">
-                View All →
-              </button>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-[1px]">
+
               {relatedProducts.map((item) => (
+
                 <div
                   key={item._id}
-                  className="group cursor-pointer"
-                  onClick={() => router.push(`/products/${item.slug}`)}
+                  onClick={() =>
+                    router.push(
+                      `/products/${item.slug}`
+                    )
+                  }
+                  className="bg-white cursor-pointer"
                 >
-                  <div
-                    className="relative overflow-hidden bg-[#f4f4f4] rounded-2xl mb-3"
-                    style={{ aspectRatio: "3/4" }}
-                  >
+
+                  <div className="aspect-[3/4] overflow-hidden bg-[#f5f5f3]">
+
                     <img
-                      src={item.productImages?.[0].url}
+                      src={
+                        item.productImages?.[0]?.url
+                      }
                       alt={item.productName}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-300"
                     />
-                    <button
-                      className="absolute top-3 right-3 bg-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                      onClick={toggleWishlist}
-                    >
-                      <Heart className="w-4 h-4 text-[#2B2B2B]" />
-                    </button>
                   </div>
-                  <div className="flex flex-col gap-1 px-1">
-                    <p className="text-[0.8rem] font-light text-[#2B2B2B] leading-snug tracking-wide group-hover:underline underline-offset-2 line-clamp-2">
+
+                  <div className="p-4">
+
+                    <p className="text-[13px] leading-[20px] text-black mb-2">
                       {item.productName}
                     </p>
+
                     <div className="flex items-center gap-2">
-                      <span className="text-[0.82rem] font-bold text-black">
-                        ₹{item.productSellingPrice?.toLocaleString()}
+
+                      <span className="text-[13px] text-black">
+                        ₹
+                        {item.productSellingPrice?.toLocaleString()}
                       </span>
+
                       {item.productOriginalPrice && (
-                        <span className="text-[0.75rem] font-light text-[#8A8A8A] line-through">
-                          ₹{item.productOriginalPrice?.toLocaleString()}
+                        <span className="text-[12px] text-[#888] line-through">
+                          ₹
+                          {item.productOriginalPrice?.toLocaleString()}
                         </span>
                       )}
                     </div>
@@ -546,6 +645,7 @@ export default function ProductPage() {
           </section>
         </main>
       </div>
+
       <Footer />
     </>
   );
