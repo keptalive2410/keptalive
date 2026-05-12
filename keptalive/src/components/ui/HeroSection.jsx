@@ -75,16 +75,6 @@ export default function HeroSection() {
         </div>
       </div>
 
-      <style jsx>{`
-        @keyframes heroTicker {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-25%);
-          }
-        }
-      `}</style>
     </section>
   );
 }

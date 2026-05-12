@@ -180,37 +180,7 @@ export function HeroCampaign() {
         {/* frosted card overlay */}
         <div className="absolute inset-0 flex items-center">
           <div
-            className="
-              absolute
-
-              /* MOBILE */
-              bottom-4
-              left-4
-
-              /* DESKTOP — ORIGINAL */
-              md:ml-[40%]
-              md:static
-
-              bg-white/80
-              backdrop-blur-sm
-
-              px-4
-              py-4
-              sm:px-5
-              sm:py-5
-
-              md:px-7
-              md:py-6
-
-              w-[260px]
-              sm:w-[280px]
-              md:w-[290px]
-              lg:w-[340px]
-
-              md:max-w-75
-
-              shadow-sm
-            "
+            className="absolute bottom-4 left-4 md:ml-[40%] md:static bg-white/80 backdrop-blur-sm px-4 py-4 sm:px-5 sm:py-5 md:px-7 md:py-6 w-[260px] sm:w-[280px] md:w-[290px] lg:w-[340px] md:max-w-75 shadow-sm"
             style={{ backdropFilter: "blur(6px)" }}
           >
             <p className="text-[8px] sm:text-[9px] md:text-[9px] font-seasons tracking-[0.16em] uppercase text-[#777] mb-2">
@@ -229,30 +199,7 @@ export function HeroCampaign() {
 
             <Link
               href="/products"
-              className="
-                inline-block
-                bg-[#111]
-                text-white
-                font-seasons
-                tracking-[0.14em]
-
-                text-[8px]
-                sm:text-[9px]
-                md:text-[10px]
-
-                uppercase
-
-                px-4
-                sm:px-5
-                md:px-6
-
-                py-2
-                md:py-2.5
-
-                hover:bg-[#333]
-                transition-colors
-                duration-200
-              "
+              className="inline-block bg-[#111] text-white font-seasons tracking-[0.14em] text-[8px] sm:text-[9px] md:text-[10px] uppercase px-4 sm:px-5 md:px-6 py-2 md:py-2.5 hover:bg-[#333] transition-colors duration-200"
             >
               Shop The Archive
             </Link>
@@ -458,7 +405,7 @@ export function EditorialMosaic() {
       </div>
     </section>
   );
-}   
+}
 
 // ─── Default export: full composed block ────────────────────────────────────
 export default function KeptAliveHomeSections() {
