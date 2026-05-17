@@ -52,7 +52,7 @@ function validateOrigin(req) {
 
   return (
     origin.includes("localhost:3000") ||
-    origin.includes("yourdomain.com")
+    origin.includes("keptalive.in")
   );
 }
 
