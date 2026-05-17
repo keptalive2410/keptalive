@@ -16,7 +16,7 @@ export default function HeroSection() {
 
         {/* The masked hero image — photo with wave cutout, bg is transparent */}
         <img
-          src="/images/hero-sec.png"
+          src="/Images/hero-sec.png"
           alt="Archive I 2025 Campaign"
           className="w-full block"
         />
@@ -75,16 +75,7 @@ export default function HeroSection() {
         </div>
       </div>
 
-      <style jsx>{`
-        @keyframes heroTicker {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-25%);
-          }
-        }
-      `}</style>
+
     </section>
   );
 }
