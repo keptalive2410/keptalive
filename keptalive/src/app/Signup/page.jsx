@@ -109,7 +109,7 @@ export default function SignupPage() {
                 placeholder="First Name"
                 value={formData.userfName}
                 onChange={(e) => handleInputChange("userfName", e.target.value)}
-                className="w-full px-4 py-3 pl-12 border border-[#BFC3C7] rounded-lg text-sm focus:outline-none focus:border-black transition"
+                className="w-full px-4 py-3 pl-12 border border-[#BFC3C7] rounded-lg text-sm focus:outline-none focus:border-black transition text-black"
               />
             </div>
             <div className="relative flex-1">
@@ -119,7 +119,7 @@ export default function SignupPage() {
                 placeholder="Last Name"
                 value={formData.userlName}
                 onChange={(e) => handleInputChange("userlName", e.target.value)}
-                className="w-full px-4 py-3 pl-12 border border-[#BFC3C7] rounded-lg text-sm focus:outline-none focus:border-black transition"
+                className="w-full px-4 py-3 pl-12 border border-[#BFC3C7] rounded-lg text-sm focus:outline-none focus:border-black transition text-black"
               />
             </div>
           </div>
@@ -132,7 +132,7 @@ export default function SignupPage() {
               placeholder="Email Address"
               value={formData.userEmail}
               onChange={(e) => handleInputChange("userEmail", e.target.value)}
-              className="w-full px-4 py-3 pl-12 border border-[#BFC3C7] rounded-lg text-sm focus:outline-none focus:border-black transition"
+              className="w-full px-4 py-3 pl-12 border border-[#BFC3C7] rounded-lg text-sm focus:outline-none focus:border-black transition text-black"
             />
           </div>
 
@@ -144,7 +144,7 @@ export default function SignupPage() {
               placeholder="Password"
               value={formData.userPassword}
               onChange={(e) => handleInputChange("userPassword", e.target.value)}
-              className="w-full px-4 py-3 pl-12 pr-12 border border-[#BFC3C7] rounded-lg text-sm focus:outline-none focus:border-black transition"
+              className="w-full px-4 py-3 pl-12 pr-12 border border-[#BFC3C7] rounded-lg text-sm focus:outline-none focus:border-black transition text-black"
             />
             <button
               type="button"
@@ -163,7 +163,7 @@ export default function SignupPage() {
               placeholder="Confirm Password"
               value={formData.confirmPassword}
               onChange={(e) => handleInputChange("confirmPassword", e.target.value)}
-              className="w-full px-4 py-3 pl-12 pr-12 border border-[#BFC3C7] rounded-lg text-sm focus:outline-none focus:border-black transition"
+              className="w-full px-4 py-3 pl-12 pr-12 border border-[#BFC3C7] rounded-lg text-sm focus:outline-none focus:border-black transition text-black"
             />
           </div>
 
