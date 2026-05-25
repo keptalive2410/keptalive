@@ -18,7 +18,7 @@ export default function HomePage() {
         <HeroCarousel/>
         <CategoryAndStory />
         <ArchiveGrid/>
-        <FeaturesSection/>
+        {/* <FeaturesSection/> */}
         <Footer/>
       </> 
   );

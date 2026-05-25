@@ -316,7 +316,7 @@ function ProductInfoCore({
   setShowSizeDrawer,
 }) {
   const pieceNumber = product.pieceNumber || "001";
-  const archiveLabel = product.archiveLabel || "Archive I · 2026";
+  const archiveLabel = product.archiveLabel || "Discover I · 2026";
 
   return (
     <div className="flex flex-col">
@@ -345,34 +345,45 @@ function ProductInfoCore({
       <div className="border-t border-[#E5E5E5] mb-5" />
 
       {/* Size */}
-      {product.productSize?.length > 0 && (
-        <div className="mb-5">
-          <p className="font-nexa text-[0.6rem] uppercase tracking-[0.18em] text-black mb-3">
-            Size
-          </p>
-          <div className="flex gap-2 flex-wrap mb-2">
-            {product.productSize.map((size) => (
+      {product.productSize?.length > 0 &&
+        (() => {
+          const sizeOrder = ["2XS", "XS", "S", "M", "L", "XL", "2XL", "3XL"];
+
+          const sortedSizes = [...product.productSize].sort(
+            (a, b) => sizeOrder.indexOf(a) - sizeOrder.indexOf(b),
+          );
+
+          return (
+            <div className="mb-5">
+              <p className="font-nexa text-[0.6rem] uppercase tracking-[0.18em] text-black mb-3">
+                Size
+              </p>
+
+              <div className="flex gap-2 flex-wrap mb-2">
+                {sortedSizes.map((size) => (
+                  <button
+                    key={size}
+                    onClick={() => setSelectedSize(size)}
+                    className={`w-10 h-10 font-nexa text-xs border transition ${
+                      selectedSize === size
+                        ? "bg-black text-white border-black"
+                        : "bg-white text-black border-[#CCCCCC] hover:border-black"
+                    }`}
+                  >
+                    {size}
+                  </button>
+                ))}
+              </div>
+
               <button
-                key={size}
-                onClick={() => setSelectedSize(size)}
-                className={`w-10 h-10 font-nexa text-xs border transition ${
-                  selectedSize === size
-                    ? "bg-black text-white border-black"
-                    : "bg-white text-black border-[#CCCCCC] hover:border-black"
-                }`}
+                onClick={() => setShowSizeDrawer(true)}
+                className="font-nexa font-light text-[0.65rem] text-[#8A8A8A] underline underline-offset-2 hover:text-black transition"
               >
-                {size}
+                Size &amp; Fit Guide →
               </button>
-            ))}
-          </div>
-          <button
-            onClick={() => setShowSizeDrawer(true)}
-            className="font-nexa font-light text-[0.65rem] text-[#8A8A8A] underline underline-offset-2 hover:text-black transition"
-          >
-            Size &amp; Fit Guide →
-          </button>
-        </div>
-      )}
+            </div>
+          );
+        })()}
 
       {/* Colour */}
       {colours.length > 0 && (
@@ -424,7 +435,7 @@ function ProductInfoCore({
           disabled={!selectedSize}
           className="w-full bg-black text-white font-nexa text-[0.65rem] tracking-[0.22em] uppercase py-[14px] hover:bg-[#1a1a1a] transition disabled:opacity-40"
         >
-          Add to Archive
+          Add to Cart
         </button>
         <button
           onClick={toggleWishlist}
@@ -434,7 +445,7 @@ function ProductInfoCore({
               : "bg-white text-black border-black hover:bg-[#F5F5F3]"
           }`}
         >
-          {wishlist ? "Saved" : "Save Piece"}
+          {wishlist ? "Wishlist" : "Wishlist"}
         </button>
       </div>
 
@@ -584,7 +595,7 @@ export default function ProductPage() {
       });
       const data = await res.json();
       if (data.success) {
-        toast.success("Added to archive");
+        toast.success("Added to Cart");
         incrementCart();
       } else toast.error(data.message || "Failed to add.");
     } catch (e) {
@@ -636,7 +647,7 @@ export default function ProductPage() {
               onClick={() => router.push("/archive")}
               className="hover:text-black transition"
             >
-              Archive
+              Collection
             </button>
             <span className="mx-1.5">/</span>
             <span className="text-black">{product.productName}</span>
@@ -648,7 +659,7 @@ export default function ProductPage() {
           {/* Carousel */}
           <div
             className="relative w-full overflow-hidden bg-[#F2F2F0]"
-            style={{ aspectRatio: "3/4" }}
+            style={{ aspectRatio: "4/4" }}
           >
             <div
               className="flex h-full transition-transform duration-500 ease-in-out"
@@ -659,7 +670,7 @@ export default function ProductPage() {
                   <img
                     src={img.url}
                     alt={`${product.productName} ${i + 1}`}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                   />
                 </div>
               ))}
@@ -757,7 +768,7 @@ export default function ProductPage() {
               You May Also Like
             </p>
             <p className="font-nexa font-light text-[0.65rem] text-[#8A8A8A] mb-7">
-              From Archive I · {new Date().getFullYear()}
+              From Collection I · {new Date().getFullYear()}
             </p>
 
             {/* 3 columns, 1px gap using bg trick */}

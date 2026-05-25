@@ -6,17 +6,17 @@ import Link from "next/link";
 function CategoryTiles() {
   const categories = [
     {
-      label: "TOPS & BLOUSES",
+      label: "Evergreen Top",
       img: "/Images/Rectangle1.png",
       href: "/archive?category=tops",
     },
     {
-      label: "DRESSES",
+      label: "Garden Floral Green Dress",
       img: "/Images/Rectangle2.png",
       href: "/archive?category=dresses",
     },
     {
-      label: "STATEMENT PIECES",
+      label: "SUNKISSED BLOOM TOP",
       img: "/Images/Rectangle3.png",
       href: "/archive?category=statement",
     },

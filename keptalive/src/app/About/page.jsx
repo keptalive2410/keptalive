@@ -131,7 +131,7 @@ export default function AboutPage() {
             {[
               {
                 title: "Limitation",
-                body: "We make 18 pieces per archive. That number does not change. Ever.",
+                body: "We make 18 pieces per collection. That number does not change. Ever.",
               },
               {
                 title: "Accountability",
@@ -139,7 +139,7 @@ export default function AboutPage() {
               },
               {
                 title: "Permanence",
-                body: "When an archive closes, it is done. No restocks. No revivals. No second chances.",
+                body: "When an collection closes, it is done. No restocks. No revivals. No second chances.",
               },
               {
                 title: "Honesty",
@@ -186,13 +186,13 @@ export default function AboutPage() {
 
             <div className="mb-6">
               <p className="text-xs text-[#2A2A2A] font-body mb-3">
-                Archive I · 2025 · 18 Pieces · Open
+                Collection I · 2025 · 18 Pieces · Open
               </p>
               <a
                 href="/products"
                 className="inline-block border border-[#1a1a1a] text-[#1a1a1a] text-xs tracking-widest uppercase font-body px-6 py-3 hover:bg-[#1a1a1a] hover:text-white transition-colors duration-200"
               >
-                Explore Archive
+                Explore Collection
               </a>
             </div>
           </div>
@@ -237,7 +237,7 @@ export default function AboutPage() {
           </div>
 
           <p className="text-[10px] text-[#bbb] font-body mt-12">
-            © 2025 keptalive. Archive I is currently open.
+            © 2025 keptalive. Collection I is currently open.
           </p>
         </section>
       </main>

@@ -53,7 +53,7 @@ export default function TheLabelPage() {
             {/* Paragraph 1 */}
             <p className="font-nexa text-black text-[12px] sm:text-[13px] md:text-[13.5px] leading-relaxed mb-5 max-w-[480px]">
               keptalive is not a brand that restocks. It is a label that closes.
-              Every archive is a moment in time — designed, produced, numbered,
+              Every collection is a moment in time — designed, produced, numbered,
               and done. The pieces that exist, exist. The pieces that are gone,
               are gone.
             </p>
@@ -164,10 +164,10 @@ export default function TheLabelPage() {
               18
             </p>
             <p className="font-nexa text-[#8A8A8A] text-xs tracking-widest uppercase mb-3">
-              Pieces per archive
+              Pieces per collection
             </p>
             <p className="font-nexa text-black text-[13px] leading-relaxed max-w-[240px]">
-              Each archive is exactly 18 pieces. No more.
+              Each collection is exactly 18 pieces. No more.
             </p>
           </div>
 
@@ -193,7 +193,7 @@ export default function TheLabelPage() {
               Made once, never repeated
             </p>
             <p className="font-nexa text-black text-[13px] leading-relaxed max-w-[240px]">
-              When the archive closes, it is permanent.
+              When the collection closes, it is permanent.
             </p>
           </div>
         </section>
@@ -213,7 +213,7 @@ export default function TheLabelPage() {
               href="/products"
               className="inline-block bg-black text-white font-nexa text-[11px] tracking-widest uppercase px-8 py-4 hover:bg-[#2B2B2B] transition-colors duration-200"
             >
-              VIEW THE ARCHIVE
+              VIEW THE COLLECTION
             </a>
           </div>
         </section>

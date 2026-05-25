@@ -39,14 +39,11 @@ export default function Footer() {
           {/* BRAND COLUMN */}
           <div className="col-span-2 md:col-span-1">
 
-            <Link href="/">
-              <Image
-                src="/images/logo/keptalive-logo.svg"
-                alt="keptalive"
-                width={150}
-                height={36}
-                className="mb-6"
-              />
+            <Link
+              href="/"
+              className="font-seasons text-[26px] tracking-[0.02em] text-[#000000] hover:opacity-75 transition-opacity duration-200 leading-none"
+            >
+              kep&#771;talive
             </Link>
 
             <p className="text-[12px] text-[#777] leading-[1.9] tracking-[0.03em] max-w-[220px]">

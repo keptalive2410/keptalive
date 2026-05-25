@@ -30,7 +30,7 @@ export default function HeroSection() {
           <div className="flex gap-3 items-start mb-3">
             <div className="w-[2px] bg-black self-stretch shrink-0" />
             <p className="text-black text-[11px] tracking-[0.15em] uppercase leading-tight">
-              Archive I · 2026
+              Explore I · 2026
             </p>
           </div>
           {/* Body */}
@@ -42,10 +42,10 @@ export default function HeroSection() {
           {/* CTA */}
           <div className="pl-[14px]">
             <Link
-              href="/archive"
+              href="/products"
               className="inline-block bg-black text-white text-[10px] uppercase tracking-[0.2em] px-5 py-3 hover:bg-[#2b2b2b] transition-colors duration-200"
             >
-              EXPLORE THE ARCHIVE
+              EXPLORE THE COLLECTION
             </Link>
           </div>
         </div>
@@ -68,7 +68,7 @@ export default function HeroSection() {
               <span className="text-[#555]">·</span>
               <span className="px-7">Worn. Kept. Archived.</span>
               <span className="text-[#555]">·</span>
-              <span className="px-7">keptalive &nbsp;&nbsp; Archive I</span>
+              <span className="px-7">keptalive &nbsp;&nbsp; Explore I</span>
               <span className="text-[#555]">·</span>
             </span>
           ))}

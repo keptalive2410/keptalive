@@ -57,7 +57,7 @@ const editorialItems = [
   },
   {
     id: 3,
-    name: "Archive I — The Edit",
+    name: "Collection I — The Edit",
     label: "Three pieces. One look.",
     image: "/Images/Rectangle10.png",
     size: "lg",
@@ -121,7 +121,7 @@ export function ArchiveGrid() {
       <div className="flex items-baseline justify-between px-5 md:px-8 pt-8 pb-4 border-b border-[#E8E8E8]">
         <div>
           <h2 className="text-[13px] tracking-[0.12em] uppercase font-nexa text-[#111]">
-            The Archive
+            The Collection
           </h2>
           <p className="text-[11px] font-seasons text-[#888] mt-0.5 tracking-[0.04em]">
             Made once. Each piece is numbered &amp; for all.
@@ -155,7 +155,7 @@ export function ArchiveGrid() {
           href="/products"
           className="inline-block bg-[#111] text-white font-seasons tracking-[0.14em] text-[11px] uppercase px-10 py-3.5 hover:bg-[#333] transition-colors duration-200"
         >
-          View The Full Archive
+          View The Full Collection
         </Link>
       </div>
     </section>
@@ -184,7 +184,7 @@ export function HeroCampaign() {
             style={{ backdropFilter: "blur(6px)" }}
           >
             <p className="text-[8px] sm:text-[9px] md:text-[9px] font-seasons tracking-[0.16em] uppercase text-[#777] mb-2">
-              Archive I · 2026
+              Collection I · 2026
             </p>
 
             <h2 className="font-nexa text-[14px] sm:text-[18px] md:text-[26px] leading-[1.15] text-[#111] mb-3">
@@ -201,7 +201,7 @@ export function HeroCampaign() {
               href="/products"
               className="inline-block bg-[#111] text-white font-seasons tracking-[0.14em] text-[8px] sm:text-[9px] md:text-[10px] uppercase px-4 sm:px-5 md:px-6 py-2 md:py-2.5 hover:bg-[#333] transition-colors duration-200"
             >
-              Shop The Archive
+              Shop The Collection
             </Link>
           </div>
         </div>
@@ -226,7 +226,7 @@ export function EditorialMosaic() {
         <div className="relative row-span-2 overflow-hidden group bg-[#F0EDE8]">
           <Image
             src="/Images/Rectangle11.png"
-            alt="Archive I The Edit"
+            alt="Collection I The Edit"
             fill
             sizes="50vw"
             className="object-cover"
@@ -235,7 +235,7 @@ export function EditorialMosaic() {
           {/* Caption */}
           <div className="absolute bottom-4 left-4 bg-white/90 px-6 py-4 w-[320px]">
             <p className="font-nexa text-[10px] uppercase tracking-[0.18em] text-[#777]">
-              Archive I &nbsp;|&nbsp; The Edit
+              Explore I &nbsp;|&nbsp; The Edit
             </p>
 
             <p className="font-seasons text-[15px] text-black mt-1">

@@ -16,11 +16,11 @@ const tabs = [
 const faqItems = [
   {
     q: "How are pieces numbered?",
-    a: "Each piece in our archive is assigned a unique number at the time of production. This number is printed on your certificate of authenticity and sewn into the garment. No two pieces share the same number.",
+    a: "Each piece in our collection is assigned a unique number at the time of production. This number is printed on your certificate of authenticity and sewn into the garment. No two pieces share the same number.",
   },
   {
     q: "Are the pieces limited?",
-    a: "Yes. Every piece is made once and never restocked. When an archive closes, those pieces are permanently unavailable. This is intentional — scarcity is part of the archive's value.",
+    a: "Yes. Every piece is made once and never restocked. When an collection closes, those pieces are permanently unavailable. This is intentional — scarcity is part of the collection's value.",
   },
   {
     q: "Can I return a piece?",
@@ -28,15 +28,15 @@ const faqItems = [
   },
   {
     q: "Will sold out pieces be restocked?",
-    a: "No. Once a piece sells out, it is gone. This is by design — keptalive does not restock, reproduce, or reissue any piece from any archive.",
+    a: "No. Once a piece sells out, it is gone. This is by design — keptalive does not restock, reproduce, or reissue any piece from any collection.",
   },
   {
-    q: "When will Archive II be available?",
-    a: "Archive II is currently in development. We do not have an exact date yet. Follow us or sign up to be notified when it opens.",
+    q: "When will collection II be available?",
+    a: "collection II is currently in development. We do not have an exact date yet. Follow us or sign up to be notified when it opens.",
   },
   {
     q: "What comes with my order?",
-    a: "Every order includes the piece, a numbered certificate of authenticity, and our standard packaging. The certificate is the permanent record of your piece and its archive number — keep it safe.",
+    a: "Every order includes the piece, a numbered certificate of authenticity, and our standard packaging. The certificate is the permanent record of your piece and its collection number — keep it safe.",
   },
   {
     q: "Do you ship internationally?",
@@ -54,7 +54,7 @@ function FAQSection() {
     <div>
       <h1 className="font-seasons text-4xl md:text-5xl mb-2">FAQ</h1>
       <p className="font-nexa text-sm text-[#8A8A8A] mb-8">
-        Questions about keptalive, Archive I, and how it works.
+        Questions about keptalive, Collection I, and how it works.
       </p>
       <div className="border-t border-[#2B2B2B]">
         {faqItems.map((item, i) => (
@@ -246,7 +246,7 @@ function ShippingSection() {
         </p>
         <p className="font-nexa font-light text-sm text-[#8A8A8A]">
           Every piece comes with a numbered certificate. Keep it safe — it is
-          the permanent record of your piece and its archive number.
+          the permanent record of your piece and its collection number.
         </p>
       </div>
 
@@ -269,11 +269,11 @@ function ShippingSection() {
 const termsSections = [
   {
     n: "1. General",
-    body: "By accessing keptalive.com and purchasing from our archive, you agree to these terms. keptalive is a limited fashion label. All pieces are numbered, made once, and final.",
+    body: "By accessing keptalive.com and purchasing from our collection, you agree to these terms. keptalive is a limited fashion label. All pieces are numbered, made once, and final.",
   },
   {
     n: "2. Products",
-    body: "All products are limited edition and subject to availability. Each piece is numbered. Once an archive closes, pieces are permanently unavailable. We reserve the right to correct pricing errors before dispatch.",
+    body: "All products are limited edition and subject to availability. Each piece is numbered. Once an collection closes, pieces are permanently unavailable. We reserve the right to correct pricing errors before dispatch.",
   },
   {
     n: "3. Orders",

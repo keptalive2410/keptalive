@@ -61,7 +61,7 @@ export default function Navbar() {
               href="/products"
               className="font-nexa font-light text-[11px] uppercase tracking-[0.18em] text-[#000000] hover:text-[#8A8A8A] transition-colors duration-200"
             >
-              Archive
+              Explore
             </Link>
             <Link
               href="/Collections"
@@ -225,8 +225,8 @@ export default function Navbar() {
         {isMobileMenuOpen && (
           <nav className="md:hidden border-t border-[#BFC3C7] py-6 flex flex-col gap-5">
             {[
-              { href: "/archive", label: "Archive" },
-              { href: "/products", label: "Collection" },
+              { href: "/products", label: "Explore" },
+              { href: "/Collections", label: "Collection" },
               { href: "/the-label", label: "The Label" },
               { href: "/about", label: "About" },
             ].map(({ href, label }) => (

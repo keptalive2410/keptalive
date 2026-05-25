@@ -14,7 +14,7 @@ export default function CollectionPage() {
         <section className="relative w-full h-[62vw] max-h-195 min-h-85 overflow-hidden">
           <img
             src="/Images/Collections7.jpeg"
-            alt="Archive I · 2026"
+            alt="DISCOVER I · 2026"
             className="w-full h-full object-cover object-top"
           />
           {/* gradient for legibility */}
@@ -22,10 +22,10 @@ export default function CollectionPage() {
 
           <div className="absolute bottom-8 left-8 md:bottom-12 md:left-14">
             <p className="font-nexa text-white text-[9px] md:text-[10px] tracking-widest uppercase mb-2 opacity-70">
-              ARCHIVE I
+              DISCOVER I
             </p>
             <h1 className="font-seasons text-white text-[clamp(28px,5vw,68px)] leading-[1.05] mb-2">
-              Archive I · 2026
+              DISCOVER I · 2026
             </h1>
             <p className="font-nexa text-white text-[11px] md:text-[13px] leading-relaxed opacity-80 max-w-90">
               Three looks. Eighteen pieces. One archive.
@@ -52,7 +52,7 @@ export default function CollectionPage() {
           {/* Piece count — top right */}
           <div className="flex flex-col items-start md:items-end shrink-0">
             <p className="font-seasons text-black text-[clamp(36px,4vw,56px)] leading-none">
-              44
+              18
             </p>
             <p className="font-nexa text-[#8A8A8A] text-[10px] tracking-widest uppercase mt-1">
               Pieces
@@ -279,7 +279,7 @@ export default function CollectionPage() {
             href="/products"
             className="inline-block bg-black text-white font-nexa text-[10px] tracking-widest uppercase px-14 py-4 mb-4 hover:bg-[#2B2B2B] transition-colors duration-200 w-full max-w-85 text-center"
           >
-            EXPLORE THE FULL ARCHIVE
+            EXPLORE THE FULL COLLECTION
           </a>
 
           <a
