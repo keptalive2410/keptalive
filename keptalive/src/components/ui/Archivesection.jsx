@@ -1,43 +1,8 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
-// ─── Archive product data ────────────────────────────────────────────────────
-const archiveItems = [
-  {
-    id: 1,
-    slug: "the-wave-shirt",
-    name: "The Wave Shirt",
-    price: "₹ 8,400",
-    swatches: ["#C9C9C9", "#6B6B6B", "#2B2B2B"],
-    image: "/Images/Rectangle4.png",
-  },
-  {
-    id: 2,
-    slug: "the-corset-band",
-    name: "The Corset Band",
-    price: "₹ 12,200",
-    swatches: ["#C9C9C9", "#6B6B6B", "#2B2B2B"],
-    image: "/Images/Rectangle5.png",
-  },
-  {
-    id: 3,
-    slug: "the-drape-skirt",
-    name: "The Drape Skirt",
-    price: "₹ 6,800",
-    swatches: ["#D6D6D6", "#6B6B6B", "#2B2B2B"],
-    image: "/Images/Rectangle6.png",
-  },
-  {
-    id: 4,
-    slug: "the-satin-mini",
-    name: "The Satin Mini",
-    price: "₹ 7,500",
-    swatches: ["#D6D6D6", "#6B6B6B", "#2B2B2B"],
-    image: "/Images/Rectangle7.png",
-  },
-];
 
 // ─── Editorial grid items (bottom mosaic) ───────────────────────────────────
 const editorialItems = [
@@ -80,15 +45,17 @@ function Swatch({ color }) {
   );
 }
 
-// ─── Archive product card ────────────────────────────────────────────────────
 function ArchiveCard({ item }) {
   return (
-    <Link href={`/archive/${item.slug}`} className="group block">
+    <Link
+      href={`/products/${item.slug}`}
+      className="group block"
+    >
       {/* image */}
       <div className="relative aspect-3/4 overflow-hidden bg-[#F0EDE8]">
         <Image
-          src={item.image}
-          alt={item.name}
+          src={item.productImages?.[0]?.url}
+          alt={item.productName}
           fill
           sizes="(max-width: 768px) 50vw, 25vw"
           className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
@@ -98,16 +65,12 @@ function ArchiveCard({ item }) {
       {/* meta */}
       <div className="pt-2.5 pb-1">
         <p className="text-[11px] tracking-[0.08em] text-[#111] font-seasons">
-          {item.name}
+          {item.productName}
         </p>
+
         <p className="text-[11px] tracking-[0.04em] text-[#555] font-seasons mt-0.5">
-          {item.price}
+          ₹ {item.productSellingPrice?.toLocaleString()}
         </p>
-        <div className="flex gap-1.5 mt-2">
-          {item.swatches.map((c) => (
-            <Swatch key={c} color={c} />
-          ))}
-        </div>
       </div>
     </Link>
   );
@@ -115,26 +78,50 @@ function ArchiveCard({ item }) {
 
 // ─── Archive section (grid + CTA) ───────────────────────────────────────────
 export function ArchiveGrid() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const res = await fetch("/api/products?limit=4", {
+        cache: "no-store",
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        setProducts(data.products);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <section className="w-full bg-white">
       {/* header bar */}
       <div className="flex items-baseline justify-between px-5 md:px-8 pt-8 pb-4 border-b border-[#E8E8E8]">
         <div>
-          <h2 className="text-[13px] tracking-[0.12em] uppercase font-nexa text-[#111]">
+          <h2 className="text-[18px] tracking-[0.12em] uppercase font-nexa text-[black]">
             The Collection
           </h2>
-          <p className="text-[11px] font-seasons text-[#888] mt-0.5 tracking-[0.04em]">
-            Made once. Each piece is numbered &amp; for all.
+          <p className="text-[16px] font-seasons text-[black] mt-0.5 tracking-[0.04em]">
+            Made once. Each piece is numbered and for all.
           </p>
         </div>
         <div className="hidden md:flex items-center gap-3">
-          <button className="text-[11px] font-seasons tracking-[0.08em] border border-[#D0D0D0] px-4 py-1.5 text-[#111] hover:bg-[#111] hover:text-white transition-colors duration-200">
+          {/* <button className="text-[11px] font-seasons tracking-[0.08em] border border-[#D0D0D0] px-4 py-1.5 text-[#111] hover:bg-[#111] hover:text-white transition-colors duration-200">
             Filter
           </button>
           <button className="text-[11px] font-seasons tracking-[0.08em] border border-[#D0D0D0] px-4 py-1.5 text-[#111] hover:bg-[#111] hover:text-white transition-colors duration-200">
             Sort
-          </button>
-          <span className="text-[11px] font-seasons text-[#888] tracking-[0.04em]">
+          </button> */}
+          <span className="text-[18px] font-seasons text-[black] tracking-[0.04em]">
             18 Pieces
           </span>
         </div>
@@ -142,7 +129,7 @@ export function ArchiveGrid() {
 
       {/* product grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-[#E8E8E8] border-b border-[#E8E8E8]">
-        {archiveItems.map((item) => (
+        {products.map((item) => (
           <div key={item.id} className="bg-white px-4 pt-4 pb-5">
             <ArchiveCard item={item} />
           </div>
@@ -406,6 +393,7 @@ export function EditorialMosaic() {
     </section>
   );
 }
+
 
 // ─── Default export: full composed block ────────────────────────────────────
 export default function KeptAliveHomeSections() {
