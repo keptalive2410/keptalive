@@ -151,9 +151,7 @@ export default function CartPage() {
     0
   );
 
-  const discount = totalMRP - totalPrice;
-  const platformFee = 0;
-  const finalAmount = totalPrice + platformFee;
+  const finalAmount = totalPrice;
 
   const handleCheckout = () => {
     if (cartItems.length === 0) {
@@ -288,36 +286,12 @@ export default function CartPage() {
                       ₹{totalMRP.toLocaleString()}
                     </span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="font-light text-[#2B2B2B] tracking-wide">
-                      Discount
-                    </span>
-                    <span className="font-bold text-black">
-                      − ₹{discount.toLocaleString()}
-                    </span>
-                  </div>
-                  {/* <div className="flex justify-between">
-                    <span className="font-light text-[#2B2B2B] tracking-wide">
-                      Coupon Discount
-                    </span>
-                    <button className="font-bold text-black underline underline-offset-2 hover:no-underline transition">
-                      Apply Coupon
-                    </button>
-                  </div> */}
-                  <div className="flex justify-between">
-                    <span className="font-light text-[#2B2B2B] tracking-wide">
-                      Platform Fee
-                    </span>
-                    <span className="font-light text-[#2B2B2B]">
-                      ₹{platformFee}
-                    </span>
-                  </div>
                   <div className="border-t border-[#BFC3C7] pt-4 flex justify-between">
                     <span className="font-bold text-black tracking-wide text-[0.82rem]">
                       Total Amount
                     </span>
                     <span className="font-bold text-black text-[0.82rem]">
-                      ₹{finalAmount.toLocaleString()}
+                      ₹{totalMRP.toLocaleString()}
                     </span>
                   </div>
                 </div>
@@ -331,7 +305,7 @@ export default function CartPage() {
                 <p className="text-[0.7rem] font-light text-[#8A8A8A] mt-3 tracking-wide leading-relaxed">
                   By placing the order, you agree to our{" "}
                   <a
-                    href="#"
+                    href="/Help"
                     className="text-black underline underline-offset-2 hover:no-underline"
                   >
                     Terms of Use

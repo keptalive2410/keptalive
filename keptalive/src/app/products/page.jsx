@@ -48,9 +48,14 @@ function ProductCard({ product, onClick }) {
       onMouseLeave={stopSlideshow}
     >
       {/* Image wrapper — no rounding, no margin between cards */}
-      <div className="relative overflow-hidden bg-[#f0eeec]" style={{ aspectRatio: "3/4" }}>
+      <div
+        className="relative overflow-hidden bg-[#f0eeec]"
+        style={{ aspectRatio: "3/4" }}
+      >
         {/* Images */}
-        {images.length === 0 && <div className="absolute inset-0 bg-[#f0eeec]" />}
+        {images.length === 0 && (
+          <div className="absolute inset-0 bg-[#f0eeec]" />
+        )}
         {images.map((img, i) => (
           <img
             key={i}
@@ -85,22 +90,23 @@ function ProductCard({ product, onClick }) {
       </div>
 
       {/* Info — below image */}
-      <div className="pt-2.5 pb-4">
+      <div className="px-1 pt-2 pb-5 min-h-[62px] flex flex-col justify-start">
         <p
-          className={`text-[0.8rem] font-light leading-snug tracking-wide mb-0.5 ${
+          className={`text-[0.82rem] leading-[1.1rem] font-light tracking-wide ${
             isSoldOut ? "text-[#aaa]" : "text-[#1a1a1a]"
           }`}
           style={{ fontFamily: "var(--font-body)" }}
         >
           {product.productName}
         </p>
+
         <p
-          className={`text-[0.75rem] font-light tracking-wide ${
+          className={`text-[0.78rem] leading-[1rem] mt-1 font-light tracking-wide ${
             isSoldOut ? "text-[#aaa]" : "text-[#1a1a1a]"
           }`}
           style={{ fontFamily: "var(--font-body)" }}
         >
-          {product.productSellingPrice?.toLocaleString()}
+          ₹ {product.productSellingPrice?.toLocaleString()}
         </p>
       </div>
     </div>
@@ -118,7 +124,10 @@ export default function ArchivePage() {
   const [hasMore, setHasMore] = useState(true);
   const [selectedSort, setSelectedSort] = useState("Newest");
   const [selectedCategory, setSelectedCategory] = useState(null); // single select like wireframe
-  const [availability, setAvailability] = useState({ available: false, soldOut: false });
+  const [availability, setAvailability] = useState({
+    available: false,
+    soldOut: false,
+  });
   const router = useRouter();
 
   const sortOptions = ["Newest", "Price: Low to High", "Price: High to Low"];
@@ -187,24 +196,22 @@ export default function ArchivePage() {
 
       {/* Full-width layout below navbar */}
       <div className="h-screen bg-white pt-15 flex overflow-hidden">
-
         {/* ── LEFT SIDEBAR ─────────────────────────── */}
         <aside className="hidden lg:block w-75 shrink-0 px-6 pt-8 border-r border-[#e8e8e8] h-full overflow-hidden">
-
           {/* THE ARCHIVE heading */}
           <div className="mb-6">
             <p
               className="text-[1rem] tracking-[0.18em] font-semibold text-black mb-1 uppercase"
               style={{ fontFamily: "var(--font-body)" }}
             >
-              THE ARCHIVE
+              THE COLLECTION
             </p>
             {/* Breadcrumb-style subtitle */}
             <p
               className="text-[0.88rem] text-[#999] font-light tracking-wide"
               style={{ fontFamily: "var(--font-body)" }}
             >
-              Archive I · 2026
+              Discover I · 2026
             </p>
             <p
               className="text-[0.88rem] text-[#999] font-light tracking-wide mt-0.5"
@@ -229,7 +236,9 @@ export default function ArchivePage() {
                 <button
                   onClick={() => handleCategoryClick(null)}
                   className={`text-[0.85rem] font-light tracking-wide transition-colors ${
-                    !selectedCategory ? "text-black font-semibold underline underline-offset-2" : "text-[#555] hover:text-black"
+                    !selectedCategory
+                      ? "text-black font-semibold underline underline-offset-2"
+                      : "text-[#555] hover:text-black"
                   }`}
                   style={{ fontFamily: "var(--font-body)" }}
                 >
@@ -277,7 +286,10 @@ export default function ArchivePage() {
                       className="accent-black w-3 h-3"
                       checked={availability[key] || false}
                       onChange={() =>
-                        setAvailability((prev) => ({ ...prev, [key]: !prev[key] }))
+                        setAvailability((prev) => ({
+                          ...prev,
+                          [key]: !prev[key],
+                        }))
                       }
                     />
                     <span
@@ -324,22 +336,21 @@ export default function ArchivePage() {
 
         {/* ── MAIN CONTENT ──────────────────────────── */}
         <main className="flex-1 min-w-0 overflow-y-auto no-scrollbar">
-
           {/* Breadcrumb (visible on large screens, matching wireframe) */}
           <div className="hidden lg:flex items-center gap-2 px-6 pt-6 pb-4">
             <span
               className="text-[0.7rem] text-[#888] tracking-wide font-light cursor-pointer hover:text-black transition-colors"
               style={{ fontFamily: "var(--font-body)" }}
-              onClick={() => router.push("/archive")}
+              onClick={() => router.push("/products")}
             >
-              Archive
+              Explore
             </span>
             <span className="text-[0.7rem] text-[#bbb]">/</span>
             <span
               className="text-[0.7rem] text-[#555] tracking-wide font-light"
               style={{ fontFamily: "var(--font-body)" }}
             >
-              Archive I · 2026
+              Collection I · 2026
             </span>
           </div>
 
@@ -347,9 +358,11 @@ export default function ArchivePage() {
           <div className="lg:hidden px-4 pt-6 pb-3">
             <h1
               className="text-xl font-light tracking-widest text-black"
-              style={{ fontFamily: "var(--font-heading, 'The Seasons', serif)" }}
+              style={{
+                fontFamily: "var(--font-heading, 'The Seasons', serif)",
+              }}
             >
-              THE ARCHIVE
+              THE COLLECTION
             </h1>
           </div>
 
@@ -357,7 +370,11 @@ export default function ArchivePage() {
           {loading && products.length === 0 ? (
             <div className="grid grid-cols-2">
               {Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="bg-[#f0eeec] animate-pulse" style={{ aspectRatio: "3/4" }} />
+                <div
+                  key={i}
+                  className="bg-[#f0eeec] animate-pulse"
+                  style={{ aspectRatio: "3/4" }}
+                />
               ))}
             </div>
           ) : (
