@@ -47,10 +47,7 @@ function Swatch({ color }) {
 
 function ArchiveCard({ item }) {
   return (
-    <Link
-      href={`/products/${item.slug}`}
-      className="group block"
-    >
+    <Link href={`/products/${item.slug}`} className="group block">
       {/* image */}
       <div className="relative aspect-3/4 overflow-hidden bg-[#F0EDE8]">
         <Image
@@ -130,7 +127,7 @@ export function ArchiveGrid() {
       {/* product grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-[#E8E8E8] border-b border-[#E8E8E8]">
         {products.map((item) => (
-          <div key={item.id} className="bg-white px-4 pt-4 pb-5">
+          <div key={item.slug} className="bg-white px-4 pt-4 pb-5">
             <ArchiveCard item={item} />
           </div>
         ))}
@@ -199,6 +196,45 @@ export function HeroCampaign() {
 
 // ─── Editorial mosaic (bottom section) ──────────────────────────────────────
 export function EditorialMosaic() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const res = await fetch("/api/products?limit=4", {
+        cache: "no-store",
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        setProducts(data.products);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="h-[700px] flex items-center justify-center">
+        Loading...
+      </div>
+    );
+  }
+
+  if (!products || products.length < 3) {
+    return null;
+  }
+
+  const [firstProduct, secondProduct, thirdProduct] = products;
+
   return (
     <section className="w-full bg-[#efefef]">
       {/* ───────── DESKTOP ───────── */}
@@ -233,12 +269,12 @@ export function EditorialMosaic() {
 
         {/* TOP MIDDLE */}
         <Link
-          href={`/products/${editorialItems[2].id}`}
+          href={`/products/${thirdProduct.slug}`}
           className="relative overflow-hidden group bg-[#F0EDE8]"
         >
           <Image
-            src={editorialItems[2].image}
-            alt={editorialItems[2].name}
+            src={thirdProduct.productImages?.[0].url}
+            alt={thirdProduct.productName}
             fill
             sizes="25vw"
             className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
@@ -247,24 +283,24 @@ export function EditorialMosaic() {
           <div className="absolute bottom-4 left-4">
             <div className="bg-black/85 inline-block px-3 py-1">
               <p className="font-seasons text-white text-[11px]">
-                {editorialItems[2].name}
+                {thirdProduct.productName}
               </p>
             </div>
 
             <p className="text-[#8d8d8d] text-[10px] mt-1 font-nexa">
-              {editorialItems[2].price}
+              {thirdProduct.productSellingPrice}
             </p>
           </div>
         </Link>
 
         {/* RIGHT TALL IMAGE */}
         <Link
-          href={`/products/${editorialItems[0].id}`}
+          href={`/products/${firstProduct.slug}`}
           className="relative row-span-2 overflow-hidden group bg-[#F0EDE8]"
         >
           <Image
-            src={editorialItems[0].image}
-            alt={editorialItems[0].name}
+            src={firstProduct.productImages?.[0].url}
+            alt={firstProduct.productName}
             fill
             sizes="25vw"
             className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
@@ -273,24 +309,24 @@ export function EditorialMosaic() {
           <div className="absolute bottom-4 left-4">
             <div className="bg-black/85 inline-block px-3 py-1">
               <p className="font-seasons text-white text-[11px]">
-                {editorialItems[0].name}
+                {firstProduct?.productName}
               </p>
             </div>
 
             <p className="text-[#8d8d8d] text-[10px] mt-1 font-nexa">
-              {editorialItems[0].price}
+              {firstProduct.productSellingPrice}
             </p>
           </div>
         </Link>
 
         {/* BOTTOM MIDDLE */}
         <Link
-          href={`/products/${editorialItems[1].id}`}
+          href={`/products/${secondProduct.slug}`}
           className="relative overflow-hidden group bg-[#F0EDE8]"
         >
           <Image
-            src={editorialItems[1].image}
-            alt={editorialItems[1].name}
+            src={secondProduct.productImages?.[0].url}
+            alt={secondProduct.productName}
             fill
             sizes="25vw"
             className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
@@ -299,12 +335,12 @@ export function EditorialMosaic() {
           <div className="absolute bottom-4 left-4">
             <div className="bg-black/85 inline-block px-3 py-1">
               <p className="font-seasons text-white text-[11px]">
-                {editorialItems[1].name}
+                {secondProduct.productName}
               </p>
             </div>
 
             <p className="text-[#8d8d8d] text-[10px] mt-1 font-nexa">
-              {editorialItems[1].price}
+              {secondProduct.productSellingPrice}
             </p>
           </div>
         </Link>
@@ -335,15 +371,15 @@ export function EditorialMosaic() {
 
         {/* GRID */}
         <div className="grid grid-cols-2 gap-px bg-[#d9d9d9]">
-          {editorialItems.slice(0, 2).map((item) => (
+          {products.slice(0, 2).map((item) => (
             <Link
-              key={item.id}
-              href={`/products/${item.id}`}
+              key={item.slug}
+              href={`/products/${item.slug}`}
               className="relative aspect-3/4 overflow-hidden bg-[#F0EDE8] group"
             >
               <Image
-                src={item.image}
-                alt={item.name}
+                src={item.productImages?.[0].url}
+                alt={item.productName}
                 fill
                 sizes="50vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
@@ -352,12 +388,12 @@ export function EditorialMosaic() {
               <div className="absolute bottom-3 left-3">
                 <div className="bg-black/85 inline-block px-2 py-1">
                   <p className="font-seasons text-white text-[10px]">
-                    {item.name}
+                    {item.productName}
                   </p>
                 </div>
 
                 <p className="text-[#b5b5b5] text-[9px] mt-1 font-nexa">
-                  {item.price}
+                  {item.productSellingPrice}
                 </p>
               </div>
             </Link>
@@ -366,12 +402,12 @@ export function EditorialMosaic() {
 
         {/* LAST CARD */}
         <Link
-          href={`/products/${editorialItems[2].id}`}
+          href={`/products/${thirdProduct.slug}`}
           className="relative aspect-3/4 overflow-hidden bg-[#F0EDE8] group"
         >
           <Image
-            src={editorialItems[2].image}
-            alt={editorialItems[2].name}
+            src={thirdProduct.productImages?.[0].url}
+            alt={thirdProduct.productName}
             fill
             sizes="100vw"
             className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
@@ -380,12 +416,12 @@ export function EditorialMosaic() {
           <div className="absolute bottom-3 left-3">
             <div className="bg-black/85 inline-block px-2 py-1">
               <p className="font-seasons text-white text-[10px]">
-                {editorialItems[2].name}
+                {thirdProduct.productName}
               </p>
             </div>
 
             <p className="text-[#b5b5b5] text-[9px] mt-1 font-nexa">
-              {editorialItems[2].price}
+              {thirdProduct.productSellingPrice}
             </p>
           </div>
         </Link>
@@ -393,7 +429,6 @@ export function EditorialMosaic() {
     </section>
   );
 }
-
 
 // ─── Default export: full composed block ────────────────────────────────────
 export default function KeptAliveHomeSections() {
