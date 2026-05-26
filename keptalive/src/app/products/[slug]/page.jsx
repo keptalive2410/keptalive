@@ -87,7 +87,7 @@ function SizeFitDrawer({ onClose }) {
           {/* Model note */}
           <div className="bg-[#F2F2F0] px-4 py-3">
             <p className="font-nexa text-[0.7rem] text-black">
-              This piece has a relaxed, oversized fit.
+              This piece has a relaxed fit.
             </p>
           </div>
 
@@ -98,7 +98,7 @@ function SizeFitDrawer({ onClose }) {
             </p>
             <ul className="flex flex-col gap-2.5">
               {[
-                "Relaxed, slightly oversized silhouette",
+                "Relaxed silhouette",
                 "True to size, size down if between sizes",
                 "Length hits mid-thigh on a 5'9\" frame",
               ].map((note, i) => (
@@ -121,7 +121,7 @@ function SizeFitDrawer({ onClose }) {
               Contact us and we'll help you find the right size.
             </p>
             <a
-              href="mailto:hello@keptalive.com"
+              href="mailto:keptalive2410@gmail.com"
               className="inline-block border border-black px-5 py-2.5 font-nexa text-[0.65rem] tracking-[0.18em] uppercase text-black hover:bg-black hover:text-white transition"
             >
               Get in Touch
@@ -459,21 +459,10 @@ function ProductInfoCore({
         </p>
       </div>
 
-      {/* Accordions */}
-      {/* <Accordion label="Details & Care">
-        <DetailsCareContent product={product} />
-      </Accordion>
-      <Accordion label="Shipping & Returns">
-        <ShippingReturnsContent />
-      </Accordion> */}
-
       {/* Certificate card */}
       <div className="border border-[#E5E5E5] bg-[#F9F9F8] px-4 py-4 mt-4">
         <p className="font-nexa text-[0.7rem] text-black mb-1">
           This piece is numbered and comes with a certificate of authenticity.
-        </p>
-        <p className="font-nexa font-light text-[0.7rem] text-black">
-          Piece #{String(pieceNumber).padStart(3, "0")} of {archiveLabel}.
         </p>
       </div>
     </div>
