@@ -656,70 +656,100 @@ export default function ProductPage() {
 
         {/* ── MOBILE ─────────────────────────────────────────────────── */}
         <div className="lg:hidden">
-          {/* Carousel
-              iOS Safari fix: replaced style={{ aspectRatio }} on the overflow
-              container with a padding-bottom intrinsic-ratio wrapper.
-              The slider track uses width/height 100% on the absolute inner div.
-          */}
+          {/* Scroll-snap carousel — works on iOS Safari & Android Chrome */}
           <div className="relative w-full bg-[#F2F2F0]">
-            {/* Intrinsic-ratio box: padding-bottom 100% = 1:1 (same as 4/4) */}
-            <div style={{ paddingBottom: "100%", position: "relative" }}>
-              <div
-                className="absolute inset-0 overflow-hidden"
-                style={{ WebkitOverflowScrolling: "touch" }}
-              >
+            <div
+              id="mobile-carousel"
+              className="flex overflow-x-auto"
+              style={{
+                scrollSnapType: "x mandatory",
+                WebkitOverflowScrolling: "touch",
+                scrollbarWidth: "none",
+                msOverflowStyle: "none",
+              }}
+              onScroll={(e) => {
+                const el = e.currentTarget;
+                const index = Math.round(el.scrollLeft / el.offsetWidth);
+                setActiveSlide(index);
+              }}
+            >
+              <style>{`#mobile-carousel::-webkit-scrollbar { display: none; }`}</style>
+              {allImages.map((img, i) => (
                 <div
-                  className="flex h-full transition-transform duration-500 ease-in-out"
+                  key={i}
                   style={{
-                    transform: `translateX(-${activeSlide * 100}%)`,
-                    width: `${totalSlides * 100}%`,
+                    scrollSnapAlign: "start",
+                    flex: "0 0 100%",
+                    position: "relative",
                   }}
+
+                  className="h-[60vh]"
                 >
-                  {allImages.map((img, i) => (
-                    <div
-                      key={i}
-                      style={{ width: `${100 / totalSlides}%` }}
-                      className="h-full flex-shrink-0"
-                    >
-                      <img
-                        src={img.url}
-                        alt={`${product.productName} ${i + 1}`}
-                        className="w-full h-full object-contain"
-                        style={{ display: "block" }}
-                      />
-                    </div>
-                  ))}
+                  <img
+                    src={img.url}
+                    alt={`${product.productName} ${i + 1}`}
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "contain",
+                      display: "block",
+                    }}
+                  />
                 </div>
-              </div>
+              ))}
             </div>
 
+            {/* Dot indicators */}
             {totalSlides > 1 && (
-              <>
-                <button
-                  onClick={prevSlide}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 z-10"
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={nextSlide}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 z-10"
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </>
+              <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5 z-10">
+                {allImages.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => {
+                      const el = document.getElementById("mobile-carousel");
+                      if (el)
+                        el.scrollTo({
+                          left: i * el.offsetWidth,
+                          behavior: "smooth",
+                        });
+                      setActiveSlide(i);
+                    }}
+                    className={`w-1.5 h-1.5 rounded-full transition ${
+                      i === activeSlide ? "bg-black" : "bg-black/30"
+                    }`}
+                  />
+                ))}
+              </div>
             )}
           </div>
 
-          {/* Thumbnails below — 1px gap (unchanged) */}
+          {/* Thumbnails below */}
           {allImages.length > 1 && (
             <div className="flex gap-[1px] bg-[#E5E5E5]">
               {allImages.map((img, i) => (
                 <button
                   key={i}
-                  onClick={() => setActiveSlide(i)}
-                  style={{ paddingBottom: `${(4 / 3) * (100 / allImages.length)}%`, position: "relative", flex: "1 1 0%" }}
-                  className={`overflow-hidden transition ${i === activeSlide ? "opacity-100" : "opacity-40 hover:opacity-70"}`}
+                  onClick={() => {
+                    const el = document.getElementById("mobile-carousel");
+                    if (el)
+                      el.scrollTo({
+                        left: i * el.offsetWidth,
+                        behavior: "smooth",
+                      });
+                    setActiveSlide(i);
+                  }}
+                  style={{
+                    flex: "1 1 0%",
+                    position: "relative",
+                    paddingBottom: `${(4 / 3) * (100 / allImages.length)}%`,
+                  }}
+                  className={`overflow-hidden transition ${
+                    i === activeSlide
+                      ? "opacity-100"
+                      : "opacity-40 hover:opacity-70"
+                  }`}
                 >
                   <img
                     src={img.url}
@@ -748,7 +778,10 @@ export default function ProductPage() {
           {/* LEFT — sticky, image + thumbnail strip below */}
           <div className="w-[50%] sticky top-0 self-start">
             {/* iOS-safe intrinsic ratio: 3/4 = paddingBottom 133.333% */}
-            <div className="w-full bg-[#F2F2F0]" style={{ position: "relative", paddingBottom: "133.333%" }}>
+            <div
+              className="w-full bg-[#F2F2F0]"
+              style={{ position: "relative", paddingBottom: "133.333%" }}
+            >
               <div style={{ position: "absolute", inset: 0 }}>
                 <img
                   src={allImages[activeSlide]?.url}
@@ -824,7 +857,10 @@ export default function ProductPage() {
                     {/* iOS-safe 3/4 ratio for related product cards */}
                     <div
                       className="w-full bg-[#F2F2F0] overflow-hidden"
-                      style={{ position: "relative", paddingBottom: "133.333%" }}
+                      style={{
+                        position: "relative",
+                        paddingBottom: "133.333%",
+                      }}
                     >
                       <img
                         src={item.productImages?.[0]?.url}

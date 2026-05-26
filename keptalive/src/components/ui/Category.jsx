@@ -6,19 +6,19 @@ import Link from "next/link";
 function CategoryTiles() {
   const categories = [
     {
-      label: "Evergreen Top",
+      label: "Bloom Floral Jumpsuit",
       img: "/Images/Rectangle1.png",
-      href: "/archive?category=tops",
-    },
-    {
-      label: "Garden Floral Green Dress",
-      img: "/Images/Rectangle2.png",
-      href: "/archive?category=dresses",
+      href: "/products/bloom-floral-jumpsuit",
     },
     {
       label: "SUNKISSED BLOOM TOP",
+      img: "/Images/Rectangle2.png",
+      href: "/products/sunkissed-bloom-top",
+    },
+    {
+      label: "Fern Evergreen Top",
       img: "/Images/Rectangle3.png",
-      href: "/archive?category=statement",
+      href: "/products/fern-evergreen-top",
     },
   ];
 

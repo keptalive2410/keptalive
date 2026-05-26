@@ -50,9 +50,9 @@ export default function HeroSection() {
           </div>
         </div>
       </div>
-
+      <div className="bg-white w-full h-[160px] md:hidden" />
       {/* ── Ticker bar ── */}
-      <div className="bg-black overflow-hidden py-[10px] -mt-[180px] relative z-10">
+      <div className="bg-black overflow-hidden py-[10px] -mt-[150px] relative z-10">
         <div
           className="flex whitespace-nowrap"
           style={{ animation: "heroTicker 24s linear infinite" }}
@@ -74,8 +74,6 @@ export default function HeroSection() {
           ))}
         </div>
       </div>
-
-
     </section>
   );
 }
