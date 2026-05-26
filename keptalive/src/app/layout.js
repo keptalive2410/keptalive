@@ -24,32 +24,32 @@ const nexa = localFont({
 const seasons = localFont({
   src: [
     {
-      path: "../fonts/Fontspring-DEMO-theseasons-lt.otf",
+      path: "../fonts/The Seasons Light.ttf",
       weight: "300",
       style: "normal",
     },
     {
-      path: "../fonts/Fontspring-DEMO-theseasons-ltit.otf",
+      path: "../fonts/The Seasons Light Italic.ttf",
       weight: "300",
       style: "italic",
     },
     {
-      path: "../fonts/Fontspring-DEMO-theseasons-reg.otf",
+      path: "../fonts/The Seasons Regular.ttf",
       weight: "400",
       style: "normal",
     },
     {
-      path: "../fonts/Fontspring-DEMO-theseasons-it.otf",
+      path: "../fonts/The Seasons Italic.ttf",
       weight: "400",
       style: "italic",
     },
     {
-      path: "../fonts/Fontspring-DEMO-theseasons-bd.otf",
+      path: "../fonts/The Seasons Bold.ttf",
       weight: "700",
       style: "normal",
     },
     {
-      path: "../fonts/Fontspring-DEMO-theseasons-bdit.otf",
+      path: "../fonts/The Seasons Bold Italic.ttf",
       weight: "700",
       style: "italic",
     },
