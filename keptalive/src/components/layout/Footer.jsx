@@ -56,7 +56,7 @@ export default function Footer() {
             <div className="flex items-center gap-5 mt-8">
 
               <Link
-                href="https://instagram.com"
+                href="https://www.instagram.com/_keptalive"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:opacity-60 transition-opacity duration-200"

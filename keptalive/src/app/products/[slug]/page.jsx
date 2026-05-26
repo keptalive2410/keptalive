@@ -87,7 +87,7 @@ function SizeFitDrawer({ onClose }) {
           {/* Model note */}
           <div className="bg-[#F2F2F0] px-4 py-3">
             <p className="font-nexa text-[0.7rem] text-black">
-              This piece has a relaxed fit.
+              This piece has a relaxed and effortless fit.
             </p>
           </div>
 
@@ -98,7 +98,7 @@ function SizeFitDrawer({ onClose }) {
             </p>
             <ul className="flex flex-col gap-2.5">
               {[
-                "Relaxed silhouette",
+                "Relaxed effortless silhouette",
                 "True to size, size down if between sizes",
                 "Length hits mid-thigh on a 5'9\" frame",
               ].map((note, i) => (
