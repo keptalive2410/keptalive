@@ -257,8 +257,7 @@ export default function LoginPage() {
               justifyContent: "center",
               marginBottom: "20px",
             }}
-          >
-          </div>
+          ></div>
           <h1
             className="font-seasons"
             style={{
@@ -287,23 +286,6 @@ export default function LoginPage() {
 
         {/* Card */}
         <div className="card-border" style={{ padding: "36px 32px" }}>
-          {/* Google */}
-          <button onClick={handleGoogleLogin} className="btn-google">
-            <Chrome
-              style={{ width: "16px", height: "16px", color: "#2B2B2B" }}
-            />
-            <span>Continue with Google</span>
-          </button>
-
-          {/* Divider */}
-          <div
-            style={{ display: "flex", alignItems: "center", margin: "24px 0" }}
-          >
-            <div className="divider-line" />
-            <span className="divider-text">or</span>
-            <div className="divider-line" />
-          </div>
-
           {/* Toggle */}
           <div
             style={{
