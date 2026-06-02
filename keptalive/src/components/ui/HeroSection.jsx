@@ -35,9 +35,9 @@ export default function HeroSection() {
           </div>
           {/* Body */}
           <p className="text-black text-[13px] leading-relaxed mb-5 pl-[14px]">
-            Eighteen pieces. Each one numbered,
+            Eighteen pieces. Timeless retro 
             <br />
-            made once, and never returning.
+            artistry, remembered and kept alive.
           </p>
           {/* CTA */}
           <div className="pl-[14px]">
@@ -66,9 +66,9 @@ export default function HeroSection() {
               <span className="text-[#555]">·</span>
               <span className="px-7">Each piece is numbered and final.</span>
               <span className="text-[#555]">·</span>
-              <span className="px-7">Worn. Kept. Archived.</span>
+              <span className="px-7">The grace of yesterday alive for today .</span>
               <span className="text-[#555]">·</span>
-              <span className="px-7">keptalive &nbsp;&nbsp; Explore I</span>
+              <span className="px-7">Bringing forgotten silhouettes back to life.</span>
               <span className="text-[#555]">·</span>
             </span>
           ))}

@@ -46,12 +46,10 @@ export default function Footer() {
               kep&#771;talive
             </Link>
 
-            <p className="text-[12px] text-[#777] leading-[1.9] tracking-[0.03em] max-w-[220px]">
-              Made once. Never restocked.
-              <br />
-              Each piece numbered and archived forever.
+            <p className="text-[12px] text-[#777] leading-[1.9] tracking-[0.03em] max-w-[220px] mt-4">
+              Kept Alive is a fashion house inspired by the belief that beauty never truly disappears—it simply waits to be rediscovered.
             </p>
-
+      
             {/* SOCIALS */}
             <div className="flex items-center gap-5 mt-8">
 

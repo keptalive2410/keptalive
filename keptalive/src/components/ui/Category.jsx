@@ -73,16 +73,16 @@ function BrandStory() {
 
         {/* Heading */}
         <h2 className="font-title text-black text-[34px] sm:text-[42px] md:text-[48px] leading-[1.1] mb-7">
-          Built on
+          AN ERA 
           <br />
-          limitation.
+          REIMAGINED.
         </h2>
 
         {/* Body */}
         <p className="font-body text-black text-[13px] sm:text-[14px] leading-relaxed mb-5 max-w-[420px]">
-          Keptalive is a limited fashion label. Every piece is designed once,
-          produced once, and numbered. When the archive closes, it closes
-          permanently, nothing is restocked, reprinted, or repeated.
+          Keptalive is a celebration of living fabrics and timeless craftsmanship.
+          Every garment is thoughtfully created to being movement,
+          expression and soul into fashion carrying the past forward.
         </p>
 
         {/* Tagline */}

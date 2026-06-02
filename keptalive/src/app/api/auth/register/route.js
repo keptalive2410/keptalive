@@ -52,10 +52,7 @@ function validateOrigin(req) {
 
   if (!origin) return false;
 
-  return (
-    origin.includes("localhost:3000") ||
-    origin.includes("keptalive.in")
-  );
+  return origin.includes("localhost:3000") || origin.includes("keptalive.in");
 }
 
 export async function POST(req) {
@@ -75,7 +72,7 @@ export async function POST(req) {
     if (!rateLimit(key)) {
       return NextResponse.json(
         { message: "Too many attempts. Try again later." },
-        { status: 429 }
+        { status: 429 },
       );
     }
 
@@ -85,24 +82,17 @@ export async function POST(req) {
     if (!validateOrigin(req)) {
       return NextResponse.json(
         { message: "Invalid request origin" },
-        { status: 403 }
+        { status: 403 },
       );
     }
 
     /**
      * 🔐 Input validation
      */
-    const validationError = validateInput(
-      userName,
-      userEmail,
-      userPassword
-    );
+    const validationError = validateInput(userName, userEmail, userPassword);
 
     if (validationError) {
-      return NextResponse.json(
-        { message: validationError },
-        { status: 400 }
-      );
+      return NextResponse.json({ message: validationError }, { status: 400 });
     }
 
     /**
@@ -141,13 +131,17 @@ export async function POST(req) {
       },
     });
 
-    const errors =
-      body?.data?.customerCreate?.customerUserErrors;
+    const errors = body?.data?.customerCreate?.customerUserErrors;
 
     if (errors && errors.length > 0) {
+      console.log("Shopify Registration Errors:", errors);
+
       return NextResponse.json(
-        { message: "Registration failed" }, // don't leak details
-        { status: 400 }
+        {
+          message: errors[0]?.message || "Registration failed",
+          errors,
+        },
+        { status: 400 },
       );
     }
 
@@ -176,8 +170,7 @@ export async function POST(req) {
     });
 
     const tokenData =
-      loginRes?.body?.data?.customerAccessTokenCreate
-        ?.customerAccessToken;
+      loginRes?.body?.data?.customerAccessTokenCreate?.customerAccessToken;
 
     const response = NextResponse.json({
       message: "Registration successful",
@@ -205,7 +198,7 @@ export async function POST(req) {
 
     return NextResponse.json(
       { message: "Internal server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

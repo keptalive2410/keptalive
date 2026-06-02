@@ -108,7 +108,7 @@ export function ArchiveGrid() {
             The Collection
           </h2>
           <p className="text-[16px] font-seasons text-[black] mt-0.5 tracking-[0.04em]">
-            Made once. Each piece is numbered and for all.
+            Keptalive arrives with fresh enthusiasm, new emotions and evolving style.
           </p>
         </div>
         <div className="hidden md:flex items-center gap-3">
@@ -172,13 +172,13 @@ export function HeroCampaign() {
             </p>
 
             <h2 className="font-nexa text-[14px] sm:text-[18px] md:text-[26px] leading-[1.15] text-[#111] mb-3">
-              The pieces that close the archive.
+              Every collection has a passing wave
             </h2>
 
             <p className="text-[9px] sm:text-[10px] md:text-[11px] font-seasons text-[#555] leading-relaxed mb-5">
-              Each piece in Archive I is numbered and incl.
+              Exclusive, memorable and available
               <br />
-              When the last piece is claimed, this archive closes.
+              only for a moment before it moves on.
             </p>
 
             <Link
