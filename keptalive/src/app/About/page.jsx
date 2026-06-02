@@ -1,6 +1,5 @@
 import Navbar from "@/components/layout/Navbar";
 
-
 const Img = ({ src, alt, className }) => (
   <img
     src={src || "https://placehold.co/800x900/e8e0d8/888?text=image"}
@@ -11,10 +10,9 @@ const Img = ({ src, alt, className }) => (
 
 // ── About Page ───────────────────────────────────────────────────────────────
 export default function AboutPage() {
-    
   return (
     <>
-    <Navbar />
+      <Navbar />
       <main className="text-[#1a1a1a] bg-white">
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
         <section className="relative bg-[#141414] min-h-85 md:min-h-105 overflow-hidden flex items-end pb-14 px-8 md:px-16">
@@ -61,6 +59,17 @@ export default function AboutPage() {
             done. Not a capsule. Not a drop. An archive.
           </p>
 
+          <p className="text-sm leading-relaxed text-[black] mb-3 max-w-4xl uppercase tracking-wider font-bold">
+            Inspiration — The Wave of Revival
+          </p>
+
+          <p className="text-sm leading-relaxed text-[#555 ] mb-8 max-w-4xl">
+            Inspired by the rhythm of waves, our philosophy reflects continuous
+            movement and renewal. A wave flows only to return again with greater
+            force, energy, and spirit — a reminder that what is meaningful
+            endures, evolves, and returns with purpose.
+          </p>
+
           <p className="text-sm leading-relaxed text-[#555] mb-8 max-w-4xl">
             Every piece in every archive is designed once and produced once. The
             number on the label is not a marketing technique — it is an honest
@@ -70,9 +79,7 @@ export default function AboutPage() {
 
           <p className="text-sm italic text-[#1a1a1a] font-nexa font-bold">
             keptalive does not compete on volume.{" "}
-            <em className="not-italic font-bold">
-              It competes on permanence.
-            </em>
+            <em className="not-italic font-bold">It competes on permanence.</em>
           </p>
         </section>
 

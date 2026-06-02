@@ -62,10 +62,10 @@ export default function HeroSection() {
               key={i}
               className="flex items-center shrink-0 text-white uppercase text-[10px] tracking-[0.18em]"
             >
-              <span className="px-7">Made once. Never restocked.</span>
+              {/* <span className="px-7">Made once. Never restocked.</span>
               <span className="text-[#555]">·</span>
               <span className="px-7">Each piece is numbered and final.</span>
-              <span className="text-[#555]">·</span>
+              <span className="text-[#555]">·</span> */}
               <span className="px-7">The grace of yesterday alive for today .</span>
               <span className="text-[#555]">·</span>
               <span className="px-7">Bringing forgotten silhouettes back to life.</span>

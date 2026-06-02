@@ -85,12 +85,12 @@ function BrandStory() {
           expression and soul into fashion carrying the past forward.
         </p>
 
-        {/* Tagline */}
+        {/* Tagline
         <p className="font-body text-black text-[13px] sm:text-[14px] italic leading-relaxed mb-10 max-w-[420px]">
           This is not scarcity as a strategy.
           <br />
           <em>It is the entire point.</em>
-        </p>
+        </p> */}
 
         {/* CTA */}
         <div>
