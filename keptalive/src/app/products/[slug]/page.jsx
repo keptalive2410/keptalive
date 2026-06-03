@@ -10,14 +10,9 @@ import toast from "react-hot-toast";
 import { useCart } from "@/context/CartContext";
 
 // ─── Size & Fit Drawer ────────────────────────────────────────────────────────
-function SizeFitDrawer({ onClose }) {
-  const sizeRows = [
-    ["XS", "80–84", "64–68", "88–92"],
-    ["S", "84–88", "68–72", "92–96"],
-    ["M", "88–92", "72–76", "96–100"],
-    ["L", "92–96", "76–80", "100–104"],
-    ["XL", "96–100", "80–84", "104–108"],
-  ];
+function SizeFitDrawer({ onClose, sizeChart }) {
+  const headers = sizeChart?.headers || [];
+  const rows = sizeChart?.rows || [];
   return (
     <div className="fixed inset-0 z-50 flex">
       <div className="flex-1 bg-black/30" onClick={onClose} />
@@ -45,44 +40,51 @@ function SizeFitDrawer({ onClose }) {
           </div>
 
           {/* Size Chart */}
-          <div>
-            <p className="font-nexa text-[0.6rem] uppercase tracking-[0.18em] text-black mb-3">
-              Size Chart
-            </p>
-            <table className="w-full font-nexa border-collapse text-[0.7rem]">
-              <thead>
-                <tr className="bg-black text-white">
-                  {["Size", "Chest", "Waist", "Hips"].map((h) => (
-                    <th
-                      key={h}
-                      className="py-2.5 px-3 text-left font-light tracking-wide"
-                    >
-                      {h}
+          {sizeChart && (
+            <div>
+              <p className="font-nexa text-[0.6rem] uppercase tracking-[0.18em] text-black mb-3">
+                Size Chart
+              </p>
+              <table className="w-full font-nexa border-collapse text-[0.7rem]">
+                <thead>
+                  <tr className="bg-black text-white">
+                    <th className="py-2.5 px-3 text-left font-light tracking-wide">
+                      Measurement
                     </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {sizeRows.map(([size, chest, waist, hips], i) => (
-                  <tr
-                    key={size}
-                    className={i % 2 === 0 ? "bg-white" : "bg-[#F2F2F0]"}
-                  >
-                    <td className="py-2.5 px-3 text-black">{size}</td>
-                    <td className="py-2.5 px-3 text-black font-light">
-                      {chest}
-                    </td>
-                    <td className="py-2.5 px-3 text-black font-light">
-                      {waist}
-                    </td>
-                    <td className="py-2.5 px-3 text-black font-light">
-                      {hips}
-                    </td>
+
+                    {headers.map((header) => (
+                      <th
+                        key={header}
+                        className="py-2.5 px-3 text-left font-light tracking-wide"
+                      >
+                        {header}
+                      </th>
+                    ))}
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+
+                <tbody>
+                  {rows.map((row, index) => (
+                    <tr
+                      key={row.label}
+                      className={index % 2 === 0 ? "bg-white" : "bg-[#F2F2F0]"}
+                    >
+                      <td className="py-2.5 px-3 text-black">{row.label}</td>
+
+                      {row.values.map((value, idx) => (
+                        <td
+                          key={idx}
+                          className="py-2.5 px-3 text-black font-light"
+                        >
+                          {value}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
 
           {/* Model note */}
           <div className="bg-[#F2F2F0] px-4 py-3">
@@ -625,7 +627,10 @@ export default function ProductPage() {
     <>
       <Navbar />
       {showSizeDrawer && (
-        <SizeFitDrawer onClose={() => setShowSizeDrawer(false)} />
+        <SizeFitDrawer
+          onClose={() => setShowSizeDrawer(false)}
+          sizeChart={product.sizeChart}
+        />
       )}
 
       <div className="bg-white min-h-screen">
@@ -671,7 +676,6 @@ export default function ProductPage() {
                     flex: "0 0 100%",
                     position: "relative",
                   }}
-
                   className="h-[60vh]"
                 >
                   <img
