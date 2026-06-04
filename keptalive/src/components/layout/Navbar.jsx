@@ -95,14 +95,6 @@ export default function Navbar() {
 
           {/* Right Icons */}
           <div className="flex items-center justify-end gap-5">
-            {/* Search */}
-            <button
-              aria-label="Search"
-              className="text-[#000000] hover:text-[#8A8A8A] transition-colors duration-200"
-            >
-              <Search size={18} strokeWidth={1.5} />
-            </button>
-
             {/* Profile / Auth */}
             {!loading && (
               isLoggedIn ? (
