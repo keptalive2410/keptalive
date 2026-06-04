@@ -25,10 +25,10 @@ export default function CollectionPage() {
               DISCOVER I
             </p>
             <h1 className="font-seasons text-white text-[clamp(28px,5vw,68px)] leading-[1.05] mb-2">
-              DISCOVER I · 2026
+              THE WAVE OF REVIVAL
             </h1>
             <p className="font-nexa text-white text-[11px] md:text-[13px] leading-relaxed opacity-80 max-w-90">
-              Three looks. Eighteen pieces. One archive.
+              Timeless retro artistry, revived with purpose.
             </p>
           </div>
         </section>
@@ -39,13 +39,17 @@ export default function CollectionPage() {
         <section className="border-b border-[#E0E0E0] px-8 md:px-14 lg:px-20 py-10 md:py-12 flex flex-col md:flex-row md:items-start md:justify-between gap-6">
           <div className="max-w-140">
             <p className="font-nexa text-black text-[12px] md:text-[13px] leading-relaxed mb-4">
-              Archive is the first keptalive collection. Eighteen pieces, each
-              designed to exist once, numbered honestly, and worn with
-              intention. The collection is not themed. It is not a story. It is
-              eighteen decisions, made carefully, and offered once.
+              A wave never truly disappears—it returns, transformed. Collection
+              I draws from timeless craftsmanship and retro artistry,
+              reimagining familiar forms through a contemporary lens. Each piece
+              reflects movement, renewal, and the enduring beauty of design that
+              refuses to fade. Created with intention and made to be remembered,
+              these eighteen pieces embody the spirit of revival—where the past
+              flows forward and every return carries new meaning. 
             </p>
             <p className="font-nexa text-[#8A8A8A] text-[11px] md:text-[12px] tracking-wide italic">
-              Made once. Numbered. Final.
+              Inspired by
+              movement. Designed for renewal.
             </p>
           </div>
 
@@ -71,7 +75,7 @@ export default function CollectionPage() {
               LOOK 01
             </p>
             <h2 className="font-seasons text-black text-[clamp(18px,2.2vw,30px)] leading-tight">
-              The White Shirt Edit
+              The Bloom Floral Jumpsuit
             </h2>
           </div>
 
@@ -117,7 +121,8 @@ export default function CollectionPage() {
               Shown in this look
             </p>
             <p className="font-nexa text-black text-[11px] md:text-[12px]">
-              The Wave Shirt #001 · The Corset Band #002 · The Satin Mini #004
+              The Bloom Floral Jumpsuit
+              The Bloom Floral Jumpsuit #001 · Indigo Charm Top #002 · Sunkissed Bloom Top #003
             </p>
           </div>
         </section>
@@ -133,7 +138,7 @@ export default function CollectionPage() {
             </p>
 
             <h2 className="font-seasons text-black text-[clamp(18px,2vw,28px)]">
-              The Dark Edit
+              Fern Evergreen Top
             </h2>
           </div>
 
@@ -167,14 +172,14 @@ export default function CollectionPage() {
 
           {/* CAPTION */}
           <div className="px-6 md:px-10 lg:px-14 py-3 border-t border-[#DCDCD8] flex flex-col md:flex-row md:items-center gap-2 md:gap-6">
-            <p className="font-nexa text-[#9A9A96] text-[8px] tracking-[0.18em] uppercase whitespace-nowrap">
+            {/* <p className="font-nexa text-[#9A9A96] text-[8px] tracking-[0.18em] uppercase whitespace-nowrap">
               Pieces in this look:
             </p>
 
             <p className="font-nexa text-[#2B2B2B] text-[10px] md:text-[11px]">
               The Column Dress #001 · The Crystal Tight #007 · The Garnet Ring
               #008
-            </p>
+            </p> */}
           </div>
         </section>
 
@@ -189,7 +194,7 @@ export default function CollectionPage() {
             </p>
 
             <h2 className="font-seasons text-black text-[clamp(18px,2vw,28px)]">
-              The Drape Edit
+              Midnight Bloom Dress
             </h2>
           </div>
 
@@ -223,13 +228,13 @@ export default function CollectionPage() {
 
           {/* CAPTION */}
           <div className="px-6 md:px-10 lg:px-14 py-3 border-t border-[#DCDCD8] flex flex-col md:flex-row md:items-center gap-2 md:gap-6">
-            <p className="font-nexa text-[#9A9A96] text-[8px] tracking-[0.18em] uppercase whitespace-nowrap">
+            {/* <p className="font-nexa text-[#9A9A96] text-[8px] tracking-[0.18em] uppercase whitespace-nowrap">
               Pieces in this look:
             </p>
 
             <p className="font-nexa text-[#2B2B2B] text-[10px] md:text-[11px]">
               The Drape Skirt #005 · The Wrap Blouse #013 · The Silk Slip #016
-            </p>
+            </p> */}
           </div>
         </section>
 

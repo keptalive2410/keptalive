@@ -22,7 +22,7 @@ export default function TheLabelPage() {
             <h1 className="font-seasons text-white text-[clamp(28px,5vw,64px)] leading-[1.05] max-w-[520px]">
               A label built
               <br />
-              on limitation.
+              on revival.
             </h1>
           </div>
         </section>
@@ -43,24 +43,26 @@ export default function TheLabelPage() {
           <div className="relative z-10 max-w-[540px]">
             {/* Heading */}
             <h2 className="font-seasons text-black text-[clamp(24px,5vw,38px)] leading-[1.12] mb-6 md:mb-8">
-              We make things once.
+              Every wave returns.
               <br />
-              We number them.
+              Every era evolves.
               <br />
-              We never make them again.
+              Every piece carries a story forward.
             </h2>
 
             {/* Paragraph 1 */}
             <p className="font-nexa text-black text-[12px] sm:text-[13px] md:text-[13.5px] leading-relaxed mb-5 max-w-[480px]">
-              keptalive is not a brand that restocks. It is a label that closes.
-              Every collection is a moment in time — designed, produced, numbered,
-              and done. The pieces that exist, exist. The pieces that are gone,
-              are gone.
+              Keptalive exists at the intersection of heritage and renewal.
+              Drawing inspiration from the continuous rhythm of the sea, our
+              collections celebrate timeless craftsmanship reimagined for a new
+              generation. We believe true artistry does not disappear with time.
+              Like a wave, it returns—reshaped, refined, and filled with new
+              purpose.
             </p>
 
             {/* Paragraph 2 */}
             <p className="font-nexa text-black text-[12px] sm:text-[13px] md:text-[13.5px] leading-relaxed">
-              This is the entire point.
+              Where timeless design finds its next movement.
             </p>
           </div>
         </section>
@@ -79,23 +81,23 @@ export default function TheLabelPage() {
           {/* Right — text on light grey bg */}
           <div className="bg-[#F2F2F0] flex flex-col justify-center px-10 md:px-16 py-14 md:py-20">
             <p className="font-nexa text-[#8A8A8A] text-[10px] md:text-xs tracking-widest uppercase mb-5">
-              The process
+              The Philosophy
             </p>
             <h2 className="font-seasons text-black text-[clamp(26px,3.5vw,46px)] leading-[1.1] mb-7 max-w-[340px]">
-              Each piece starts with a single decision.
+              Every piece begins with a return.
             </h2>
             <p className="font-nexa text-black text-[13px] md:text-[14px] leading-relaxed max-w-[380px] mb-6">
-              keptalive does not design collections. It designs pieces. Each one
-              is considered independently — the shape, the fabric, the wave
-              detail that runs through everything. Once the decision is made, it
-              goes into production. Once production is done, that is the
-              archive.
+              At Keptalive, creation is guided by the rhythm of renewal. Every
+              design begins with a timeless idea—a silhouette, a detail, a
+              memory worth carrying forward. Inspired by the movement of waves,
+              we reinterpret heritage through a contemporary lens, allowing
+              familiar forms to return with new energy, purpose, and expression.
+              Each piece is thoughtfully crafted to honor the past while
+              embracing the present, creating garments that feel both enduring
+              and alive.
             </p>
             <p className="font-nexa text-black text-[13px] md:text-[14px] leading-relaxed max-w-[380px] mb-6">
-              No second runs. No reissues. No 'back by popular demand'.
-            </p>
-            <p className="font-nexa text-[#8A8A8A] text-[13px] md:text-[14px] italic max-w-[380px]">
-              If you missed it, you missed it.
+              What returns is never repeated. It is revived.
             </p>
           </div>
         </section>
@@ -161,39 +163,40 @@ export default function TheLabelPage() {
           {/* 18 */}
           <div className="px-10 md:px-16 py-14 md:py-16">
             <p className="font-seasons text-black text-[clamp(52px,7vw,96px)] leading-none mb-3">
-              18
+              Past
             </p>
             <p className="font-nexa text-[#8A8A8A] text-xs tracking-widest uppercase mb-3">
-              Pieces per collection
+              WHERE WE BEGIN
             </p>
             <p className="font-nexa text-black text-[13px] leading-relaxed max-w-[240px]">
-              Each collection is exactly 18 pieces. No more.
+              Every collection draws inspiration from timeless artistry,
+              enduring craftsmanship, and stories worth remembering.
             </p>
           </div>
 
           {/* 001 */}
           <div className="px-10 md:px-16 py-14 md:py-16">
             <p className="font-seasons text-black text-[clamp(52px,7vw,96px)] leading-none mb-3">
-              001
+              Present
             </p>
             <p className="font-nexa text-[#8A8A8A] text-xs tracking-widest uppercase mb-3">
-              Number on every piece
+              WHERE WE REIMAGINE
             </p>
             <p className="font-nexa text-black text-[13px] leading-relaxed max-w-[240px]">
-              Every piece is numbered. Every number is unique.
+              Classic influences evolve through contemporary expression, bringing renewed energy to familiar forms.
             </p>
           </div>
 
           {/* Once */}
           <div className="px-10 md:px-16 py-14 md:py-16">
             <p className="font-seasons text-black text-[clamp(52px,7vw,96px)] leading-none mb-3">
-              Once
+              Future
             </p>
             <p className="font-nexa text-[#8A8A8A] text-xs tracking-widest uppercase mb-3">
-              Made once, never repeated
+              WHERE WE FLOW
             </p>
             <p className="font-nexa text-black text-[13px] leading-relaxed max-w-[240px]">
-              When the collection closes, it is permanent.
+              Design that carries heritage forward, creating pieces that remain meaningful beyond a single moment.{" "}
             </p>
           </div>
         </section>

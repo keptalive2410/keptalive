@@ -1,5 +1,5 @@
 import Navbar from "@/components/layout/Navbar";
-
+import Footer from "@/components/layout/Footer";
 const Img = ({ src, alt, className }) => (
   <img
     src={src || "https://placehold.co/800x900/e8e0d8/888?text=image"}
@@ -53,12 +53,6 @@ export default function AboutPage() {
             What keptalive is.
           </p>
 
-          <p className="text-base md:text-lg leading-relaxed text-[#1a1a1a] mb-8 max-w-7xl">
-            keptalive was built on a simple idea, that fashion should be made
-            with intention, numbered for accountability, and closed when it is
-            done. Not a capsule. Not a drop. An archive.
-          </p>
-
           <p className="text-sm leading-relaxed text-[black] mb-3 max-w-4xl uppercase tracking-wider font-bold">
             Inspiration — The Wave of Revival
           </p>
@@ -70,16 +64,9 @@ export default function AboutPage() {
             endures, evolves, and returns with purpose.
           </p>
 
-          <p className="text-sm leading-relaxed text-[#555] mb-8 max-w-4xl">
-            Every piece in every archive is designed once and produced once. The
-            number on the label is not a marketing technique — it is an honest
-            record of what exists. When the archive closes, it closes. There is
-            no second run, no restock, no revival.
-          </p>
-
           <p className="text-sm italic text-[#1a1a1a] font-nexa font-bold">
-            keptalive does not compete on volume.{" "}
-            <em className="not-italic font-bold">It competes on permanence.</em>
+            Keptalive does not follow trends.{" "}
+            <em className="not-italic font-bold"> It revives what endures.</em>
           </p>
         </section>
 
@@ -101,21 +88,24 @@ export default function AboutPage() {
             </p>
 
             <p className="text-sm leading-relaxed text-[#333] mb-6">
-              I started keptalive because I was tired of fashion that pretended
-              to be special while being available to everyone, always. The
-              contradiction bothered me.
+              I started Keptalive from a simple belief: the most meaningful
+              things never truly disappear. Like a wave returning to the shore,
+              timeless artistry finds new life with every generation. What
+              inspires us is not the pursuit of the new, but the revival of what
+              deserves to endure.
             </p>
 
             <p className="text-sm leading-relaxed text-[#333] mb-6">
-              If something is truly worth keeping, it should be rare. Not
-              artificially rare, actually rare. Made once. In a real number.
-              Numbered honestly. And then done.
+              Through every collection, we seek to honor heritage craftsmanship,
+              reimagine familiar forms, and carry their spirit forward through
+              contemporary expression.
             </p>
 
             <p className="text-sm leading-relaxed text-[#333] mb-10">
-              keptalive is the answer to that contradiction.
+              Keptalive exists to prove that the past is not something left
+              behind—
               <br />
-              Each piece is worth keeping because it actually ends.
+              it is something we continually rediscover.
             </p>
 
             {/* signature */}
@@ -137,20 +127,20 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
             {[
               {
-                title: "Limitation",
-                body: "We make 18 pieces per collection. That number does not change. Ever.",
+                title: "Heritage",
+                body: "We draw inspiration from timeless artistry, enduring craftsmanship, and stories that continue to resonate across generations.",
               },
               {
-                title: "Accountability",
-                body: "Every piece is numbered. You know exactly what you have and how many exist.",
+                title: "Renewal",
+                body: "Every collection reimagines familiar forms with fresh energy, proving that meaningful design can always find new life.",
               },
               {
-                title: "Permanence",
-                body: "When an collection closes, it is done. No restocks. No revivals. No second chances.",
+                title: "Movement",
+                body: "Like a wave, creativity is never static. It evolves, flows forward, and returns transformed while preserving its essence.",
               },
               {
-                title: "Honesty",
-                body: "We do not use scarcity as a tactic. We wear it as a fact. This is all of us. This is all of it.",
+                title: "Purpose",
+                body: "We create with intention—honoring the past, embracing the present, and shaping pieces that remain relevant beyond trends.",
               },
             ].map(({ title, body }) => (
               <div key={title}>
@@ -174,26 +164,27 @@ export default function AboutPage() {
             </p>
 
             <h2 className="text-4xl md:text-5xl font-seasons font-light leading-[1.1] mb-10">
-              The Archive
+              The Rhythm of
               <br />
-              system.
+              Return.
             </h2>
 
             <p className="text-sm leading-relaxed text-[#555] mb-5 max-w-md">
-              Archive I is the first. Archive II will follow when we are ready.
-              Each archive is independent — different pieces, different designs,
-              same rules.
+              A wave moves forward only to return again—stronger, transformed,
+              yet unmistakably itself.
             </p>
 
             <p className="text-sm leading-relaxed text-[#555] mb-10 max-w-md">
-              When every piece in an archive is claimed, that archive is
-              permanently closed. It moves from active to historical. The pieces
-              that were made are the only pieces that will ever exist.
+              This rhythm inspires everything we create. We revive timeless
+              artistry through contemporary design, allowing heritage
+              craftsmanship and enduring beauty to find new life with every
+              collection. What returns is never a copy of the past. It is its
+              evolution.
             </p>
 
             <div className="mb-6">
               <p className="text-xs text-[#2A2A2A] font-body mb-3">
-                Collection I · 2025 · 18 Pieces · Open
+                Collection I · 2026 · Revival in Motion · Open
               </p>
               <a
                 href="/products"
@@ -215,7 +206,7 @@ export default function AboutPage() {
         </section>
 
         {/* ── GET IN TOUCH ─────────────────────────────────────────────────── */}
-        <section className="bg-[#f5f0ea] px-8 md:px-16 lg:px-24 py-16">
+        {/* <section className="bg-[#f5f0ea] px-8 md:px-16 lg:px-24 py-16">
           <p className="text-[10px] tracking-widest uppercase text-[#2A2A2A] font-body mb-2">
             Get in touch.
           </p>
@@ -246,8 +237,9 @@ export default function AboutPage() {
           <p className="text-[10px] text-[#bbb] font-body mt-12">
             © 2025 keptalive. Collection I is currently open.
           </p>
-        </section>
+        </section> */}
       </main>
+      <Footer/>
     </>
   );
 }
