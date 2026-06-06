@@ -3,27 +3,25 @@ import Image from "next/image";
 
 const footerLinks = {
   ARCHIVE: [
-    { label: "All Pieces", href: "/archive" },
-    { label: "Tops & Blouses", href: "/archive/tops" },
-    { label: "Bottoms", href: "/archive/bottoms" },
-    { label: "Statement Pieces", href: "/archive/statement" },
-    { label: "Sold Out", href: "/archive/sold-out" },
+    { label: "All Pieces", href: "/products" },
+    { label: "Tops & Blouses", href: "/products?categories=tops" },
+    { label: "Dresses", href: "/products?categories=dresses" },
+    { label: "Jumpsuits", href: "/products?categories=jumpsuits" },
   ],
 
   LABEL: [
     { label: "The Label", href: "/Label" },
     { label: "About", href: "/About" },
-    { label: "Campaign", href: "/campaign" },
-    { label: "Packaging", href: "/packaging" },
-    { label: "Contact", href: "/contact" },
+    // { label: "Campaign", href: "/Label" },
+    { label: "Contact", href: "/Help" },
   ],
 
   HELP: [
-    { label: "Sizing Guide", href: "/help/sizing" },
-    { label: "Shipping", href: "/help/shipping" },
-    { label: "Returns", href: "/help/returns" },
-    { label: "Care Guide", href: "/help/care" },
-    { label: "FAQ", href: "/help/faq" },
+    // { label: "Sizing Guide", href: "/Help/sizing" },
+    { label: "Shipping", href: "/Help/shipping" },
+    { label: "Returns", href: "/Help/#shipping" },
+    // { label: "Care Guide", href: "/help/care" },
+    { label: "FAQ", href: "/Help#faq" },
   ],
 };
 
@@ -156,25 +154,7 @@ export default function Footer() {
             © 2026 keptalive. All rights reserved.
           </p>
 
-          <div className="flex items-center gap-5">
-
-            <Link
-              href="/privacy"
-              className="text-[11px] text-[#888] hover:text-black transition-colors duration-200"
-            >
-              Privacy Policy
-            </Link>
-
-            <span className="text-[#CCC] text-[10px]">·</span>
-
-            <Link
-              href="/terms"
-              className="text-[11px] text-[#888] hover:text-black transition-colors duration-200"
-            >
-              Terms & Conditions
-            </Link>
-
-          </div>
+          
         </div>
       </div>
     </footer>

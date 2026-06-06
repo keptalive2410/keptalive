@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 /* ─────────────────────────────────────────────
    PRODUCT CARD
@@ -130,6 +131,8 @@ export default function ArchivePage() {
   });
   const router = useRouter();
 
+  const searchParams = useSearchParams();
+
   const sortOptions = ["Newest", "Price: Low to High", "Price: High to Low"];
 
   const [filters, setFilters] = useState({
@@ -137,6 +140,19 @@ export default function ArchivePage() {
     priceRange: [0, 50000],
     size: [],
   });
+
+  useEffect(() => {
+  const category = searchParams.get("categories");
+
+  if (!category) return;
+
+  setSelectedCategory(category);
+
+  setFilters((prev) => ({
+    ...prev,
+    categories: [category],
+  }));
+}, [searchParams]);
 
   const fetchProducts = async (reset = false) => {
     try {
