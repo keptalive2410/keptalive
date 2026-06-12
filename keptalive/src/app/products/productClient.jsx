@@ -124,7 +124,6 @@ export default function ArchivePage() {
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [selectedSort, setSelectedSort] = useState("Newest");
-  const [selectedCategory, setSelectedCategory] = useState(null); // single select like wireframe
   const [availability, setAvailability] = useState({
     available: false,
     soldOut: false,
@@ -135,29 +134,16 @@ export default function ArchivePage() {
 
   const sortOptions = ["Newest", "Price: Low to High", "Price: High to Low"];
 
+  const initialCategory = searchParams.get("categories");
+
   const [filters, setFilters] = useState({
-    categories: [],
+    categories: initialCategory ? [initialCategory] : [],
     priceRange: [0, 50000],
     size: [],
   });
 
-  console.log("ARCHIVE PAGE RENDERED");
-  console.log("SEARCH PARAMS:", searchParams?.toString());
+  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
 
-  useEffect(() => {
-    const category = searchParams.get("categories");
-
-    console.log("URL Category:", category);
-
-    if (!category) return;
-
-    setSelectedCategory(category);
-
-    setFilters((prev) => ({
-      ...prev,
-      categories: [category],
-    }));
-  }, [searchParams]);
 
   const fetchProducts = async (reset = false) => {
     try {
