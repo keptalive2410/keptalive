@@ -3,7 +3,7 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const tabs = [
   { id: "faq", label: "FAQ" },
@@ -333,6 +333,14 @@ function TermsSection() {
 export default function HelpPage() {
   const [active, setActive] = useState("faq");
 
+  useEffect(() => {
+    const hash = window.location.hash.replace("#", "");
+
+    if (hash && ["faq", "contact", "shipping", "terms"].includes(hash)) {
+      setActive(hash);
+    }
+  }, []);
+
   const renderContent = () => {
     switch (active) {
       case "faq":
@@ -373,7 +381,10 @@ export default function HelpPage() {
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
-                  onClick={() => setActive(tab.id)}
+                  onClick={() => {
+                    setActive(tab.id);
+                    window.history.replaceState(null, "", `/Help#${tab.id}`);
+                  }}
                   className={`font-nexa text-sm text-left transition-all w-full ${
                     active === tab.id
                       ? "text-black border border-black md:border-0 md:border-l-2 px-3 py-2 md:px-0 md:pl-3 md:py-1.5"

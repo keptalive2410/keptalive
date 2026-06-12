@@ -18,9 +18,9 @@ const footerLinks = {
 
   HELP: [
     // { label: "Sizing Guide", href: "/Help/sizing" },
-    { label: "Shipping", href: "/Help/shipping" },
-    { label: "Returns", href: "/Help/#shipping" },
-    // { label: "Care Guide", href: "/help/care" },
+    { label: "Shipping", href: "/Help#shipping" },
+    { label: "Returns", href: "/Help#shipping" },
+    { label: "Contact", href: "/Help#contact" },
     { label: "FAQ", href: "/Help#faq" },
   ],
 };

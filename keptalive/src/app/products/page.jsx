@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { useRouter } from "next/navigation";
-// import { useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 /* ─────────────────────────────────────────────
    PRODUCT CARD
@@ -124,35 +124,26 @@ export default function ArchivePage() {
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [selectedSort, setSelectedSort] = useState("Newest");
-  const [selectedCategory, setSelectedCategory] = useState(null); // single select like wireframe
   const [availability, setAvailability] = useState({
     available: false,
     soldOut: false,
   });
   const router = useRouter();
 
-  // const searchParams = useSearchParams();
+  const searchParams = useSearchParams();
 
   const sortOptions = ["Newest", "Price: Low to High", "Price: High to Low"];
 
+  const initialCategory = searchParams.get("categories");
+
   const [filters, setFilters] = useState({
-    categories: [],
+    categories: initialCategory ? [initialCategory] : [],
     priceRange: [0, 50000],
     size: [],
   });
 
-//   useEffect(() => {
-//   const category = searchParams.get("categories");
+  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
 
-//   if (!category) return;
-
-//   setSelectedCategory(category);
-
-//   setFilters((prev) => ({
-//     ...prev,
-//     categories: [category],
-//   }));
-// }, [searchParams]);
 
   const fetchProducts = async (reset = false) => {
     try {
