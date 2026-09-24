@@ -37,7 +37,7 @@ export default function HeroSection() {
           <p className="text-black text-[13px] leading-relaxed mb-5 pl-[14px]">
             Eighteen pieces. Timeless retro 
             <br />
-            artistry, remembered and kept alive.
+            artistry, remembered and Keptalive.
           </p>
           {/* CTA */}
           <div className="pl-[14px]">

@@ -7,7 +7,7 @@ import CategoryAndStory from "@/components/ui/Category";
 import ArchiveGrid from "@/components/ui/Archivesection";
 
 export const metadata = {
-  title: "KeptAlive",
+  title: "The 101",
   description: "Premium Women's Fashion",
 };
 

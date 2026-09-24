@@ -134,12 +134,12 @@ export default function TheLabelPage() {
               <br />A language.
             </h2>
             <p className="font-nexa text-black text-[13px] md:text-[14px] leading-relaxed max-w-[400px] mb-6">
-              The wave is not placed on keptalive pieces as a branding exercise.
+              The wave is not placed on Keptalive pieces as a branding exercise.
               It is the design itself — the colour, the cut, the waved bond
               edge, the handle of the poly mailer, the shape of the ring stone.
             </p>
             <p className="font-nexa text-black text-[13px] md:text-[14px] leading-relaxed max-w-[400px] mb-6">
-              When you look at a keptalive piece, you see the wave. When you
+              When you look at a Keptalive piece, you see the wave. When you
               look at the bag it arrives in, you see the wave. When you open the
               box and find the certificate, the wave is there too.
             </p>

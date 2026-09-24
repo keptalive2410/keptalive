@@ -39,13 +39,20 @@ export default function Footer() {
 
             <Link
               href="/"
-              className="font-seasons text-[26px] tracking-[0.02em] text-[#000000] hover:opacity-75 transition-opacity duration-200 leading-none"
+              className="hover:opacity-75 transition-opacity duration-200"
+              aria-label="The 101 Home"
             >
-              kep&#771;talive
+              <Image
+                src="/logo.png"
+                alt="The 101"
+                width="120"
+                height="40"
+                className="block"
+              />
             </Link>
 
             <p className="text-[12px] text-[#777] leading-[1.9] tracking-[0.03em] max-w-[220px] mt-4">
-              Kept Alive is a fashion house inspired by the belief that beauty never truly disappears—it simply waits to be rediscovered.
+              The 101 is a fashion house inspired by the belief that beauty never truly disappears—it simply waits to be rediscovered.
             </p>
       
             {/* SOCIALS */}
@@ -151,7 +158,7 @@ export default function Footer() {
         <div className="max-w-screen-2xl mx-auto px-6 md:px-12 lg:px-20 py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
 
           <p className="text-[11px] text-[#888] tracking-[0.03em]">
-            © 2026 keptalive. All rights reserved.
+            © 2026 The 101. All rights reserved.
           </p>
 
           

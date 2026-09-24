@@ -58,7 +58,7 @@ function BrandStory() {
       <div className="bg-[#7ec8e3] flex items-center justify-center overflow-hidden h-[420px] sm:h-[520px] lg:h-auto">
         <img
           src="/Images/brand-story.png"
-          alt="The Label — keptalive dress"
+          alt="The Label — Keptalive dress"
           className="w-full h-full object-cover object-center"
         />
       </div>

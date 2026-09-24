@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Search, ShoppingCart, User, ChevronDown } from "lucide-react";
 import toast from "react-hot-toast";
 import { useCart } from "@/context/CartContext";
@@ -87,9 +88,16 @@ export default function Navbar() {
           <div className="flex justify-center">
             <Link
               href="/"
-              className="font-seasons text-[26px] tracking-[0.02em] text-[#000000] hover:opacity-75 transition-opacity duration-200 leading-none"
+              className="hover:opacity-75 transition-opacity duration-200"
+              aria-label="The 101 Home"
             >
-              kep&#771;talive
+              <Image
+                src="/logo.png"
+                alt="The 101"
+                width="40"
+                height="12"
+                className="block"
+              />
             </Link>
           </div>
 
@@ -192,9 +200,16 @@ export default function Navbar() {
           {/* Logo */}
           <Link
             href="/"
-            className="font-seasons text-[22px] tracking-[0.02em] text-[#000000] leading-none"
+            className="hover:opacity-75 transition-opacity duration-200"
+            aria-label="The 101 Home"
           >
-            kep&#771;talive
+            <Image
+              src="/logo.png"
+              alt="The 101"
+              width="40"
+              height="12"
+              className="block"
+            />
           </Link>
 
           {/* Right Icons */}

@@ -28,7 +28,7 @@ const faqItems = [
   },
   {
     q: "Will sold out pieces be restocked?",
-    a: "No. Once a piece sells out, it is gone. This is by design — keptalive does not restock, reproduce, or reissue any piece from any collection.",
+    a: "No. Once a piece sells out, it is gone. This is by design — The 101 does not restock, reproduce, or reissue any piece from any collection.",
   },
   {
     q: "When will collection II be available?",
@@ -44,7 +44,7 @@ const faqItems = [
   },
   {
     q: "How do I know my size?",
-    a: "Refer to our Sizing Guide in the Help section. Each product page also includes specific measurements for that piece. When in doubt, contact us at hello@keptalive.com.",
+    a: "Refer to our Sizing Guide in the Help section. Each product page also includes specific measurements for that piece. When in doubt, contact us at hello@The 101.com.",
   },
 ];
 
@@ -54,7 +54,7 @@ function FAQSection() {
     <div>
       <h1 className="font-seasons text-4xl md:text-5xl mb-2">FAQ</h1>
       <p className="font-nexa text-sm text-[#8A8A8A] mb-8">
-        Questions about keptalive, Collection I, and how it works.
+        Questions about The 101, Collection I, and how it works.
       </p>
       <div className="border-t border-[#2B2B2B]">
         {faqItems.map((item, i) => (
@@ -99,10 +99,10 @@ function ContactSection() {
             General enquiries
           </p>
           <a
-            href="mailto:hello@keptalive.com"
+            href="mailto:hello@The 101.com"
             className="font-seasons text-2xl md:text-3xl border-b border-black pb-1 inline-block"
           >
-            hello@keptalive.com
+            hello@The 101.com
           </a>
           <p className="font-nexa font-light text-sm text-[#2B2B2B] mt-2">
             For questions about orders, pieces, or anything else.
@@ -116,10 +116,10 @@ function ContactSection() {
             Press &amp; editorial
           </p>
           <a
-            href="mailto:press@keptalive.com"
+            href="mailto:press@The 101.com"
             className="font-seasons text-2xl md:text-3xl border-b border-black pb-1 inline-block"
           >
-            press@keptalive.com
+            press@The 101.com
           </a>
           <p className="font-nexa font-light text-sm text-[#2B2B2B] mt-2">
             For media requests, editorial features, and collaborations.
@@ -133,10 +133,10 @@ function ContactSection() {
             Stockist &amp; trade
           </p>
           <a
-            href="mailto:trade@keptalive.com"
+            href="mailto:trade@The 101.com"
             className="font-seasons text-2xl md:text-3xl border-b border-black pb-1 inline-block"
           >
-            trade@keptalive.com
+            trade@The 101.com
           </a>
           <p className="font-nexa font-light text-sm text-[#2B2B2B] mt-2">
             For wholesale, stockist, or trade enquiries.
@@ -151,7 +151,7 @@ function ContactSection() {
           We respond within 2 business days.
         </p>
         <p className="font-nexa font-light text-sm text-[#8A8A8A]">
-          keptalive is a small label. There is a real person on the other end of
+          The 101 is a small label. There is a real person on the other end of
           every email.
         </p>
       </div>
@@ -255,10 +255,10 @@ function ShippingSection() {
       <p className="font-nexa text-sm">
         To initiate a return:{" "}
         <a
-          href="mailto:hello@keptalive.com"
+          href="mailto:hello@The 101.com"
           className="border-b border-black pb-0.5"
         >
-          hello@keptalive.com
+          hello@The 101.com
         </a>
       </p>
     </div>
@@ -269,7 +269,7 @@ function ShippingSection() {
 const termsSections = [
   {
     n: "1. General",
-    body: "By accessing keptalive.com and purchasing from our collection, you agree to these terms. keptalive is a limited fashion label. All pieces are numbered, made once, and final.",
+    body: "By accessing The 101.com and purchasing from our collection, you agree to these terms. The 101 is a limited fashion label. All pieces are numbered, made once, and final.",
   },
   {
     n: "2. Products",
@@ -293,7 +293,7 @@ const termsSections = [
   },
   {
     n: "7. Intellectual property",
-    body: "All content on keptalive.com — including imagery, copy, and design — is the property of keptalive. No content may be reproduced, distributed, or used commercially without prior written permission.",
+    body: "All content on The 101.com — including imagery, copy, and design — is the property of The 101. No content may be reproduced, distributed, or used commercially without prior written permission.",
   },
   {
     n: "8. Privacy",
@@ -301,7 +301,7 @@ const termsSections = [
   },
   {
     n: "9. Contact",
-    body: "For any queries regarding these terms, contact us at hello@keptalive.com.",
+    body: "For any queries regarding these terms, contact us at hello@The 101.com.",
   },
 ];
 

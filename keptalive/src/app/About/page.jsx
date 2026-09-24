@@ -38,7 +38,7 @@ export default function AboutPage() {
               About
             </p>
             <h1 className="text-white text-5xl md:text-6xl lg:text-7xl leading-[1.05] font-seasons font-light">
-              keptalive
+              The 101
               <br />
               is a label,
               <br />
@@ -47,10 +47,10 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ── WHAT KEPTALIVE IS ────────────────────────────────────────────── */}
+        {/* ── WHAT The 101 IS ────────────────────────────────────────────── */}
         <section className="px-8 md:px-16 lg:px-24 py-20 max-w-7xl">
           <p className="text-[10px] tracking-widest uppercase text-[#2A2A2A] font-seasons mb-6">
-            What keptalive is.
+            What The 101 is.
           </p>
 
           <p className="text-sm leading-relaxed text-[black] mb-3 max-w-4xl uppercase tracking-wider font-bold">
@@ -65,7 +65,7 @@ export default function AboutPage() {
           </p>
 
           <p className="text-sm italic text-[#1a1a1a] font-nexa font-bold">
-            Keptalive does not follow trends.{" "}
+            The 101 does not follow trends.{" "}
             <em className="not-italic font-bold"> It revives what endures.</em>
           </p>
         </section>
@@ -76,7 +76,7 @@ export default function AboutPage() {
           <div className="relative min-h-105 md:min-h-140 overflow-hidden">
             <Img
               src="/Images/About1.jpg"
-              alt="Founder wearing keptalive"
+              alt="Founder wearing The 101"
               className="absolute inset-0 w-full h-full object-cover object-top"
             />
           </div>
@@ -88,7 +88,7 @@ export default function AboutPage() {
             </p>
 
             <p className="text-sm leading-relaxed text-[#333] mb-6">
-              I started Keptalive from a simple belief: the most meaningful
+              I started The 101 from a simple belief: the most meaningful
               things never truly disappear. Like a wave returning to the shore,
               timeless artistry finds new life with every generation. What
               inspires us is not the pursuit of the new, but the revival of what
@@ -102,7 +102,7 @@ export default function AboutPage() {
             </p>
 
             <p className="text-sm leading-relaxed text-[#333] mb-10">
-              Keptalive exists to prove that the past is not something left
+              The 101 exists to prove that the past is not something left
               behind—
               <br />
               it is something we continually rediscover.
@@ -113,7 +113,7 @@ export default function AboutPage() {
               ~
             </div>
             <p className="text-[11px] tracking-widest uppercase text-[#2A2A2A] font-body">
-              Founder, keptalive
+              Founder, The 101
             </p>
           </div>
         </section>
@@ -199,7 +199,7 @@ export default function AboutPage() {
           <div className="relative min-h-105 md:min-h-140 overflow-hidden order-1 md:order-2">
             <Img
               src="/Images/About2.jpg"
-              alt="Model outdoors for keptalive archive"
+              alt="Model outdoors for The 101 archive"
               className="absolute inset-0 w-full h-full object-cover object-top"
             />
           </div>
@@ -216,9 +216,9 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
             {[
-              { label: "General", email: "hello@keptalive.com" },
-              { label: "Press", email: "press@keptalive.com" },
-              { label: "Stockist", email: "trade@keptalive.com" },
+              { label: "General", email: "hello@The 101.com" },
+              { label: "Press", email: "press@The 101.com" },
+              { label: "Stockist", email: "trade@The 101.com" },
             ].map(({ label, email }) => (
               <div key={label}>
                 <p className="text-[10px] tracking-widest uppercase text-[#2A2A2A] font-seasons mb-2">
@@ -235,7 +235,7 @@ export default function AboutPage() {
           </div>
 
           <p className="text-[10px] text-[#bbb] font-body mt-12">
-            © 2025 keptalive. Collection I is currently open.
+            © 2025 The 101. Collection I is currently open.
           </p>
         </section> */}
       </main>
