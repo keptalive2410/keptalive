@@ -16,7 +16,7 @@
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
-    "flowbite-react": "^0.10.2",
+    "flowbite-react": "^0.12.17",
     "google-auth-library": "^10.5.0",
     "jose": "^6.2.1",
     "js-cookie": "^3.0.5",
@@ -32,9 +32,10 @@
     "recharts": "^3.8.0"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
     "autoprefixer": "^10.6.1",
     "babel-plugin-react-compiler": "1.0.0",
     "postcss": "^8.5.28",
-    "tailwindcss": "^3.4.19"
+    "tailwindcss": "^4.3.3"
   }
 }
