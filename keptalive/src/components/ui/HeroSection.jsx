@@ -4,31 +4,12 @@ import { useState } from "react";
 
 export default function HeroSection() {
   const [videoLoaded, setVideoLoaded] = useState(false);
+
   return (
-    <section className="w-full bg-white">
+    <section className="relative w-full bg-white">
+
       {/* ── Wrapper: image + badge overlay ── */}
       <div className="relative w-full">
-        {/* Loader */}
-        <div
-          className={`absolute inset-0 z-10 flex items-center justify-center bg-white transition-opacity duration-700 ${videoLoaded ? "opacity-0 pointer-events-none" : "opacity-100"
-            }`}
-        >
-          <div className="flex flex-col items-center gap-4">
-
-            {/* Logo */}
-            <img
-              src="/logo.png"
-              alt="The 101"
-              className="w-12 h-auto"
-            />
-
-            {/* Loading line */}
-            <div className="w-24 h-[1px] bg-[#BFC3C7] overflow-hidden">
-              <div className="h-full w-1/2 bg-black animate-[loading_1.2s_ease-in-out_infinite]" />
-            </div>
-
-          </div>
-        </div>
 
         {/* Hero Video */}
         <video
@@ -43,6 +24,29 @@ export default function HeroSection() {
         />
 
       </div>
+
+      {/* Loader */}
+      {!videoLoaded && (
+        <div
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-white transition-opacity duration-700"
+        >
+          <div className="flex flex-col items-center gap-4">
+
+            {/* Logo */}
+            <img
+              src="/logo.png"
+              alt="The 101"
+              className="w-24 h-auto"
+            />
+
+            {/* Loading line */}
+            <div className="w-48 h-[2px] bg-[#BFC3C7] overflow-hidden">
+              <div className="h-full w-1/2 bg-black animate-[loading_1.2s_ease-in-out_infinite]" />
+            </div>
+
+          </div>
+        </div>
+      )}
 
       {/* ── White section below image — card lives here ── */}
       {/* <div className="bg-white w-full px-4 sm:px-8 md:px-14 z-10">
@@ -68,7 +72,9 @@ export default function HeroSection() {
           </div>
         </div>
       </div> */}
+
       <div className="bg-white w-full h-[160px] md:hidden" />
+
       {/* ── Ticker bar ── */}
       <div className="bg-black overflow-hidden py-[10px] -mt-[150px] relative z-10">
         <div
@@ -84,9 +90,13 @@ export default function HeroSection() {
               <span className="text-[#555]">·</span>
               <span className="px-7">Each piece is numbered and final.</span>
               <span className="text-[#555]">·</span> */}
-              <span className="px-7">The grace of yesterday alive for today .</span>
+              <span className="px-7">
+                The grace of yesterday alive for today .
+              </span>
               <span className="text-[#555]">·</span>
-              <span className="px-7">Bringing forgotten silhouettes back to life.</span>
+              <span className="px-7">
+                Bringing forgotten silhouettes back to life.
+              </span>
               <span className="text-[#555]">·</span>
             </span>
           ))}
