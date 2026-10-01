@@ -1,22 +1,47 @@
 "use client";
 
-import Link from "next/link";
+import { useState } from "react";
 
 export default function HeroSection() {
+  const [videoLoaded, setVideoLoaded] = useState(false);
   return (
     <section className="w-full bg-white">
       {/* ── Wrapper: image + badge overlay ── */}
       <div className="relative w-full">
+        {/* Loader */}
+        <div
+          className={`absolute inset-0 z-10 flex items-center justify-center bg-white transition-opacity duration-700 ${videoLoaded ? "opacity-0 pointer-events-none" : "opacity-100"
+            }`}
+        >
+          <div className="flex flex-col items-center gap-4">
 
-        {/* The masked hero image — photo with wave cutout, bg is transparent */}
+            {/* Logo */}
+            <img
+              src="/logo.png"
+              alt="The 101"
+              className="w-12 h-auto"
+            />
+
+            {/* Loading line */}
+            <div className="w-24 h-[1px] bg-[#BFC3C7] overflow-hidden">
+              <div className="h-full w-1/2 bg-black animate-[loading_1.2s_ease-in-out_infinite]" />
+            </div>
+
+          </div>
+        </div>
+
+        {/* Hero Video */}
         <video
           src="/Images/hero.mp4"
           autoPlay
           muted
           loop
           playsInline
+          preload="auto"
+          onCanPlay={() => setVideoLoaded(true)}
           className="w-full h-full object-cover block"
         />
+
       </div>
 
       {/* ── White section below image — card lives here ── */}
