@@ -7,17 +7,17 @@ function CategoryTiles() {
   const categories = [
     {
       label: "Bloom Floral Jumpsuit",
-      img: "/Images/Rectangle1.png",
+      img: "/Images/Rectangle1.jpeg",
       href: "/products/bloom-floral-jumpsuit",
     },
     {
       label: "SUNKISSED BLOOM TOP",
-      img: "/Images/Rectangle2.png",
+      img: "/Images/Rectangle2.jpeg",
       href: "/products/sunkissed-bloom-top",
     },
     {
       label: "Fern Evergreen Top",
-      img: "/Images/Rectangle3.png",
+      img: "/Images/Rectangle3.jpeg",
       href: "/products/fern-evergreen-top",
     },
   ];

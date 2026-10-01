@@ -52,7 +52,8 @@ function validateOrigin(req) {
 
   return (
     origin.includes("localhost:3000") ||
-    origin.includes("keptalive.in")
+    origin.includes("keptalive.in") ||
+    origin.includes("The101.fashion")
   );
 }
 
